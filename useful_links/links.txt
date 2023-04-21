@@ -1,0 +1,15 @@
+DOCUMENTAZIONE THE GUARDIAN API
+https://open-platform.theguardian.com/documentation/search
+
+PROGETTO GITHUB
+https://github.com/matarrese/content-api-the-guardian
+
+(ALTERNATIVO)VIDEO HTTPURLCONNECTION
+-->https://youtu.be/qzRKa8I36Ww
+
+CONCETTI UTILI
+-PIPELINE PER STRING TOKENIZATION 
+ --> https://stanfordnlp.github.io/CoreNLP/pipeline.html
+ --> https://stanfordnlp.github.io/CoreNLP/
+ 
+
