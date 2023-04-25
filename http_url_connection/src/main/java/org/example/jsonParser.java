@@ -28,7 +28,7 @@ public class jsonParser
         currentPage = Integer.parseInt(obj.getJSONObject("response").getString("currentPage"));
         pages = Integer.parseInt(obj.getJSONObject("response").getString("pages"));
         orderBy = obj.getJSONObject("response").getString("orderBy");
-
+        /*System.out.println("\nPage info: \n");
         System.out.println("status = "+status);
         System.out.println("userTier = "+userTier);
         System.out.println("total = "+total);
@@ -38,24 +38,30 @@ public class jsonParser
         System.out.println("pages = "+pages);
         System.out.println("orderBy = "+orderBy);
 
-        System.out.println("Articles :");
+        System.out.println("\nArticles inf: \n");*/
 
         JSONArray arr = obj.getJSONObject("response").getJSONArray("results");
-
+        articles = new article[arr.length()];
         for (int i = 0; i < arr.length(); i++)
         {
             articles[i] = new article();
             articles[i].setId(arr.getJSONObject(i).getString("id"));
             articles[i].setHosted(arr.getJSONObject(i).getString("isHosted"));
-            articles[i].setType("type");
-            articles[i].setSectionName("sectionName");
-            articles[i].setSectionId("sectionId");
-            articles[i].setWebTitle("webTitle");
-            articles[i].setWebUrl("webUrl");
-            articles[i].setWebPubblicationDate("webPublicationDate");
-            articles[i].setApiUrl("apiURl");
-            articles[i].setPillarId("pillarId");
-            articles[i].setPillarName("pillarName");
+            articles[i].setType(arr.getJSONObject(i).getString("type"));
+            articles[i].setSectionName(arr.getJSONObject(i).getString("sectionName"));
+            articles[i].setSectionId(arr.getJSONObject(i).getString("sectionId"));
+            articles[i].setWebTitle(arr.getJSONObject(i).getString("webTitle"));
+            articles[i].setWebUrl(arr.getJSONObject(i).getString("webUrl"));
+            articles[i].setWebPubblicationDate(arr.getJSONObject(i).getString("webPublicationDate"));
+            articles[i].setApiUrl(arr.getJSONObject(i).getString("apiUrl"));
+            articles[i].setPillarId(arr.getJSONObject(i).getString("pillarId"));
+            articles[i].setPillarName(arr.getJSONObject(i).getString("pillarName"));
+            //articles[i].printArticle();
+            //System.out.println();
         }
     }
+    public article[] getArticles(){
+        return articles;
+    }
+
 }

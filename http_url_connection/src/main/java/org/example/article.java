@@ -1,5 +1,6 @@
 package org.example;
 
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -52,7 +53,52 @@ public class article {
     public void setPillarName(String pillarName1){
         pillarName = pillarName1;
     }
-    /*public String[] getRelatedInfo(){
-        return relatedInfo;
-    }*/
+    public String getId(){
+        return Id;
+    }
+    public String getType(){
+        return type;
+    }
+    public URL getWebUrl(){
+        return webUrl;
+    }
+    public URL getApiUrl(){
+        return apiUrl;
+    }
+    public String getSectionId(){
+        return sectionId;
+    }
+    public String getSectionName(){
+        return sectionName;
+    }
+    public String getWebPubblicationDate(){
+        return sectionId;
+    }
+    public String getWebTitle(){
+        return webTitle;
+    }
+    public boolean getHosted(){
+        return isHosted;
+    }
+    public String getPillarId(){
+        return pillarId;
+    }
+    public String getPillarName(){
+        return pillarName;
+    }
+    public void printArticle(){
+        System.out.println("Id : "+Id);
+        System.out.println("type : "+type);
+        System.out.println("sectionId : "+sectionId);
+        System.out.println("sectionName : "+sectionName);
+        System.out.println("webPubblicationDate : "+webPubblicationDate);
+        System.out.println("webTitle : "+webTitle);
+        System.out.println("webUrl : "+webUrl);
+        System.out.println("apiUrl : "+apiUrl);
+        System.out.println("isHosted : "+isHosted);
+        System.out.println("pillarName : "+pillarName);
+        System.out.println("pillarId : "+pillarId);
+        System.out.println("pillarId : "+pillarId);
+    }
+
 }
