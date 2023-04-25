@@ -20,15 +20,19 @@ public class test_coreNLP {
         // set up pipeline properties
         Properties props = new Properties();
         // set the list of annotators to run
-
-        props.setProperty("annotators", "tokenize,pos,lemma,ner,parse,depparse,coref,kbp,quote");
+        props.setProperty("annotators", "tokenize");
+        //props.setProperty("annotators", "tokenize,pos,lemma,ner,parse,depparse,coref,kbp,quote");
         // set a property for an annotator, in this case the coref annotator is being set to use the neural algorithm
-        props.setProperty("coref.algorithm", "neural");
+        //props.setProperty("coref.algorithm", "neural");
         // build pipeline
-        StanfordCoreNLP pipeline = new StanfordCoreNLP();
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         // create a document object
-        CoreDocument document = new CoreDocument(text);
-        // annnotate the document
-        pipeline.annotate(document);
+        CoreDocument document = pipeline.processToCoreDocument(text);
+        List<CoreLabel> l = document.tokens();
+
+        for (CoreLabel li : l) {
+            System.out.println(li);
+        }
+
     }
 }
