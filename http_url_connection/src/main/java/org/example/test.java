@@ -1,24 +1,25 @@
 package org.example;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class test {
     public static void main(String Args[]){
-        String str = "";
-        try {
-            httpGetter getter = new httpGetter(new URL("https://www.digitalocean.com/community/tutorials/java-httpurlconnection-example-java-http-request-get-post"));
-            getter.closeConnection();
-            getter.setUrl(new URL("https://content.guardianapis.com/search?api-key=c9d442dd-66ec-43a8-aa3d-26047fa8780e"));
-            str = getter.getHttpString();
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }catch(IOException e) {
+
+        try{
+            Tokenizer tokenizer = new Tokenizer("", false);
+             Scanner reader = new Scanner(new File("src\\main\\java\\org\\example\\test.txt"));
+            String fileContent = "";
+            while(reader.hasNextLine()) {
+                fileContent = reader.nextLine();
+            }
+            tokenizer.switchDocument(fileContent);
+            //tokenizer.printFrequency("}");
+            tokenizer.printFirst();
+        }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        //System.out.println(str);
-        Tokenizer tokenizer = new Tokenizer(str);
-        tokenizer.printTokens();
-        System.out.println();
-        tokenizer.printFirst();
+
     }
 }

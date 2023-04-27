@@ -1,1 +1,10 @@
+org\example\test_properties.class
 org\example\Tokenizer.class
+org\example\httpGetter.class
+org\example\Main.class
+org\example\test_json.class
+org\example\impossibleConnection.class
+org\example\test_coreNLP.class
+org\example\jsonParser.class
+org\example\htmlDownloader.class
+org\example\article.class
