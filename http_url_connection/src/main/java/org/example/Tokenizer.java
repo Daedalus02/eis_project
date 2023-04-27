@@ -3,6 +3,8 @@ package org.example;
 import java.util.StringTokenizer;
 import edu.stanford.nlp.pipeline.*;
 import java.util.*;
+import java.util.regex.Pattern;
+
 import edu.stanford.nlp.ling.*;
 
 public class Tokenizer {
@@ -12,7 +14,8 @@ public class Tokenizer {
     private TreeMap<String,Integer> tokens;
     private StanfordCoreNLP pipeline;
     private Map.Entry<String, Integer> max;
-    public Tokenizer(String str1){
+    private boolean checkPunctuation = false;
+    public Tokenizer(String str1, boolean check){
         str = str1;
         // set up pipeline properties
         properties = new Properties();
@@ -27,6 +30,7 @@ public class Tokenizer {
         //save tokens in a map
         tokens = new TreeMap<String, Integer>();
         max = new AbstractMap.SimpleEntry<String,Integer>("",0);
+        checkPunctuation = check;
         enterTokens();
     }
     public void printTokens(){
@@ -53,14 +57,30 @@ public class Tokenizer {
         tokens = new TreeMap<String,Integer>();
         max = new AbstractMap.SimpleEntry<String,Integer>("",0);
     }
+    public void enableCheck(){
+        checkPunctuation = true;
+    }
+    public void disableCheck(){
+        checkPunctuation = false;
+    }
     public void enterTokens() {
         List<CoreLabel> list = document.tokens();
         int value = 0;
         for (CoreLabel c :list){
-            value = tokens.getOrDefault(c.toString(),0);
-            tokens.put(c.toString(),value+1);
-            if(value > max.getValue()){
-                max = new AbstractMap.SimpleEntry<String,Integer>(c.toString(),value);
+            if(checkPunctuation) {
+                if (!Pattern.matches("\\p{Punct}", c.toString())) {
+                    value = tokens.getOrDefault(c.toString(), 0);
+                    tokens.put(c.toString(), value + 1);
+                    if (value > max.getValue()) {
+                        max = new AbstractMap.SimpleEntry<String, Integer>(c.toString(), value);
+                    }
+                }
+            }else{
+                value = tokens.getOrDefault(c.toString(), 0);
+                tokens.put(c.toString(), value + 1);
+                if (value > max.getValue()) {
+                    max = new AbstractMap.SimpleEntry<String, Integer>(c.toString(), value);
+                }
             }
         }
     }

@@ -8,8 +8,8 @@ public class test {
     public static void main(String Args[]){
 
         try{
-            Tokenizer tokenizer = new Tokenizer("");
-             Scanner reader = new Scanner(new File("C:\\Users\\kriptos\\OneDrive - Università degli Studi di Padova\\università\\anno-2\\Secondo_semestre\\elementi_di_ingegneria_del_software\\materiale\\esercizi\\java\\http_url_connection\\http_url_connection\\src\\main\\java\\org\\example\\test.txt"));
+            Tokenizer tokenizer = new Tokenizer("", false);
+             Scanner reader = new Scanner(new File("src\\main\\java\\org\\example\\test.txt"));
             String fileContent = "";
             while(reader.hasNextLine()) {
                 fileContent = reader.nextLine();
