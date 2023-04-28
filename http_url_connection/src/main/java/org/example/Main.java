@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String Args[]) {
@@ -35,9 +35,24 @@ public class Main {
                 }
                 pageText = htmlparser.parse(pageContent);
                 tokenizer.switchDocument(pageText);
-                //tokenizer.printTokens();
-                System.out.print("The more frequent key found in the "+counter+" article is: ");
-                tokenizer.printFirst();
+
+                System.out.println("The more 50 more frequent words in article number "+(counter+1)+" are: ");
+                Set<Map.Entry<Integer, List<String>>> set =  tokenizer.getOrderedTokens(50);
+
+                //printing 50 more frequent tokens
+                int wordCounter = 0;
+                Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();
+                Map.Entry<Integer, List<String>> pair = iter.next();
+                while(iter.hasNext()) {
+                    int index = pair.getValue().size();
+                    while(index > 0){
+                        wordCounter++;
+                        index--;
+                        System.out.println("          "+wordCounter+": "+pair.getValue().get(index)+" "+pair.getKey());
+                    }
+                    pair = iter.next();
+                }
+
                 counter++;
                 pageContent = "";
             }
