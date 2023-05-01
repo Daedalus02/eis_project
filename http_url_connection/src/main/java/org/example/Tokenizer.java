@@ -65,17 +65,17 @@ public class Tokenizer {
         for (CoreLabel c :list){
             if(checkPunctuation) {
                 if (!Pattern.matches("\\p{Punct}", c.toString())) {
-                    value = tokens.getOrDefault(c.toString(), 0);
-                    tokens.put(c.toString(), value + 1);
+                    value = tokens.getOrDefault(c.toString().toLowerCase(), 0);
+                    tokens.put(c.toString().toLowerCase(), value + 1);
                     if (value > max.getValue()) {
-                        max = new AbstractMap.SimpleEntry<String, Integer>(c.toString(), value+1);
+                        max = new AbstractMap.SimpleEntry<String, Integer>(c.toString().toLowerCase(), value+1);
                     }
                 }
             }else{
-                value = tokens.getOrDefault(c.toString(), 0);
-                tokens.put(c.toString(), value + 1);
+                value = tokens.getOrDefault(c.toString().toLowerCase(), 0);
+                tokens.put(c.toString().toLowerCase(), value + 1);
                 if (value > max.getValue()) {
-                    max = new AbstractMap.SimpleEntry<String, Integer>(c.toString(), value);
+                    max = new AbstractMap.SimpleEntry<String, Integer>(c.toString().toLowerCase(), value);
                 }
             }
         }
