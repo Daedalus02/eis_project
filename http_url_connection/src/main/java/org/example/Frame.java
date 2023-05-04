@@ -123,7 +123,7 @@ public class Frame extends  JFrame implements ActionListener {
             label2.setText("Calculating...");
             try {
                 String apiString = "";
-                httpGetter getter = new httpGetter(new URL("https://content.guardianapis.com/search?api-key=c9d442dd-66ec-43a8-aa3d-26047fa8780e"));
+                httpGetter getter = new httpGetter(new URL("https://content.guardianapis.com/search?api-key=your_api"));
                 apiString = getter.getHttpString();
                 jsonParser jsonparser = new jsonParser(apiString);
                 article[] articles = jsonparser.getArticles();
