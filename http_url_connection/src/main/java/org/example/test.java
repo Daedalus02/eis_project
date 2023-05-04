@@ -16,7 +16,6 @@ public class test {
             }
             tokenizer.switchDocument(fileContent);
             //tokenizer.printFrequency("}");
-            tokenizer.printFirst();
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }

@@ -3,6 +3,8 @@ package org.example;
 import edu.stanford.nlp.pipeline.*;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import edu.stanford.nlp.ling.*;
 
 public class Tokenizer {
@@ -11,27 +13,33 @@ public class Tokenizer {
     private CoreDocument document;
     private TreeMap<String,Integer> tokens;
     private StanfordCoreNLP pipeline;
-    private Map.Entry<String, Integer> max;
     private boolean checkPunctuation = false;
 
-    public Tokenizer(String str1, boolean check){
+    public Tokenizer(String str1, boolean check) {
         str = str1;
+
         // set up pipeline properties
         properties = new Properties();
+
         // set the list of annotators to run
         properties.setProperty("annotators", "tokenize");
+
         // coref annotator is being set to use the neural algorithm
         properties.setProperty("coref.algorithm", "neural");
+
         // build pipeline
         pipeline = new StanfordCoreNLP(properties);
+
         // create a document object
-        switchDocument(str1);
+        str = str1;
+        document = pipeline.processToCoreDocument(str1);
+
         //save tokens in a map
         tokens = new TreeMap<String, Integer>();
-        max = new AbstractMap.SimpleEntry<String,Integer>("",0);
         checkPunctuation = check;
-        enterTokens();
+        enterTokens(str1);
     }
+
     public void printTokens(){
         System.out.println(tokens);
         Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
@@ -40,18 +48,17 @@ public class Tokenizer {
             System.out.println(pair.getKey()+" "+pair.getValue());
         }
     }
-    public void printFirst(){
-        System.out.println(max.getKey()+" "+max.getValue());
-    }
     public void switchDocument(String str1){
         str = str1;
-        document = pipeline.processToCoreDocument(str1);
         removeTokens();
-        enterTokens();
+        enterTokens(str1);
+    }
+    public void addDocument(String str1){
+        str += str1;
+        enterTokens(str1);
     }
     public void removeTokens(){
         tokens = new TreeMap<String,Integer>();
-        max = new AbstractMap.SimpleEntry<String,Integer>("",0);
     }
     public void enableCheck(){
         checkPunctuation = true;
@@ -59,26 +66,28 @@ public class Tokenizer {
     public void disableCheck(){
         checkPunctuation = false;
     }
-    public void enterTokens() {
-        List<CoreLabel> list = document.tokens();
+    private void enterTokens(String str1){
+        //save string tokens in a list (without duplicates)
+        document = pipeline.processToCoreDocument(str1);
+        List<String> list = document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList());
+
+        if(list.size() == 0){
+            return;
+        }
+
         int value = 0;
-        for (CoreLabel c :list){
+        for (String c : list){
             if(checkPunctuation) {
-                if (!Pattern.matches("\\p{Punct}", c.toString())) {
-                    value = tokens.getOrDefault(c.toString().toLowerCase(), 0);
-                    tokens.put(c.toString().toLowerCase(), value + 1);
-                    if (value > max.getValue()) {
-                        max = new AbstractMap.SimpleEntry<String, Integer>(c.toString().toLowerCase(), value+1);
-                    }
+                if (!Pattern.matches("\\p{Punct}", c)) {
+                    value = tokens.getOrDefault(c, 0);
+                    tokens.put(c, value+1);
                 }
             }else{
-                value = tokens.getOrDefault(c.toString().toLowerCase(), 0);
-                tokens.put(c.toString().toLowerCase(), value + 1);
-                if (value > max.getValue()) {
-                    max = new AbstractMap.SimpleEntry<String, Integer>(c.toString().toLowerCase(), value);
-                }
+                value = tokens.getOrDefault(c, 0);
+                tokens.put(c, value + 1);
             }
         }
+        //System.out.println(tokens.size());
     }
     public Set<Map.Entry<Integer, List<String>>> getOrderedTokens(int maxSize){
 
@@ -87,27 +96,28 @@ public class Tokenizer {
         Map.Entry<String,Integer> pair;
 
         //calculating reverseMap
-        List<String> list;
+        List<String> stringList;
         while(iter.hasNext()){
             pair = iter.next();
 
-            list = reverseMap.get(pair.getValue());
-            if(list == null){
-                list = new ArrayList<String>();
-                list.add(pair.getKey());
-                reverseMap.put(pair.getValue(),list);
+            stringList = reverseMap.get(pair.getValue());
+            if(stringList == null){
+                stringList = new ArrayList<String>();
+                stringList.add(pair.getKey());
+                reverseMap.put(pair.getValue(),stringList);
             }else{
                 reverseMap.get(pair.getValue()).add(pair.getKey());
             }
 
         }
 
-        //reducing size to 50 words in total
+        //reducing size to maxSize words in total
         int counter = 0;
         Iterator<Map.Entry<Integer, List<String>>> listIter = reverseMap.entrySet().iterator();
         Map.Entry<Integer, List<String>> listPair;
         while(listIter.hasNext()){
             listPair = listIter.next();
+            Collections.sort(listPair.getValue(),Collections.reverseOrder());
             if(counter > maxSize){
                 listIter.remove();
             }else {
