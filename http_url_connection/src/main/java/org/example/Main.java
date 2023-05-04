@@ -4,17 +4,19 @@ package org.example;
 import org.json.JSONException;
 
 import javax.swing.text.BadLocationException;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 public class Main {
     public static void main(String Args[]) {
         Scanner console = new Scanner(System.in);
         System.out.println("enter the topic you want to investigate: ");
-        String query = console.next();
+        String query = console.nextLine();
 
         int tagNumber = 0;
         System.out.println("Enter the number of tag you want to search: ");
@@ -35,60 +37,53 @@ public class Main {
         }
 
         System.out.println("Enter the max number of page to elaborate: ");
-        int maxPage = console.nextInt();
-        int pageCount = 0;
+        int maxArticle = console.nextInt();
+        int pageCount = 1;
+        int articleCount = 0;
 
         try {
             Tokenizer tokenizer = new Tokenizer("", true);
-            htmlParser htmlparser = new htmlParser();
 
-            String pageContent = " "; //must have length different from 0
             String pageText = " ";
             String url = "";
             httpGetter getter;
             String apiString ="";
             jsonParser jsonparser;
-            article[] articles;
+            List<Article> articles = new ArrayList<Article>();
             htmlDownloader downloader;
-            String[] fileNames;
-            Scanner reader;
-            int availablePage = 0;
-            while(pageCount < maxPage) {
-                url = (new urlSetter("https://content.guardianapis.com", "your_api", pageCount+1, query, new String[]{}, new String[]{})).getUrl();
+            String fileName = "res\\pages\\test.xml";
 
+            while(articleCount < maxArticle) {
+                url = (new urlSetter("https://content.guardianapis.com", "your_api_key", pageCount, query, new String[]{}, new String[]{})).getUrl();
+                System.out.println("from " + url + " :");
                 getter = new httpGetter(new URL(url));
                 apiString = getter.getHttpString();
 
                 jsonparser = new jsonParser(apiString);
-                articles = jsonparser.getArticles();
-                if(jsonparser.getPages() < maxPage){
-                    maxPage = jsonparser.getPages();
-                    System.out.println("Limited to "+maxPage+" pages...");
+                articles .addAll(Arrays.stream(jsonparser.getArticles()).toList());
+
+                if(jsonparser.getPages() < maxArticle){
+                    maxArticle = jsonparser.getPages();
+                    System.out.println("Limited to "+maxArticle+" pages...");
                 }
 
                 downloader = new htmlDownloader();
-                fileNames = new String[articles.length];
 
-
-
-                for (article article : articles) {
-                    if(pageCount == maxPage){
+                for (Article article : articles.subList(articleCount,articles.size())) {
+                    if(articleCount == maxArticle){
                         break;
                     }
-                    System.out.println("Anayzing site number: "+(pageCount+1)+" with title: "+article.getWebTitle());
-                    fileNames[pageCount%10] = downloader.download(article.getWebUrl().toString());
-                    reader = new Scanner(new File(fileNames[pageCount%10]));
-                    while (reader.hasNextLine()) {
-                        pageContent += reader.nextLine();
-                    }
-                    pageText = htmlparser.parse(pageContent);
+                    System.out.println("Anayzing site number: "+(articleCount+1)+" with title: "+article.getWebTitle());
+                    downloader.download(article);
+                    pageText = article.getHead() + article.getBody();
                     tokenizer.addDocument(pageText);
-                    pageCount++;
-                    pageContent = "";
+                    articleCount++;
                 }
 
-
+                pageCount++;
             }
+            Serializer serializer = new Serializer();
+            serializer.serialize(articles,fileName);
             //printing 50 more frequent tokens
             System.out.println("The 50 more frequent words in the analyzed articles are: ");
             Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(50);

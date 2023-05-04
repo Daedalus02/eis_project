@@ -12,7 +12,7 @@ public class htmlParser
     }
     public String parse(String htmlString) throws BadLocationException {
         Document doc =Jsoup.parse(htmlString);
-        parsedHtml = doc.text();
+        parsedHtml = doc.head().text() + doc.body().text() ;
         return parsedHtml;
     }
     public String getParsedHtml(){

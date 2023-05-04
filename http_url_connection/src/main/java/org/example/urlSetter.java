@@ -16,6 +16,7 @@ public class urlSetter {
                 }
             }
             if(query != "") {
+                query = query.replace(" ","%20");
                 url += "&q=" + "\"" + query + "\"";
             }
             if(apiKey == ""){

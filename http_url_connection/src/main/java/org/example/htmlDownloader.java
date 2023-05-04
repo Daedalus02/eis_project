@@ -1,29 +1,35 @@
 package org.example;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
+        import java.io.*;
+        import java.net.MalformedURLException;
+        import java.net.URL;
+
+        import com.thoughtworks.xstream.XStream;
+        import org.jsoup.Jsoup;
+        import org.jsoup.nodes.Document;
+        import javax.swing.text.BadLocationException;
 
 public class htmlDownloader {
-    private static int page_count = 0;
     public htmlDownloader(){
 
     }
-    public String download(String stringUrl) throws MalformedURLException, IOException {
-        URL url = new URL(stringUrl);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-        String file_name ="res\\pages\\"+"page"+page_count+".html";
-        File file = new File(file_name);
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file_name));
-        String line = "";
+    public void download(Article article) throws MalformedURLException, IOException, BadLocationException {
 
+
+        URL url = new URL(article.getWebUrl().toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        String line = "";
+        String htmlString = "";
         while((line = reader.readLine()) != null) {
-            writer.write(line);
+            htmlString += (" " + line);
         }
 
-        writer.close();
+        Document doc =Jsoup.parse(htmlString);
+        String head = doc.head().text();
+        String body = doc.body().text();
+        article.setBody(body);
+        article.setHead(head);
+
         reader.close();
-        page_count++;
-        return file_name;
     }
 }
