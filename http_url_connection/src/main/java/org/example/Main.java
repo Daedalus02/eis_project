@@ -54,7 +54,7 @@ public class Main {
             Scanner reader;
             int availablePage = 0;
             while(pageCount < maxPage) {
-                url = (new urlSetter("https://content.guardianapis.com", "c9d442dd-66ec-43a8-aa3d-26047fa8780e", pageCount+1, query, new String[]{}, new String[]{})).getUrl();
+                url = (new urlSetter("https://content.guardianapis.com", "your_api", pageCount+1, query, new String[]{}, new String[]{})).getUrl();
 
                 getter = new httpGetter(new URL(url));
                 apiString = getter.getHttpString();
