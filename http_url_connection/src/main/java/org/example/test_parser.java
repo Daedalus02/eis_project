@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class test_parser
 {
     public static void main(String Args[]) throws FileNotFoundException {
-        File file = new File("http_url_connection\\http_url_connection\\src\\main\\java\\org\\example\\test.txt");
+        File file = new File("src\\main\\java\\org\\example\\test.txt");
         Scanner console = new Scanner(file);
         String str = "";
         while (console.hasNextLine()){
