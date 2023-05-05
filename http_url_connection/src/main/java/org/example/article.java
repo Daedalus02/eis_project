@@ -1,10 +1,9 @@
 package org.example;
 
-import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class article {
+public class Article {
     //private final String[] relatedInfo= {"Id","type","sectionId","sectionName","webPubblicationDate","webTitle","webUrl","apiUrl","isHosted","pillarName","pillarId"};
     private String Id = "";
     private String type = "";
@@ -17,7 +16,9 @@ public class article {
     private boolean isHosted = false;
     private String pillarId = "";
     private String pillarName = "";
-    public article (){
+    private String head = "";
+    private String body = "";
+    public Article(){
 
     }
     public void setId(String id1){
@@ -85,6 +86,21 @@ public class article {
     }
     public String getPillarName(){
         return pillarName;
+    }
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
     public void printArticle(){
         System.out.println("Id : "+Id);
