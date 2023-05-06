@@ -1,7 +1,21 @@
 package org.example;
 
+/**
+ *
+ */
 public class urlSetter {
     private String url = "";
+
+    /**
+     *
+     * @param baseUrl
+     * @param apiKey
+     * @param page
+     * @param query
+     * @param contents
+     * @param tags
+     * @throws IllegalArgumentException
+     */
     public urlSetter(String baseUrl, String apiKey, int page, String query , String[] contents, String[] tags) throws IllegalArgumentException{
         url += baseUrl;
         if(contents.length == 0) {

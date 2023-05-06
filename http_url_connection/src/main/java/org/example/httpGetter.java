@@ -15,7 +15,12 @@ public class httpGetter {
     private boolean connected = false;
 
 
-    /*url constructor*/
+    /**
+     *
+     * @param url
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     public httpGetter(URL url ) throws MalformedURLException, IOException{
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -26,7 +31,13 @@ public class httpGetter {
         connected = true;
     }
 
-    /*set url*/
+    /**
+     *
+     * @param url
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws impossibleConnection
+     */
     public void setUrl(URL url ) throws MalformedURLException, IOException, impossibleConnection{
         if(connected) throw new impossibleConnection();
         connection = (HttpURLConnection) url.openConnection();
@@ -37,7 +48,11 @@ public class httpGetter {
         connected = true;
     }
 
-    /*return the html as a string*/
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
     public String getHttpString() throws  IOException {
         if(!connected) throw new IllegalStateException("The httpGetter is not connceted!");
         BufferedReader reader;
@@ -64,7 +79,9 @@ public class httpGetter {
 
     }
 
-    /*close connection*/
+    /**
+     *
+     */
     public void closeConnection(){
         connection.disconnect();
         connected = false;

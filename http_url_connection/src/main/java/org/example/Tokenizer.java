@@ -15,6 +15,11 @@ public class Tokenizer {
     private StanfordCoreNLP pipeline;
     private boolean checkPunctuation = false;
 
+    /**
+     *
+     * @param str1
+     * @param check
+     */
     public Tokenizer(String str1, boolean check) {
         str = str1;
 
@@ -40,6 +45,9 @@ public class Tokenizer {
         enterTokens(str1);
     }
 
+    /**
+     *
+     */
     public void printTokens(){
         System.out.println(tokens);
         Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
@@ -48,24 +56,52 @@ public class Tokenizer {
             System.out.println(pair.getKey()+" "+pair.getValue());
         }
     }
+
+    /**
+     *
+     * @param str1
+     */
     public void switchDocument(String str1){
         str = str1;
         removeTokens();
         enterTokens(str1);
     }
+
+    /**
+     *
+     * @param str1
+     */
     public void addDocument(String str1){
         str += str1;
         enterTokens(str1);
     }
+
+    /**
+     *
+     */
     public void removeTokens(){
         tokens = new TreeMap<String,Integer>();
     }
+
+    /**
+     *
+     */
+
     public void enableCheck(){
         checkPunctuation = true;
     }
+
+    /**
+     *
+     */
     public void disableCheck(){
         checkPunctuation = false;
     }
+
+    /**
+     *
+     * @param str1
+     */
     private void enterTokens(String str1){
         //save string tokens in a list (without duplicates)
         document = pipeline.processToCoreDocument(str1);
@@ -89,6 +125,12 @@ public class Tokenizer {
         }
         //System.out.println(tokens.size());
     }
+
+    /**
+     *
+     * @param maxSize
+     * @return
+     */
     public Set<Map.Entry<Integer, List<String>>> getOrderedTokens(int maxSize){
 
         SortedMap<Integer, List<String>> reverseMap = new TreeMap<Integer, List<String>>(Collections.reverseOrder());
@@ -146,6 +188,12 @@ public class Tokenizer {
         }*/
         return reverseMap.entrySet();
     }
+
+    /**
+     *
+     * @param str
+     * @throws NullPointerException
+     */
     public void printFrequency(String str) throws NullPointerException{
         int frequency = 0;
         frequency = tokens.get(str);

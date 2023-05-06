@@ -6,13 +6,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ *
+ */
 public class Serializer
 {
     public Serializer(){
 
     }
-    public void serialize(List<Article> articleList, String fileName) throws IOException {
 
+    /**
+     *
+     * @param articleList
+     * @param fileName
+     * @throws IOException
+     */
+    public void serialize(List<Article> articleList, String fileName) throws IOException {
         XStream xStream = new XStream();
         String xml = xStream.toXML(articleList);
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));

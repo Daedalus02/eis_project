@@ -1,17 +1,16 @@
 package org.example;
 
-
 import org.json.JSONException;
-
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
+/**
+ *
+ */
 public class Main {
     public static void main(String Args[]) {
         Scanner console = new Scanner(System.in);
@@ -36,7 +35,7 @@ public class Main {
             System.out.println();
         }
 
-        System.out.println("Enter the max number of page to elaborate: ");
+        System.out.println("Enter the max number of articles to elaborate: ");
         int maxArticle = console.nextInt();
         int pageCount = 1;
         int articleCount = 0;
@@ -54,7 +53,7 @@ public class Main {
             String fileName = "res\\pages\\test.xml";
 
             while(articleCount < maxArticle) {
-                url = (new urlSetter("https://content.guardianapis.com", "your_api_key", pageCount, query, new String[]{}, new String[]{})).getUrl();
+                url = (new urlSetter("https://content.guardianapis.com", "c9d442dd-66ec-43a8-aa3d-26047fa8780e", pageCount, query, new String[]{}, new String[]{})).getUrl();
                 System.out.println("from " + url + " :");
                 getter = new httpGetter(new URL(url));
                 apiString = getter.getHttpString();
@@ -83,10 +82,11 @@ public class Main {
                 pageCount++;
             }
             Serializer serializer = new Serializer();
+            articles = new ArrayList<Article>(articles.subList(0,maxArticle));
             serializer.serialize(articles,fileName);
             //printing 50 more frequent tokens
-            System.out.println("The 50 more frequent words in the analyzed articles are: ");
-            Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(50);
+            System.out.println("The 100 more frequent words in the analyzed articles are: ");
+            Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(100);
 
             int wordCounter = 0;
             Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();

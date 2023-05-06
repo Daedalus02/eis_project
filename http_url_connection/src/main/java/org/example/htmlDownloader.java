@@ -8,10 +8,21 @@ package org.example;
         import org.jsoup.nodes.Document;
         import javax.swing.text.BadLocationException;
 
+/**
+ *
+ */
 public class htmlDownloader {
     public htmlDownloader(){
 
     }
+
+    /**
+     *
+     * @param article
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws BadLocationException
+     */
     public void download(Article article) throws MalformedURLException, IOException, BadLocationException {
 
 

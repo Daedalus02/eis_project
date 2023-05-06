@@ -16,10 +16,16 @@ public class jsonParser
     private String orderBy;
     private Article[] articles;
 
-
+    /**
+     *
+     * @param str
+     * @throws JSONException
+     * @throws MalformedURLException
+     */
     public jsonParser(String str) throws JSONException, MalformedURLException {
         jsonString = str;
         JSONObject obj = new JSONObject(str);
+
         status = obj.getJSONObject("response").getString("status");
         userTier = obj.getJSONObject("response").getString("userTier");
         total = Integer.parseInt( obj.getJSONObject("response").getString("total"));
@@ -28,6 +34,7 @@ public class jsonParser
         currentPage = Integer.parseInt(obj.getJSONObject("response").getString("currentPage"));
         pages = Integer.parseInt(obj.getJSONObject("response").getString("pages"));
         orderBy = obj.getJSONObject("response").getString("orderBy");
+
         /*System.out.println("\nPage info: \n");
         System.out.println("status = "+status);
         System.out.println("userTier = "+userTier);
@@ -37,7 +44,6 @@ public class jsonParser
         System.out.println("currentPage = "+currentPage);
         System.out.println("pages = "+pages);
         System.out.println("orderBy = "+orderBy);
-
         System.out.println("\nArticles inf: \n");*/
 
         JSONArray arr = obj.getJSONObject("response").getJSONArray("results");
@@ -76,9 +82,9 @@ public class jsonParser
                 articles[i].setWebUrl("");
             }
             if(arr.getJSONObject(i).has("webPublicationDate")){
-                articles[i].setWebPubblicationDate(arr.getJSONObject(i).getString("webPublicationDate"));
+                articles[i].setWebPublicationDate(arr.getJSONObject(i).getString("webPublicationDate"));
             }else{
-                articles[i].setWebPubblicationDate("");
+                articles[i].setWebPublicationDate("");
             }
             if(arr.getJSONObject(i).has("apiUrl")){
                 articles[i].setApiUrl(arr.getJSONObject(i).getString("apiUrl"));
@@ -97,6 +103,11 @@ public class jsonParser
             }
         }
     }
+
+    /**
+     *
+     * @return
+     */
     public Article[] getArticles(){
         return articles;
     }

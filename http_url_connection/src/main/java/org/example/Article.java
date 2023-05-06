@@ -3,13 +3,16 @@ package org.example;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ *
+ */
 public class Article {
     //private final String[] relatedInfo= {"Id","type","sectionId","sectionName","webPubblicationDate","webTitle","webUrl","apiUrl","isHosted","pillarName","pillarId"};
     private String Id = "";
     private String type = "";
     private String sectionId = "";
     private String sectionName = "";
-    private String webPubblicationDate = "";
+    private String webPublicationDate = "";
     private String webTitle = "";
     private URL webUrl = null;
     private URL apiUrl = null;
@@ -18,6 +21,7 @@ public class Article {
     private String pillarName = "";
     private String head = "";
     private String body = "";
+
     public Article(){
 
     }
@@ -33,8 +37,8 @@ public class Article {
     public void setSectionName(String sectionName1){
         sectionName = sectionName1;
     }
-    public void setWebPubblicationDate(String webPublicationDate1){
-        webPubblicationDate = webPublicationDate1;
+    public void setWebPublicationDate(String webPublicationDate1){
+        webPublicationDate = webPublicationDate1;
     }
     public void setWebTitle(String webTitle1){
         webTitle = webTitle1;
@@ -72,7 +76,7 @@ public class Article {
     public String getSectionName(){
         return sectionName;
     }
-    public String getWebPubblicationDate(){
+    public String getWebPublicationDate(){
         return sectionId;
     }
     public String getWebTitle(){
@@ -87,6 +91,7 @@ public class Article {
     public String getPillarName(){
         return pillarName;
     }
+
     public String getHead() {
         return head;
     }
@@ -107,7 +112,7 @@ public class Article {
         System.out.println("type : "+type);
         System.out.println("sectionId : "+sectionId);
         System.out.println("sectionName : "+sectionName);
-        System.out.println("webPubblicationDate : "+webPubblicationDate);
+        System.out.println("webPubblicationDate : "+ webPublicationDate);
         System.out.println("webTitle : "+webTitle);
         System.out.println("webUrl : "+webUrl);
         System.out.println("apiUrl : "+apiUrl);
