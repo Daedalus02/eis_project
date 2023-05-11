@@ -53,7 +53,7 @@ public class Main {
             String fileName = "res\\pages\\test.xml";
 
             while(articleCount < maxArticle) {
-                url = (new urlSetter("https://content.guardianapis.com", "c9d442dd-66ec-43a8-aa3d-26047fa8780e", pageCount, query, new String[]{}, new String[]{})).getUrl();
+                url = (new urlSetter("https://content.guardianapis.com", "your_api_key", pageCount, query, new String[]{}, new String[]{})).getUrl();
                 System.out.println("from " + url + " :");
                 getter = new httpGetter(new URL(url));
                 apiString = getter.getHttpString();
