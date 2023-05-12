@@ -23,7 +23,7 @@ accesso agli articoli.
 
 5. Il sistema deve poter supportare nuove strutture per memorizzare ed
 avere accesso ai termini più importanti
-	--> boo
+	--> adapter
 
 6. L’utente deve poter specificare se eseguire solo il download, solo
 l’estrazione dei termini a partire dai file in cui sono stati memorizzati gli
