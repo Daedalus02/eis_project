@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
@@ -85,7 +86,7 @@ public class Main {
 
                     //parsing the response
                     jsonparser = new jsonParser(apiString);
-                    articles.addAll(Arrays.stream(jsonparser.getArticles()).toList());
+                    articles.addAll(Arrays.stream(jsonparser.getArticles()).collect(toList()));
 
                     //setting the max number of article to analyze, also basing on the number of available ones
                     if (jsonparser.getPages() < maxArticle) {
