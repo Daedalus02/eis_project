@@ -1,5 +1,6 @@
 DOCUMENTAZIONE THE GUARDIAN API
 https://open-platform.theguardian.com/documentation/search
+https://open-platform.theguardian.com/explore/
 
 PROGETTO GITHUB
 https://github.com/matarrese/content-api-the-guardian
@@ -11,5 +12,8 @@ CONCETTI UTILI
 -PIPELINE PER STRING TOKENIZATION 
  --> https://stanfordnlp.github.io/CoreNLP/pipeline.html
  --> https://stanfordnlp.github.io/CoreNLP/
- 
+-MODELS
+ -->https://stackoverflow.com/questions/21265491/what-is-the-difference-between-a-domain-class-diagram-and-a-design-class-diagram#:~:text=In%20design%20model%20you%20have,as%20value%20in%20domain%20model.
+ -->http://www.cs.sjsu.edu/~pearce/modules/lectures/ooa/analysis/DomainModeling.htm
+ -->https://stackoverflow.com/questions/27299695/what-is-the-difference-between-uml-domain-model-and-context-diagram
 

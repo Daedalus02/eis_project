@@ -1,0 +1,31 @@
+PER SVILUPPATORI
+
+1. Il sistema deve poter supportare nuove sorgenti
+	-->garantito in quanto è possibile sia mutare il file da cui leggere che 
+	   variare la http request fatta al the guardian
+	   
+2. Dopo la fase di download, deve essere effettuata la persistenza su file
+degli articoli usando lo stesso formato per tutti gli articoli di tutte le
+sorgenti. Potete utilizzare una libreria per serializzare e deserializzare gli
+articoli. L’implementazione senza libreria è opzionale.
+	-->la risposta data dal the guardian contenente gli articoli viene "salavata" in
+	   su file serializzando gli articoli in un formato da cui, se necessario, è possibile
+	   deserializzarli per poterne usare i dati contenuti.
+
+3. Il sistema deve poter supportare nuove modalità di memorizzazione ed
+accesso agli articoli.
+	--> il formato in cui sono salvati gli articoli rende questo possibile, 
+	    (si puo pero aggiungere un adapter)
+		
+4. Per estrarre i termini ed il loro peso (numero di documenti in cui appare),
+è necessario partire dai file in cui gli articoli sono memorizzati (punto 2).
+	--> fatto vedi main
+
+5. Il sistema deve poter supportare nuove strutture per memorizzare ed
+avere accesso ai termini più importanti
+	--> boo
+
+6. L’utente deve poter specificare se eseguire solo il download, solo
+l’estrazione dei termini a partire dai file in cui sono stati memorizzati gli
+articoli, o entrambe le azioni in sequenza.
+	-->fatto, vedi main
