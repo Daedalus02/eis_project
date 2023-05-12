@@ -1,0 +1,9 @@
+org\project\AdapterTest.class
+org\project\htmlParserTest.class
+org\project\urlSetterTest.class
+org\project\DeserializerTest.class
+org\project\SerializerTest.class
+org\project\ArticleTest.class
+org\project\httpGetterTest.class
+org\project\jsonParserTest.class
+org\project\TokenizerTest.class

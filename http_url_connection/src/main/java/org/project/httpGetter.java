@@ -43,7 +43,7 @@ public class httpGetter {
      * @throws IOException
      * @throws impossibleConnection
      */
-    public void setUrl(URL url ) throws MalformedURLException, IOException, impossibleConnection{
+    public void setUrl(URL url ) throws IOException, impossibleConnection{
         if(connected) throw new impossibleConnection();
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
