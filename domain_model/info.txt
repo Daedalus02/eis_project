@@ -1,0 +1,40 @@
+
+DOMAIN MODELING
+		Domain modeling is the activity of translating an informal description of a domain into a domain model.
+		Domain models are used during the requirements gathering phase to clarify important domain-specific terms.
+		Domain models are useful during the requirements analysis phase to identify the entity classes in the Entity-Control-Boundary architecture.
+		Domain models are closely related to the Entity-Relationship models used by database designers.
+
+DOMAIN STEREOTYPES
+		Typical domain class stereotypes include:
+
+		<<thing>> = an entity that has mass and volume
+
+		<<event>> = an entity that has a start time and duration
+
+		<<role>> = an entity that executes tasks. For example: plumber, clerk, nurse
+
+		<<type>> = an entity that describes other entities: film genre (SciFi, comedy, etc.), film rating (P, PG, etc.)
+
+		Examples of <<thing>> classes:
+
+		Person, Report,
+
+		Examples of <<role>> classes:
+
+		Customer, Doctor, Student
+
+		Examples of <<event>> classes:
+
+		Transaction,
+
+		Examples of <<type>> classes:
+
+		Genre, ProductType, Rank
+
+TEXT ANALYSIS
+		Text Analysis is a fancy term that simply means identifying important sounding phrases in a textual description of a domain. 
+		Important noun phrases—user, owner, controller, buffer, etc.-- are often modeled by classes, important verb phrases—uses, has, 
+		owns, controls, etc.-- are often modeled by associations. Phrases suggesting classifications—kinds, types, is one of, etc.—are 
+		often modeled using generalization. Phrases suggesting assemblies— is part of, is made from, etc.—are often modeled using composition.
+		Phrases suggesting collections—contains, holds, etc.—are often modeled using aggregation.
