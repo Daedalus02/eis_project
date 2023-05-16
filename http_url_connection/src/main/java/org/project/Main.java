@@ -97,7 +97,7 @@ public class Main {
                     //SERIALIZING PHASE
                     while (articleCount < maxArticle) {
                         //setting url basing on the fields required for the api request
-                        url = (new urlSetter("https://content.guardianapis.com", "c9d442dd-66ec-43a8-aa3d-26047fa8780e", pageCount, pageSize, query, tags)).getUrl();
+                        url = (new urlSetter("https://content.guardianapis.com", "your api_key", pageCount, pageSize, query, tags)).getUrl();
                         System.out.println("from " + url + " :");
 
                         //getting response from the api point
