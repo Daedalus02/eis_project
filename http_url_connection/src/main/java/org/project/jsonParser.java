@@ -4,7 +4,7 @@ import org.json.*;
 import java.net.MalformedURLException;
 
 /**
- * this class is used to parse the give api response conetent, assuming it has fields to describe the response and fields to describe each one of the 10 pages it contains
+ * this class is used to parse the give api response conetent, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
 public class jsonParser
 {
