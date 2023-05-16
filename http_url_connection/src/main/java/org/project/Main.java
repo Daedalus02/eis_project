@@ -9,12 +9,10 @@ import java.net.URL;
 import java.util.*;
 import static java.util.stream.Collectors.toList;
 
+/**
+ *
+ */
 public class Main {
-
-    //print the first "n" ordered tokens
-    public static void printTokens(Tokenizer tokenizer, int number){
-
-    }
 
     public static void main(String Args[]) {
         Scanner console = new Scanner(System.in);
@@ -57,6 +55,10 @@ public class Main {
 
                     //SETTINGS QUESTIONS PHASE
 
+                    //setting api_key
+                    System.out.println("Enter your api key to access the \"the Guardian\" articles: ");
+                    String apiKey = console.nextLine();
+
                     //setting query
                     System.out.println("Do you want to use a query?(y/n)");
                     String queryAnswer = console.nextLine().toLowerCase();
@@ -97,7 +99,7 @@ public class Main {
                     //SERIALIZING PHASE
                     while (articleCount < maxArticle) {
                         //setting url basing on the fields required for the api request
-                        url = (new urlSetter("https://content.guardianapis.com", "c9d442dd-66ec-43a8-aa3d-26047fa8780e", pageCount, pageSize, query, tags)).getUrl();
+                        url = (new urlSetter("https://content.guardianapis.com", apiKey, pageCount, pageSize, query, tags)).getUrl();
                         System.out.println("from " + url + " :");
 
                         //getting response from the api point
@@ -143,13 +145,13 @@ public class Main {
             }
 
             //SERIALIZING
-            if(dataAnswer.equals("n")){
+            if (dataAnswer.equals("n")){
                 Serializer serializer = new Serializer();
                 serializer.serialize(articles, fileName);
             }
 
             //DESERIALIZING/READING PHASE
-            if(csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
+            if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
                 articles = deserializer.deserialize(fileName);
                 for (Article article : articles) {

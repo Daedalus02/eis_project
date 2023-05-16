@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * this class is a wrapper that contain another tokenizer ("nlp") and allow to tokenize a give string of text into its words
+ * this class is a wrapper that contain another tokenizer ("core nlp") and allow to tokenize a give string of text into its words
  * giving the possibility to check punctuation and eventually getting a lexical/frequency ordered version to iterate through
  */
 public class Tokenizer {
