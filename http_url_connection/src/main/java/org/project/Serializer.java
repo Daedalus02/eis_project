@@ -11,18 +11,20 @@ import java.util.List;
  */
 public class Serializer
 {
-    public Serializer(){}
+    XStream xStream;
+    public Serializer() throws IOException {
+        //initializing serializer
+        xStream = new XStream();
+    }
 
     /**
      * this method is used to format the content of the articles and store it int a file with XML format
      * @param articleList
-     * @param fileName
      * @throws IOException
      */
     public void serialize(List<Article> articleList, String fileName) throws IOException {
-        XStream xStream = new XStream();
-        String xml = xStream.toXML(articleList);
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        String xml = xStream.toXML(articleList);
         writer.write("");
         writer.append(xml);
         writer.newLine();
