@@ -25,6 +25,7 @@ public class Article {
     private String head = "";
     private String body = "";
     private String wordcount = "";
+    private String mediaGroup = "";
 
     public Article(){
 
@@ -65,8 +66,17 @@ public class Article {
         pillarName = pillarName1;
     }
 
-    public void setWordcount(String wordcount) {
-        this.wordcount = wordcount;
+    public void setWordcount(String wordcount1) {
+        wordcount = wordcount1;
+    }
+    public void setMediaGroup(String mediaGroup1) {
+        mediaGroup = mediaGroup1;
+    }
+    public void setHead(String head1) {
+        head = head1;
+    }
+
+    public void setBody(String body1) {body = body1;
     }
 
     /*getters*/
@@ -107,18 +117,17 @@ public class Article {
     public String getHead() {
         return head;
     }
-
-    public void setHead(String head) {
-        this.head = head;
+    public String getMediaGroup() {
+        return mediaGroup;
     }
+
+
+
 
     public String getBody() {
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
 
     public String getWordcount() {
         return wordcount;
@@ -138,6 +147,10 @@ public class Article {
         System.out.println("pillarName : "+pillarName);
         System.out.println("pillarId : "+pillarId);
         System.out.println("pillarId : "+pillarId);
+        System.out.println("mediaGroup : "+mediaGroup);
+        System.out.println("head : "+head);
+        System.out.println("body : "+body);
+        System.out.println("wordCount : "+wordcount);
     }
 
 }

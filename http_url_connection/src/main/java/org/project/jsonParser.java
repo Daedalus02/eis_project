@@ -4,7 +4,7 @@ import org.json.*;
 import java.net.MalformedURLException;
 
 /**
- * this class is used to parse the give api response conetent, assuming it has fields to describe the response and fields to describe each one of the pages it contains
+ * this class is used to parse the give api response content, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
 public class jsonParser
 {
@@ -116,7 +116,7 @@ public class jsonParser
             if(arr.getJSONObject(i).getJSONObject("fields").has("wordcount")){
                 articles[i].setWordcount(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount"));
             }
-
+            articles[i].setMediaGroup("The Guardian");
         }
     }
 
@@ -129,66 +129,58 @@ public class jsonParser
     }
 
 
-    /*setters and getters */
+    /*GETTERS*/
     public String getJsonString() {
         return jsonString;
     }
-    public void setJsonString(String jsonString) {
-        this.jsonString = jsonString;
-    }
-
     public String getStatus() {
         return status;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public int getTotal() {
         return total;
     }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int getStartIndex() {
         return startIndex;
     }
-
-    public void setStartIndex(int startIndex) {
-        this.startIndex = startIndex;
-    }
-
     public int getPageSize() {
         return pageSize;
     }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public String getUserTier() {
+        return userTier;
     }
-
     public int getCurrentPage() {
         return currentPage;
     }
-
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+    public String getOrderBy() {
+        return orderBy;
     }
-
     public int getPages() {
         return pages;
     }
 
+
+    /*SETTERS*/
     public void setPages(int pages) {
         this.pages = pages;
     }
-
-    public String getOrderBy() {
-        return orderBy;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
-
+    public void setJsonString(String jsonString) {
+        this.jsonString = jsonString;
+    }
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+    public void setTotal(int total) {
+        this.total = total;
+    }
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
@@ -196,11 +188,6 @@ public class jsonParser
     public void setArticles(Article[] articles) {
         this.articles = articles;
     }
-
-    public String getUserTier() {
-        return userTier;
-    }
-
     public void setUserTier(String userTier) {
         this.userTier = userTier;
     }

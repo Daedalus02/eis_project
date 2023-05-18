@@ -7,18 +7,19 @@ import java.io.*;
 import java.util.List;
 
 /**
- * this class is used to get back the list of articles previously written in the file named with string filename
+ * this class is used to deserialize the list of articles previously serialized in the file named with string "filename"
  */
 public class Deserializer {
-    public Deserializer(){}
+    private XStream xStream;
+    public Deserializer(){
+        xStream = new XStream();
+    }
 
     /**
-     *
      * @param filename
      * @throws IOException
      */
     public List<Article> deserialize(String filename) throws IOException {
-        XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
         List<Article> articlesList = (List<Article>) xStream.fromXML(new FileInputStream(filename));
         return articlesList;
