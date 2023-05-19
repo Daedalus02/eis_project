@@ -1,7 +1,15 @@
 package org.project;
 
 import edu.stanford.nlp.pipeline.*;
-import java.util.*;
+import java.util.TreeMap;
+import java.util.Properties;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.SortedMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 

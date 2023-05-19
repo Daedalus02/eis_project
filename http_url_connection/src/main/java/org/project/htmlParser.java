@@ -1,10 +1,11 @@
 package org.project;
-        import java.io.*;
-        import java.net.MalformedURLException;
 
-        import org.jsoup.Jsoup;
-        import org.jsoup.nodes.Document;
-        import javax.swing.text.BadLocationException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import javax.swing.text.BadLocationException;
 
 /**
  * This class is used to parse the head and body fields in the article from html format

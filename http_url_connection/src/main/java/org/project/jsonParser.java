@@ -1,6 +1,8 @@
 package org.project;
-import org.json.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
