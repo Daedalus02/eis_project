@@ -108,7 +108,7 @@ public class Main {
 
                         //parsing the response
                         jsonparser = new jsonParser(apiString);
-                        articles.addAll(Arrays.stream(jsonparser.getArticles()).collect(toList()));
+                        articles.addAll(jsonparser.getArticles());
 
                         //setting the max number of article to analyze, also basing on the number of available ones
                         if (jsonparser.getPages() < maxArticle) {
@@ -153,6 +153,7 @@ public class Main {
             //DESERIALIZING/READING PHASE
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
+                //DESERIALIZING
                 articles = deserializer.deserialize(fileName);
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
