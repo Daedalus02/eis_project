@@ -31,7 +31,10 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
     private boolean[] selected;
     private String[] answer;
     private String[] elements;
-    int elementPosition = 0;
+    private int elementPosition = 0;
+    private JMenu menu;
+    private JMenuBar menuBar;
+    private JMenuItem[] menuItems;
 
     /**
      * this class allow a minimal user interface for setting the parameters of the research in the "the Guardian" sites content
@@ -45,6 +48,27 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
         this.setResizable(true);
         this.setFocusable(false);
         this.getContentPane().setBackground(Color.white);
+
+        //SETTING MENU BAR
+        //create a menu bar
+        menuBar = new JMenuBar();
+
+        //create a menu
+        menu = new JMenu("SOURCE");
+
+        //create items for menu
+        menuItems = new JMenuItem[3];
+        menuItems[0] = new JMenuItem("CSV");
+        menuItems[1] = new JMenuItem("XML");
+        menuItems[2] = new JMenuItem("THE GUARDIAN API");
+        menu.add(menuItems[0]);
+        menu.add(menuItems[1]);
+        menu.add(menuItems[2]);
+        menuBar.add(menu);
+        menuItems[0].addActionListener(this);
+        menuItems[1].addActionListener(this);
+        menuItems[2].addActionListener(this);
+
 
         //initializing buttons to confirm the entered parameters
         startButton =new JButton();
@@ -187,6 +211,7 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
         this.add(panels1[3]);
         this.add(panels1[4]);
         this.add(panels1[5]);
+        this.setJMenuBar(menuBar);
         this.validate();
     }
 
@@ -388,6 +413,12 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
         }else if (event.getSource().equals(buttons2[2])){
             System.out.println("End game!");
             System.exit(0);
+        }else if(event.getSource().equals(menuItems[0])){
+            System.out.println("1st item selected!");
+        }else if(event.getSource().equals(menuItems[1])){
+            System.out.println("2nd item selected!");
+        }else if(event.getSource().equals(menuItems[2])){
+            System.out.println("3rd item selected!");
         }
     }
 

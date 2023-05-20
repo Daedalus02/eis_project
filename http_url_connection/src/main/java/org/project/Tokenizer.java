@@ -110,7 +110,7 @@ public class Tokenizer {
      * this method is used by this class to correctly enter tokens in the treemap
      * @param str1
      */
-    public void enterTokens(String str1){
+    private void enterTokens(String str1){
         //save string tokens in a list (without duplicates)
         document = pipeline.processToCoreDocument(str1);
         List<String> list = document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList());
