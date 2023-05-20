@@ -160,7 +160,7 @@ public class Main {
                 articles = deserializer.deserialize(fileName);
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
-                    tokenizer.addDocument(pageText);
+                    tokenizer.enterTokens(pageText);
                 }
 
                 //PRINTING/ORDERING PHASE
