@@ -4,10 +4,13 @@ import com.opencsv.exceptions.CsvValidationException;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
-import static java.util.stream.Collectors.toList;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  *
@@ -22,7 +25,7 @@ public class Main {
             String fileName = "res\\pages\\test.xml";
             Tokenizer tokenizer = new Tokenizer("", true);
             Deserializer deserializer = new Deserializer();
-            String pageText;
+            String pageText = "";
             String downloadAnswer = "n";
             String csvAnswer = "n";
             String dataAnswer = "n";
@@ -108,7 +111,7 @@ public class Main {
 
                         //parsing the response
                         jsonparser = new jsonParser(apiString);
-                        articles.addAll(Arrays.stream(jsonparser.getArticles()).collect(toList()));
+                        articles.addAll(jsonparser.getArticles());
 
                         //setting the max number of article to analyze, also basing on the number of available ones
                         if (jsonparser.getPages() < maxArticle) {
@@ -153,6 +156,7 @@ public class Main {
             //DESERIALIZING/READING PHASE
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
+                //DESERIALIZING
                 articles = deserializer.deserialize(fileName);
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
@@ -177,16 +181,8 @@ public class Main {
                     pair = iter.next();
                 }
             }
-        } catch (MalformedURLException e) {
+        } catch (IOException | CsvValidationException | JSONException |BadLocationException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch(JSONException e){
-            e.printStackTrace();
-        } catch (BadLocationException e) {
-            throw new RuntimeException(e);
-        } catch (CsvValidationException e) {
-            throw new RuntimeException(e);
         }
     }
 }

@@ -1,23 +1,40 @@
 package org.project;
+
+
+import org.json.JSONException;
+
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+import java.util.List;
 
 public class Frame extends  JFrame implements ActionListener, MouseListener {
-    private final static int SCREEN_WIDTH = 1000;
-    private final static int SCREEN_HEIGHT = 400;
+    private final static int SCREEN_WIDTH = 800;
+    private final static int SCREEN_HEIGHT = 600;
     private final static int DELAY = 100;
     private Panel panel;
     private JButton startButton;
-    private JPanel[] panels;
+    private JButton[] buttons2;
+    private JPanel[] panels1;
+    private JPanel[] panels2;
     private JTextField[] texts;
-    private  JLabel[] labels;
+    private JLabel[] labels1;
+    private JLabel[] labels2;
+    private JTextArea field2;
     private boolean[] selected;
-
-    private String[] answare;
+    private String[] answer;
+    private String[] elements;
+    private int elementPosition = 0;
+    private JMenu menu;
+    private JMenuBar menuBar;
+    private JMenuItem[] menuItems;
 
     /**
      * this class allow a minimal user interface for setting the parameters of the research in the "the Guardian" sites content
@@ -32,86 +49,175 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
         this.setFocusable(false);
         this.getContentPane().setBackground(Color.white);
 
+        //SETTING MENU BAR
+        //create a menu bar
+        menuBar = new JMenuBar();
+
+        //create a menu
+        menu = new JMenu("SOURCE");
+
+        //create items for menu
+        menuItems = new JMenuItem[3];
+        menuItems[0] = new JMenuItem("CSV");
+        menuItems[1] = new JMenuItem("XML");
+        menuItems[2] = new JMenuItem("THE GUARDIAN API");
+        menu.add(menuItems[0]);
+        menu.add(menuItems[1]);
+        menu.add(menuItems[2]);
+        menuBar.add(menu);
+        menuItems[0].addActionListener(this);
+        menuItems[1].addActionListener(this);
+        menuItems[2].addActionListener(this);
+
+
         //initializing buttons to confirm the entered parameters
         startButton =new JButton();
         setButton(startButton);
+        startButton.setText("START");
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        startButton.setAlignmentY(Component.CENTER_ALIGNMENT);
 
 
         //setting all text fields for user to enter the parameters
         texts = new JTextField[4];
+
         texts[0] = new JTextField();
-        setText(texts[0],"Enter the text for the query here: ");
+        setText(texts[0],"");
         texts[0].addActionListener(this);
         texts[0].addMouseListener(this);
 
         texts[1] = new JTextField();
-        setText(texts[1],"Enter the number of articles for the search here: ");
+        setText(texts[1],"");
         texts[1].addActionListener(this);
         texts[1].addMouseListener(this);
 
         texts[2] = new JTextField();
-        setText(texts[2],"Enter the content for the search here: ");
+        setText(texts[2],"");
         texts[2].addActionListener(this);
         texts[2].addMouseListener(this);
 
         texts[3] = new JTextField();
-        setText(texts[3],"Enter the tag for the search here: ");
+        setText(texts[3],"");
         texts[3].addActionListener(this);
         texts[3].addMouseListener(this);
 
+
         //setting the label to display at the top of the frame
-        labels = new JLabel[1];
-        labels[0] = new JLabel();
-        labels[0].setFont(new Font("Monospaced",Font.BOLD,20));
-        labels[0].setForeground(Color.DARK_GRAY);
-        labels[0].setText("DO YOU WANNA PLAY GAME?\n");
+        labels1 = new JLabel[5];
+        for(int i = 0; i < labels1.length; i++){
+            labels1[i] = new JLabel();
+            setLabels(labels1[i]);
+        }
+        labels1[0].setText("DO YOU WANNA PLAY GAME?");
+        labels1[0].setAlignmentX(Component.CENTER_ALIGNMENT);
+        labels1[1].setText("Enter the text for the query here:");
+        labels1[2].setText("Enter the number of articles for the research here: ");
+        labels1[3].setText("Enter the api_key for the research here: ");
+        labels1[4].setText("Do you want to visualize the 50 more frequent words? (Y/N)");
+
+
 
         //setting all the panels to group components in the frame
-        panels = new JPanel[6];
-        panels[0] = new JPanel();
-        setPanel(panels[0]);
-        panels[0].add(labels[0]);
-        panels[0].addMouseListener(this);
+        panels1 = new JPanel[6];
+        panels1[0] = new JPanel();
+        setPanel(panels1[0]);
+        panels1[0].add(labels1[0]);
+        panels1[0].addMouseListener(this);
 
-        panels[1]=new JPanel();
-        setPanel(panels[1]);
-        panels[1].add(texts[0]);
+        panels1[1]=new JPanel();
+        setPanel(panels1[1]);
+        panels1[1].add(labels1[1]);
+        panels1[1].add(texts[0]);
 
 
-        panels[2]=new JPanel();
-        setPanel(panels[2]);
-        panels[2].add(texts[1]);
+        panels1[2]=new JPanel();
+        setPanel(panels1[2]);
+        panels1[2].add(labels1[2]);
+        panels1[2].add(texts[1]);
 
-        panels[3]=new JPanel();
-        setPanel(panels[3]);
-        panels[3].add(texts[2]);
+        panels1[3]=new JPanel();
+        setPanel(panels1[3]);
+        panels1[3].add(labels1[3]);
+        panels1[3].add(texts[2]);
 
-        panels[4]=new JPanel();
-        setPanel(panels[4]);
-        panels[4].add(texts[3]);
+        panels1[4]=new JPanel();
+        setPanel(panels1[4]);
+        panels1[4].add(labels1[4]);
+        panels1[4].add(texts[3]);
 
-        panels[5] = new JPanel();
-        setPanel(panels[5]);
-        panels[5].add(startButton);
+        panels1[5] = new JPanel();
+        setPanel(panels1[5]);
+        panels1[5].add(startButton);
 
         //this is used to keep track of which text field is selected in each moment
         selected = new boolean[4];
-        answare = new String[4];
+        answer = new String[4];
+
+
+        //setting components for second layout
+        labels2 = new JLabel[1];
+        labels2[0] = new JLabel();
+        setLabels(labels2[0]);
+        labels2[0].setText("PRINTING THE RESULTS:");
+        labels2[0].setAlignmentX(Component.CENTER_ALIGNMENT);
+        labels2[0].setPreferredSize(new Dimension(800,100));
+        labels2[0].setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        buttons2 = new JButton[3];
+
+        buttons2[0] = new JButton();
+        setButton(buttons2[0]);
+        buttons2[0].setIcon(new ImageIcon("res/images/left.png"));
+
+        buttons2[1] = new JButton();
+        setButton(buttons2[1]);
+        buttons2[1].setIcon(new ImageIcon("res/images/right.png"));
+
+        buttons2[2] = new JButton();
+        setButton(buttons2[2]);
+        buttons2[2].setText("STOP");
+
+        field2 = new JTextArea();
+        field2.setBackground(Color.white);
+        field2.setPreferredSize(new Dimension(500,400));
+        field2.setLayout(new GridLayout());
+        field2.setFont(new Font("Monospaced",Font.BOLD,40));
+        field2.setVisible(true);
+
+        panels2 = new JPanel[3];
+
+        panels2[0] = new JPanel();
+        setPanel2(panels2[0]);
+        panels2[0].setLayout(new GridLayout(1,1));
+        panels2[0].add(labels2[0]);
+
+        panels2[1] = new JPanel();
+        setPanel2(panels2[1]);
+        panels2[1].setLayout(new BorderLayout());
+        panels2[1].add(buttons2[0],BorderLayout.WEST);
+        panels2[1].add(field2,BorderLayout.CENTER);
+        panels2[1].add(buttons2[1],BorderLayout.EAST);
+
+        panels2[2] = new JPanel();
+        setPanel2(panels2[2]);
+        panels2[2].setLayout(new GridLayout(1,1));
+        panels2[2].add(buttons2[2]);
+
 
         //adding panels to the frame
-        this.add(panels[0]);
-        this.add(panels[1]);
-        this.add(panels[2]);
-        this.add(panels[3]);
-        this.add(panels[4]);
-        this.add(panels[5]);
+        this.add(panels1[0]);
+        this.add(panels1[1]);
+        this.add(panels1[2]);
+        this.add(panels1[3]);
+        this.add(panels1[4]);
+        this.add(panels1[5]);
+        this.setJMenuBar(menuBar);
         this.validate();
     }
 
     //this method is used by this class to set a given button with particular aspects (color, font,...)
     private void setButton(JButton button){
         button.setFont(new Font("Monospaced",Font.BOLD,40));
-        button.setText("START");
         button.setVerticalTextPosition(startButton.CENTER);
         button.setHorizontalTextPosition(startButton.CENTER);
         button.setBounds(225, 25, 150, 75);
@@ -126,10 +232,20 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
 
     //this method is used by this class to set a given panel with specific layout, dimension, background
     private void setPanel(JPanel panel){
-        panel.setLayout(new GridLayout(1,1));
+        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         panel.setVisible(true);
         panel.setPreferredSize(new Dimension(300,250));
         panel.setBackground(Color.white);
+    }
+
+    private void setPanel2(JPanel panel){
+        panel.setVisible(true);
+        panel.setBackground(Color.white);
+    }
+
+    private void setLabels(JLabel label){
+        label.setFont(new Font("Monospaced",Font.BOLD,20));
+        label.setForeground(Color.DARK_GRAY);
     }
 
     //this method is used by this class to set a given textField with specific properties like font, color, ...
@@ -143,24 +259,166 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
 
     //this is a method inherited by the interface ActionListener, it is always invoked when an action occurs
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
 
-        //determining the source of the action event "e"
-        if (e.getSource().equals(startButton)) {
+        //determining the source of the action event "event"
+        if (event.getSource().equals(startButton)) {
             System.out.println("BUTTON PRESSED!");
-            for(int i = 0; i < 4; i++ ){
-                System.out.println(answare[i]);
-            }
-        } else {
-            for (int i = 0; i < 4; i++) {
-                if (e.getSource().equals(texts[i])) {
-                    answare[i] = texts[i].getText();
-                    System.out.println(answare[i]);
-                    texts[i].setText("");
-                    texts[i].setBackground(new Color(220, 220, 220));
-                    selected[i] = false;
+            for(int i = 0; i < 4; i++ ) {
+                answer[i] = texts[i].getText();
+                if(answer[i].equals("")){
+                    System.out.println("not  valid");
+                }else{
+                    System.out.println(answer[i]);
                 }
             }
+            Scanner console = new Scanner(System.in);
+
+            try {
+                java.util.List<Article> articles = new ArrayList<Article>();
+                String fileName = "res\\pages\\test.xml";
+                Tokenizer tokenizer = new Tokenizer("", true);
+                Deserializer deserializer = new Deserializer();
+                String pageText = "";
+                String downloadAnswer = "n";
+                String[] tags= new String[]{};
+
+
+                //SETTINGS PHASE
+                //setting api_key
+                String apiKey = texts[2].getText();
+
+                //setting query
+                String query = texts[0].getText();
+
+                //setting max articles number
+                int maxArticle = Integer.parseInt(texts[1].getText());
+
+                //setting download answer
+                downloadAnswer = texts[3].getText();
+                while (!(downloadAnswer.equals("y") || downloadAnswer.equals("n"))) {
+                    throw new IllegalArgumentException();
+                }
+
+                int pageCount = 1;
+                int pageSize = 100;
+                int articleCount = 0;
+                String url = "";
+                httpGetter getter;
+                String apiString = "";
+                jsonParser jsonparser;
+                htmlParser htmlparser;
+
+                //SERIALIZING PHASE
+                while (articleCount < maxArticle) {
+                    //setting url basing on the fields required for the api request
+                    url = (new urlSetter("https://content.guardianapis.com", apiKey, pageCount, pageSize, query, tags)).getUrl();
+                    System.out.println("from " + url + " :");
+
+                    //getting response from the api point
+                    getter = new httpGetter(new URL(url));
+                    apiString = getter.getHttpString();
+
+                    //parsing the response
+                    jsonparser = new jsonParser(apiString);
+                    articles.addAll(jsonparser.getArticles());
+
+                    //setting the max number of article to analyze, also basing on the number of available ones
+                    if (jsonparser.getPages() < maxArticle) {
+                        maxArticle = jsonparser.getPages();
+                        System.out.println("Limited to " + maxArticle + " pages...");
+                    }
+
+                    //initializing parser
+                    htmlparser = new htmlParser();
+
+                    //analyzing each of the single new articles
+                    for (Article article : articles.subList(articleCount, articles.size())) {
+                        if (articleCount == maxArticle) {
+                            break;
+                        }
+                        System.out.println("Anayzing site number: " + (articleCount + 1) + " with title: " + article.getWebTitle());
+                        htmlparser.parse(article);
+                        articleCount++;
+                    }
+                    pageCount++;
+                }
+
+                //TRIM
+                articles = new ArrayList<Article>(articles.subList(0, maxArticle));
+
+                //SERIALIZING
+                    Serializer serializer = new Serializer();
+                    serializer.serialize(articles, fileName);
+
+
+                //DESERIALIZING/READING PHASE
+                if (downloadAnswer.equals("y")) {
+
+                    //DESERIALIZING
+                    articles = deserializer.deserialize(fileName);
+                    for (Article article : articles) {
+                        pageText = article.getHead() + article.getBody();
+                        tokenizer.addDocument(pageText);
+                    }
+
+                    //PRINTING/ORDERING PHASE
+                    System.out.println("The " + 50 + " more frequent words in the analyzed articles are: ");
+
+                    Set<Map.Entry<Integer, java.util.List<String>>> set = tokenizer.getOrderedTokens(50);
+                    int wordCounter = 0;
+                    Iterator<Map.Entry<Integer, java.util.List<String>>> iter = set.iterator();
+                    Map.Entry<Integer, List<String>> pair = iter.next();
+                    elements = new String[100];
+                    int elementIndex = 0;
+
+                    while (iter.hasNext()) {
+                        int index = pair.getValue().size();
+                        while (index > 0) {
+                            index--;
+                            System.out.println("          " + (wordCounter + 1) + ": " + pair.getValue().get(index) + " " + pair.getKey());
+                            wordCounter++;
+                            elements[elementIndex] = "WORD: " + pair.getValue().get(index) + "\nFREQUENCY: " + pair.getKey();
+                            elementIndex++;
+                        }
+                        pair = iter.next();
+                    }
+
+                    //PRINTING IN PANEL
+                    this.getContentPane().removeAll();
+                    this.setLayout(new BorderLayout());
+                    this.add(panels2[0],BorderLayout.NORTH);
+                    this.add(panels2[1],BorderLayout.CENTER);
+                    this.add(panels2[2],BorderLayout.SOUTH);
+                    this.revalidate();
+                }else{
+                    System.exit(0);
+                }
+            } catch (IOException | JSONException | BadLocationException e) {
+                e.printStackTrace();
+            }
+
+        }else if (event.getSource().equals(buttons2[0])) {
+            System.out.println("Left");
+            if(elementPosition > 0){
+                elementPosition--;
+                field2.setText(elements[elementPosition]);
+            }
+        }else if (event.getSource().equals(buttons2[1])){
+            System.out.println("Right");
+            if(elementPosition < 50){
+                field2.setText(elements[elementPosition]);
+                elementPosition++;
+            }
+        }else if (event.getSource().equals(buttons2[2])){
+            System.out.println("End game!");
+            System.exit(0);
+        }else if(event.getSource().equals(menuItems[0])){
+            System.out.println("1st item selected!");
+        }else if(event.getSource().equals(menuItems[1])){
+            System.out.println("2nd item selected!");
+        }else if(event.getSource().equals(menuItems[2])){
+            System.out.println("3rd item selected!");
         }
     }
 
@@ -203,7 +461,7 @@ public class Frame extends  JFrame implements ActionListener, MouseListener {
                 texts[1].setBackground(Color.darkGray);
             } else if (e.getSource().equals(texts[2])) {
                 texts[2].setBackground(Color.darkGray);
-            } else if (e.getSource().equals(texts[3])) {
+            }else if(e.getSource().equals(texts[3])){
                 texts[3].setBackground(Color.darkGray);
             }
         }
