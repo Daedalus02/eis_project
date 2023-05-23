@@ -1,7 +1,8 @@
 *.class
 .idea/*
 *.iml
-test.xml
+*/test.xml
 */target/*
 .vscode/*
 .vscode/settings.json
+http_url_connection/res\pages\test.xml
