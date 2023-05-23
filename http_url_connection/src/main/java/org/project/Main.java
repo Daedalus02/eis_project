@@ -35,13 +35,13 @@ public class Main {
             System.out.println("Do you wanna load data from csv file? (y/n)");
             csvAnswer = console.nextLine().toLowerCase();
             while(!(csvAnswer.equals("y") || csvAnswer.equals("n"))){
-                System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
+                System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                 csvAnswer = console.nextLine().toLowerCase();
             }
 
             if(csvAnswer.equals("y")) {
                 //CSV READING PHASE
-                System.out.println("Enter the relative path to csv file: ");
+                System.out.println("Enter the relative path of the csv file: ");
                 csvName = console.nextLine().toLowerCase();
                 csvParser csvparser = new csvParser(csvName);
                 articles = csvparser.getArticles();
@@ -50,7 +50,7 @@ public class Main {
                 System.out.println("Do you wanna load data from file?(y/n)");
                 dataAnswer = console.nextLine().toLowerCase();
                 while (!(dataAnswer.equals("y") || dataAnswer.equals("n"))) {
-                    System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
+                    System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                     dataAnswer = console.nextLine().toLowerCase();
                 }
 
@@ -67,7 +67,7 @@ public class Main {
                     String queryAnswer = console.nextLine().toLowerCase();
                     String query = "";
                     while (!(queryAnswer.equals("y") || queryAnswer.equals("n"))) {
-                        System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
+                        System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                         queryAnswer = console.nextLine().toLowerCase();
                     }
                     if (queryAnswer.equals("y")) {
@@ -77,7 +77,7 @@ public class Main {
 
                     //setting tags
                     int tagNumber = 0;
-                    System.out.println("Enter the number of tag you want to search (0 if none): ");
+                    System.out.println("Enter the number of tags you want to search (0 if none): ");
                     tagNumber = console.nextInt();
                     String[] tags = new String[tagNumber];
                     for (int i = 0; i < tagNumber; i++) {
@@ -141,7 +141,7 @@ public class Main {
                     System.out.println("Do you want to read the 50 most frequent words in the downloaded articles? (y/n)");
                     downloadAnswer = console.next();
                     while (!(downloadAnswer.equals("y") || downloadAnswer.equals("n"))) {
-                        System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
+                        System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                         downloadAnswer = console.nextLine().toLowerCase();
                     }
                 }
@@ -164,7 +164,7 @@ public class Main {
                 }
 
                 //PRINTING/ORDERING PHASE
-                System.out.println("The " + 50 + " more frequent words in the analyzed articles are: ");
+                System.out.println("The " + 50 + " most frequent words in the analyzed articles are: ");
 
                 Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(50);
                 int wordCounter = 0;
