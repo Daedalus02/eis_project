@@ -25,7 +25,7 @@ import com.opencsv.exceptions.CsvValidationException;
  * -Source
  */
 public class csvParser {
-    List<Article> articles;
+    List<Article> articles;  ///////////////PRIVATE OR PUBLIC?
     public csvParser(String fileName) throws IOException, CsvValidationException, InvalidPropertiesFormatException {
 
         //intializing a csv reader
