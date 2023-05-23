@@ -3,3 +3,5 @@
 *.iml
 test.xml
 */target/*
+.vscode/*
+.vscode/settings.json
