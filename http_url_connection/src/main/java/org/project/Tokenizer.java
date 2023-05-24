@@ -123,7 +123,7 @@ public class Tokenizer {
         for (String c : list){
             if(checkPunctuation) {
                 //checks if the element in the list is not punctuation
-                if (!Pattern.matches("\\p{Punct}", c)) {
+                if (!(Pattern.matches("\\p{Punct}", c) | Pattern.matches("[.!?”“–-]", c))) {
                     value = tokens.getOrDefault(c, 0);
                     tokens.put(c, value+1);
                 }
