@@ -18,7 +18,6 @@ public class httpGetter {
     private String message;
     private boolean connected = false;
 
-
     /**
      * This constructor the http Method, connection timeout, read timeout and gets the status code and the message of the http response
      * @param url
