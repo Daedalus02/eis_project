@@ -1,15 +1,9 @@
 package org.project;
 
 import edu.stanford.nlp.pipeline.*;
-import java.util.TreeMap;
-import java.util.Properties;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.SortedMap;
+
+import java.io.*;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -23,13 +17,14 @@ public class Tokenizer {
     private CoreDocument document;
     private TreeMap<String,Integer> tokens;
     private StanfordCoreNLP pipeline;
-    private boolean checkPunctuation = false;
-
+    private boolean checks = false;
+    private List<String> commonWords;
+    private final String fileName = "res\\words\\words.txt";
     /**
      * @param str1
-     * @param check
+     * @param check1
      */
-    public Tokenizer(String str1, boolean check) {
+    public Tokenizer(String str1, boolean check1) {
         str = str1;
 
         // set up pipeline properties
@@ -50,7 +45,21 @@ public class Tokenizer {
 
         //save tokens in a map
         tokens = new TreeMap<String, Integer>();
-        checkPunctuation = check;
+
+        //setting checks
+        checks = check1;
+        commonWords = new ArrayList<String>();
+        if(check1){
+            try{
+                BufferedReader reader = new BufferedReader(new FileReader(fileName));
+                String word = "";
+                while((word = reader.readLine()) != null){
+                    commonWords.add(word);
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
         enterTokens(str1);
     }
 
@@ -58,7 +67,6 @@ public class Tokenizer {
      * this method allow to print all the contained tokens by iterating through it
      */
     public void printTokens(){
-        System.out.println(tokens);
         Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
         while(iter.hasNext()){
             Map.Entry<String,Integer> pair = iter.next();
@@ -96,21 +104,21 @@ public class Tokenizer {
      * this method enables punctuation check
      */
     public void enableCheck(){
-        checkPunctuation = true;
+        checks = true;
     }
 
     /**
      * this method disables punctuation check
      */
     public void disableCheck(){
-        checkPunctuation = false;
+        checks = false;
     }
 
     /**
      * this method is used by this class to correctly enter tokens in the treemap
      * @param str1
      */
-    private void enterTokens(String str1){
+    public void enterTokens(String str1){
         //save string tokens in a list (without duplicates)
         document = pipeline.processToCoreDocument(str1);
         List<String> list = document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList());
@@ -121,18 +129,24 @@ public class Tokenizer {
         }
 
         int value = 0;
-        for (String c : list){
-            if(checkPunctuation) {
-                //checks if the element in the list is not punctuation
-                if (!Pattern.matches("\\p{Punct}", c)) {
-                    value = tokens.getOrDefault(c, 0);
-                    tokens.put(c, value+1);
+        String[] splitted;
+        int splittedSize = 0;
+        for (String c : list) {
+            splitted = c.split("[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]");
+            splittedSize = splitted.length;
+            for (int i = 0; i < splittedSize; i++) {
+                if (checks) {
+                    //checks if the element in the list is not punctuation
+                    if (!(Pattern.matches("\\p{Punct}", splitted[i]) | Pattern.matches("[.!?”“–—’‘'…-]", splitted[i]) | splitted[i].equals("") | commonWords.contains(splitted[i]))) {
+                        value = tokens.getOrDefault(splitted[i], 0);
+                        tokens.put(splitted[i], value + 1);
+                    }
+                } else {
+                    //return the value assciated with the string if present else it return 0
+                    value = tokens.getOrDefault(splitted[i], 0);
+                    //put a new string in the treemap else it add 1 to the actual value of the asscociated entry
+                    tokens.put(splitted[i], value + 1);
                 }
-            }else{
-                //return the value assciated with the string if present else it return 0
-                value = tokens.getOrDefault(c, 0);
-                //put a new string in the treemap else it add 1 to the actual value of the asscociated entry
-                tokens.put(c, value + 1);
             }
         }
     }
@@ -162,7 +176,6 @@ public class Tokenizer {
             }else{
                 reverseMap.get(pair.getValue()).add(pair.getKey());
             }
-
         }
 
         //reducing size to maxSize words in total
@@ -180,6 +193,7 @@ public class Tokenizer {
                     int index = counter - maxSize;
                     while(index > 0) {
                         index--;
+                        //System.out.println("here");
                         listPair.getValue().remove(index);
                     }
                     counter = maxSize;
