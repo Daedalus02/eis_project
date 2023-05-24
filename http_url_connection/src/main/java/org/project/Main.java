@@ -18,6 +18,16 @@ import java.util.Set;
 public class Main {
 
     public static void main(String Args[]) {
+        /*
+        * structure of input from terminal
+        *
+        * java -cp /t
+        *
+        * */
+        if(Args.length != 0){
+
+        }
+
         Scanner console = new Scanner(System.in);
 
         try {
