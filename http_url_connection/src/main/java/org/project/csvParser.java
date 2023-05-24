@@ -9,6 +9,7 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import javax.xml.transform.Source;
 
 
 /**
@@ -24,7 +25,7 @@ import com.opencsv.exceptions.CsvValidationException;
  * -Source Set
  * -Source
  */
-public class csvParser {
+public class csvParser  {
     List<Article> articles;
     public csvParser(String fileName) throws IOException, CsvValidationException, InvalidPropertiesFormatException {
 

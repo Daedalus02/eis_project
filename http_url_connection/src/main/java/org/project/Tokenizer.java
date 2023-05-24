@@ -20,6 +20,7 @@ public class Tokenizer {
     private boolean checks = false;
     private List<String> commonWords;
     private final String fileName = "res\\words\\words.txt";
+    private final String regex = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
     /**
      * @param str1
      * @param check1
@@ -132,7 +133,8 @@ public class Tokenizer {
         String[] splitted;
         int splittedSize = 0;
         for (String c : list) {
-            splitted = c.split("[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]");
+            //splitting the string using common punctuation and numbers
+            splitted = c.split(regex);
             splittedSize = splitted.length;
             for (int i = 0; i < splittedSize; i++) {
                 if (checks) {
@@ -150,6 +152,7 @@ public class Tokenizer {
             }
         }
     }
+
 
     /**
      * this method returns a Set of Ordered tokens building a reverse Treemap of list of String as values("words") and integers(frequency) as keys of the given size (if possible)

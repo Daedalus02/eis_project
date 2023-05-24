@@ -5,17 +5,34 @@ package org.project;
  */
 public class urlSetter {
     private String url = "";
+    private String apiKey;
+    private String[] queries;
+    private String[] tags;
+    private String baseUrl;
+    private int page;
+    private int pageSize;
+
+
 
     /**
-     * @param baseUrl
-     * @param apiKey
-     * @param page
-     * @param query
-     * @param tags
+     * @param baseUrl1
+     * @param apiKey1
+     * @param page1
+     * @param queries1
+     * @param tags1
      * @throws IllegalArgumentException
      */
-    public urlSetter(String baseUrl, String apiKey, int page,int pageSize, String query ,  String[] tags) throws IllegalArgumentException{
-        url += baseUrl;
+    public urlSetter(String baseUrl1, String apiKey1, int page1,int pageSize1, String[] queries1 ,String[] tags1) throws IllegalArgumentException{
+        baseUrl = baseUrl1;
+        apiKey = apiKey1;
+        tags = tags1;
+        page = page1;
+        queries = queries1;
+        pageSize = pageSize1;
+        buildUrl();
+    }
+    private void buildUrl(){
+        url = baseUrl;
 
         url += "/search?";
 
@@ -35,15 +52,25 @@ public class urlSetter {
                 url += "/"+tags[i];
             }
         }
-        if(query != "") {
-            query = query.replace(" ","%20");
-            url += "&q=" + "\"" + query + "\"";
+        if(queries.length != 0) {
+            url += "&q=";
+            for (int i = 0; i < queries.length; i++) {
+                queries[i] = queries[i].replace(" ", "%20");
+                if (i == (queries.length - 1)) {
+                    url += queries[i];
+                } else {
+                    url += queries[i] + "%20AND%20";
+                }
+            }
         }
         if(apiKey == ""){
             throw new IllegalArgumentException();
         }
         url += "&api-key=" + apiKey;
-
+    }
+    public void incrementPage(){
+        page++;
+        buildUrl();
     }
 
     /**

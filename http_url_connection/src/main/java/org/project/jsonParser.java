@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * this class is used to parse the give api response content, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
-public class jsonParser
-{
+public class jsonParser{
     private String jsonString;
     private String status;
     private String userTier;
