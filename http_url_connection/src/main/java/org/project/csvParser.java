@@ -9,28 +9,36 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
-/*
- * csv Structure:
- *  -Identifier
- *  -URL
- *  -Title
- *  -Body
- *  -Date
- *  -Source Set
- *  -Source
+
+
+/**
  *
- * */
+ * This class enable the system to accept inputs from a csv file by passing as arguments to the constructor the name of the file
+ *
+ * csv Structure:
+ * -Identifier
+ * -URL
+ * -Title
+ * -Body
+ * -Date
+ * -Source Set
+ * -Source
+ */
 public class csvParser {
     List<Article> articles;
     public csvParser(String fileName) throws IOException, CsvValidationException, InvalidPropertiesFormatException {
+
+        //intializing a csv reader
         CSVReader reader = new CSVReader(new FileReader(fileName));
         articles = new ArrayList<Article>();
 
         Article article;
         String[] Record;
 
-        //skip reading first line (only has structural information)
+        //this skip reading first line (only has structural information)
         reader.readNext();
+
+        //setting all articles with the read parameters (see the structure the csv must have in the class comment)
         while((Record = reader.readNext()) !=null){
             if(Record.length != 7){
                 throw new InvalidPropertiesFormatException("The csv is in incorrect format to fit an article!");

@@ -4,17 +4,18 @@ import com.opencsv.exceptions.CsvValidationException;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
-import static java.util.stream.Collectors.toList;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Iterator;
+import java.util.Set;
 
+/**
+ *
+ */
 public class Main {
-
-    //print the first "n" ordered tokens
-    public static void printTokens(Tokenizer tokenizer, int number){
-
-    }
 
     public static void main(String Args[]) {
         Scanner console = new Scanner(System.in);
@@ -24,7 +25,7 @@ public class Main {
             String fileName = "res\\pages\\test.xml";
             Tokenizer tokenizer = new Tokenizer("", true);
             Deserializer deserializer = new Deserializer();
-            String pageText;
+            String pageText = "";
             String downloadAnswer = "n";
             String csvAnswer = "n";
             String dataAnswer = "n";
@@ -56,6 +57,10 @@ public class Main {
                 if (dataAnswer.equals("n")) {
 
                     //SETTINGS QUESTIONS PHASE
+
+                    //setting api_key
+                    System.out.println("Enter your api key to access the \"the Guardian\" articles: ");
+                    String apiKey = console.nextLine();
 
                     //setting query
                     System.out.println("Do you want to use a query?(y/n)");
@@ -97,7 +102,7 @@ public class Main {
                     //SERIALIZING PHASE
                     while (articleCount < maxArticle) {
                         //setting url basing on the fields required for the api request
-                        url = (new urlSetter("https://content.guardianapis.com", "your api_key", pageCount, pageSize, query, tags)).getUrl();
+                        url = (new urlSetter("https://content.guardianapis.com", apiKey, pageCount, pageSize, query, tags)).getUrl();
                         System.out.println("from " + url + " :");
 
                         //getting response from the api point
@@ -106,7 +111,7 @@ public class Main {
 
                         //parsing the response
                         jsonparser = new jsonParser(apiString);
-                        articles.addAll(Arrays.stream(jsonparser.getArticles()).collect(toList()));
+                        articles.addAll(jsonparser.getArticles());
 
                         //setting the max number of article to analyze, also basing on the number of available ones
                         if (jsonparser.getPages() < maxArticle) {
@@ -143,18 +148,19 @@ public class Main {
             }
 
             //SERIALIZING
-            if(dataAnswer.equals("n")){
+            if (dataAnswer.equals("n")){
                 Serializer serializer = new Serializer();
                 serializer.serialize(articles, fileName);
             }
 
             //DESERIALIZING/READING PHASE
-            if(csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
+            if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
+                //DESERIALIZING
                 articles = deserializer.deserialize(fileName);
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
-                    tokenizer.addDocument(pageText);
+                    tokenizer.enterTokens(pageText);
                 }
 
                 //PRINTING/ORDERING PHASE
@@ -163,28 +169,20 @@ public class Main {
                 Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(50);
                 int wordCounter = 0;
                 Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();
-                Map.Entry<Integer, List<String>> pair = iter.next();
+                Map.Entry<Integer, List<String>> pair;
 
                 while (iter.hasNext()) {
+                    pair = iter.next();
                     int index = pair.getValue().size();
                     while (index > 0) {
                         index--;
                         System.out.println("          " + (wordCounter + 1) + ": " + pair.getValue().get(index) + " " + pair.getKey());
                         wordCounter++;
                     }
-                    pair = iter.next();
                 }
             }
-        } catch (MalformedURLException e) {
+        } catch (IOException | CsvValidationException | JSONException |BadLocationException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch(JSONException e){
-            e.printStackTrace();
-        } catch (BadLocationException e) {
-            throw new RuntimeException(e);
-        } catch (CsvValidationException e) {
-            throw new RuntimeException(e);
         }
     }
 }

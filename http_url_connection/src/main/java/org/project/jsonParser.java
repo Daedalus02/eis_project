@@ -1,10 +1,14 @@
 package org.project;
-import org.json.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * this class is used to parse the give api response conetent, assuming it has fields to describe the response and fields to describe each one of the pages it contains
+ * this class is used to parse the give api response content, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
 public class jsonParser
 {
@@ -17,7 +21,7 @@ public class jsonParser
     private int currentPage;
     private int pages;
     private String orderBy;
-    private Article[] articles;
+    private List<Article> articles;
 
     /**
      * @param str
@@ -53,70 +57,72 @@ public class jsonParser
 
         //reading all the contained articles properties, and initializing array of articles with those (after checking if those fields are contained, not all are necessary)
         JSONArray arr = obj.getJSONObject("response").getJSONArray("results");
-        articles = new Article[arr.length()];
+        articles = new ArrayList<Article>();
+        Article article;
         for (int i = 0; i < arr.length(); i++)
         {
-            articles[i] = new Article();
+            article = new Article();
             if(arr.getJSONObject(i).has("id")){
-                articles[i].setId(arr.getJSONObject(i).getString("id"));
+                article.setId(arr.getJSONObject(i).getString("id"));
             }else{
-                articles[i].setId("");
+                article.setId("");
             }
             if(arr.getJSONObject(i).has("type")){
-                articles[i].setType(arr.getJSONObject(i).getString("type"));
+                article.setType(arr.getJSONObject(i).getString("type"));
             }else{
-                articles[i].setType("");
+                article.setType("");
             }
             if(arr.getJSONObject(i).has("sectionName")){
-                articles[i].setSectionName(arr.getJSONObject(i).getString("sectionName"));
+                article.setSectionName(arr.getJSONObject(i).getString("sectionName"));
             }else{
-                articles[i].setSectionName("");
+                article.setSectionName("");
             }
             if(arr.getJSONObject(i).has("sectionId")){
-                articles[i].setSectionId(arr.getJSONObject(i).getString("sectionId"));
+                article.setSectionId(arr.getJSONObject(i).getString("sectionId"));
             }else{
-                articles[i].setSectionId("");
+                article.setSectionId("");
             }
             if(arr.getJSONObject(i).has("webTitle")){
-                articles[i].setWebTitle(arr.getJSONObject(i).getString("webTitle"));
+                article.setWebTitle(arr.getJSONObject(i).getString("webTitle"));
             }else{
-                articles[i].setWebTitle("");
+                article.setWebTitle("");
             }
             if(arr.getJSONObject(i).has("webUrl")){
-                articles[i].setWebUrl(arr.getJSONObject(i).getString("webUrl"));
+                article.setWebUrl(arr.getJSONObject(i).getString("webUrl"));
             }else{
-                articles[i].setWebUrl("");
+                article.setWebUrl("");
             }
             if(arr.getJSONObject(i).has("webPublicationDate")){
-                articles[i].setWebPublicationDate(arr.getJSONObject(i).getString("webPublicationDate"));
+                article.setWebPublicationDate(arr.getJSONObject(i).getString("webPublicationDate"));
             }else{
-                articles[i].setWebPublicationDate("");
+                article.setWebPublicationDate("");
             }
             if(arr.getJSONObject(i).has("apiUrl")){
-                articles[i].setApiUrl(arr.getJSONObject(i).getString("apiUrl"));
+                article.setApiUrl(arr.getJSONObject(i).getString("apiUrl"));
             }else{
-                articles[i].setApiUrl("");
+                article.setApiUrl("");
             }
             if(arr.getJSONObject(i).has("pillarId")){
-                articles[i].setPillarId(arr.getJSONObject(i).getString("pillarId"));
+                article.setPillarId(arr.getJSONObject(i).getString("pillarId"));
             }else{
-                articles[i].setPillarId("");
+                article.setPillarId("");
             }
             if(arr.getJSONObject(i).has("pillarName")){
-                articles[i].setPillarName(arr.getJSONObject(i).getString("pillarName"));
+                article.setPillarName(arr.getJSONObject(i).getString("pillarName"));
             }else{
-                articles[i].setPillarName("");
+                article.setPillarName("");
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("body")){
-                articles[i].setBody(arr.getJSONObject(i).getJSONObject("fields").getString("body"));
+                article.setBody(arr.getJSONObject(i).getJSONObject("fields").getString("body"));
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("headline")){
-                articles[i].setHead(arr.getJSONObject(i).getJSONObject("fields").getString("headline"));
+                article.setHead(arr.getJSONObject(i).getJSONObject("fields").getString("headline"));
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("wordcount")){
-                articles[i].setWordcount(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount"));
+                article.setWordcount(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount"));
             }
-
+            article.setMediaGroup("The Guardian");
+            articles.add(article);
         }
     }
 
@@ -124,83 +130,70 @@ public class jsonParser
      *
      * @return article of arrays parsed from the given string
      */
-    public Article[] getArticles(){
+    public List<Article> getArticles(){
         return articles;
     }
 
 
-    /*setters and getters */
+    /*GETTERS*/
     public String getJsonString() {
         return jsonString;
     }
-    public void setJsonString(String jsonString) {
-        this.jsonString = jsonString;
-    }
-
     public String getStatus() {
         return status;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public int getTotal() {
         return total;
     }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int getStartIndex() {
         return startIndex;
     }
-
-    public void setStartIndex(int startIndex) {
-        this.startIndex = startIndex;
-    }
-
     public int getPageSize() {
         return pageSize;
     }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public String getUserTier() {
+        return userTier;
     }
-
     public int getCurrentPage() {
         return currentPage;
     }
-
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+    public String getOrderBy() {
+        return orderBy;
     }
-
     public int getPages() {
         return pages;
     }
 
+
+    /*SETTERS*/
     public void setPages(int pages) {
         this.pages = pages;
     }
-
-    public String getOrderBy() {
-        return orderBy;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
-
+    public void setJsonString(String jsonString) {
+        this.jsonString = jsonString;
+    }
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+    public void setTotal(int total) {
+        this.total = total;
+    }
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
 
-    public void setArticles(Article[] articles) {
+    public void setArticles(ArrayList<Article> articles) {
         this.articles = articles;
     }
-
-    public String getUserTier() {
-        return userTier;
-    }
-
     public void setUserTier(String userTier) {
         this.userTier = userTier;
     }

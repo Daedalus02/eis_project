@@ -1,12 +1,20 @@
 package org.project;
 
 import edu.stanford.nlp.pipeline.*;
-import java.util.*;
+import java.util.TreeMap;
+import java.util.Properties;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.SortedMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * this class is a wrapper that contain another tokenizer ("nlp") and allow to tokenize a give string of text into its words
+ * this class is a wrapper that contain another tokenizer ("core nlp") and allow to tokenize a give string of text into its words
  * giving the possibility to check punctuation and eventually getting a lexical/frequency ordered version to iterate through
  */
 public class Tokenizer {
@@ -50,7 +58,6 @@ public class Tokenizer {
      * this method allow to print all the contained tokens by iterating through it
      */
     public void printTokens(){
-        System.out.println(tokens);
         Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
         while(iter.hasNext()){
             Map.Entry<String,Integer> pair = iter.next();
@@ -102,7 +109,7 @@ public class Tokenizer {
      * this method is used by this class to correctly enter tokens in the treemap
      * @param str1
      */
-    private void enterTokens(String str1){
+    public void enterTokens(String str1){
         //save string tokens in a list (without duplicates)
         document = pipeline.processToCoreDocument(str1);
         List<String> list = document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList());
@@ -154,7 +161,6 @@ public class Tokenizer {
             }else{
                 reverseMap.get(pair.getValue()).add(pair.getKey());
             }
-
         }
 
         //reducing size to maxSize words in total
@@ -172,6 +178,7 @@ public class Tokenizer {
                     int index = counter - maxSize;
                     while(index > 0) {
                         index--;
+                        //System.out.println("here");
                         listPair.getValue().remove(index);
                     }
                     counter = maxSize;
