@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>the_four_knights</groupId>
-    <artifactId>http_url_connection</artifactId>
+    <artifactId>article_analyzer</artifactId>
     <version>1.0</version>
 
     <properties>
