@@ -58,8 +58,8 @@ public class apiSource implements articleSource{
 
         while (articleCount < maxArticle) {
             //setting url basing on the fields required for the api request
-            urlsetter.incrementPage();
             url = urlsetter.getUrl();
+            urlsetter.incrementPage();
             System.out.println("from " + url + " :");
 
             //getting response from the api point
@@ -71,7 +71,7 @@ public class apiSource implements articleSource{
             articles.addAll(jsonparser.getArticles());
 
             //setting the max number of article to analyze, also basing on the number of available ones
-            if (jsonparser.getPages() < maxArticle) {
+            if (jsonparser.getTotal() < maxArticle) {
                 maxArticle = jsonparser.getPages();
                 System.out.println("Limited to " + maxArticle + " pages...");
             }

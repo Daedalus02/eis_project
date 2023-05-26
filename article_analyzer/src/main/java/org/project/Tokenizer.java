@@ -122,36 +122,40 @@ public class Tokenizer {
     public void enterTokens(String str1){
         //save string tokens in a list (without duplicates)
         document = pipeline.processToCoreDocument(str1);
-        List<String> list = document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList());
-
+        /*
+        * This line combine multiple operation:
+        * It first converts each element(corelabel) of the document produced by coreNLP tokenization into a string of lower case characters.
+        * Then it split it using regex (see the definition in the finals fields definitions), this return an array of String.
+        * At this point it convert the array into a list using "collect(Collectors.toList()". But in the end this would return an array.
+        * So instead of considering an association between each corelabel to a list we consider multiple association between a corelabel and all
+        * the tokens returned from the split operation (Strings).
+        * But then in the end we would have an array of String, so, as we did before, we again convert the final big array into a list we the same method.
+        *
+        * */
+        List<String> list = document.tokens().stream().map(coreLabel -> Arrays.stream(coreLabel.toString().toLowerCase().split(regex)).collect(Collectors.toList())).flatMap(List::stream).distinct().collect(Collectors.toList());
         //check document size
         if(list.size() == 0){
             return;
         }
 
         int value = 0;
-        String[] splitted;
-        int splittedSize = 0;
         for (String c : list) {
             //splitting the string using common punctuation and numbers
-            splitted = c.split(regex);
-            splittedSize = splitted.length;
-            for (int i = 0; i < splittedSize; i++) {
                 if (checks) {
                     //checks if the element in the list is not punctuation
-                    if (!(Pattern.matches("\\p{Punct}", splitted[i]) | Pattern.matches("[.!?”“–—’‘'…-]", splitted[i]) | splitted[i].equals("") | commonWords.contains(splitted[i]))) {
-                        value = tokens.getOrDefault(splitted[i], 0);
-                        tokens.put(splitted[i], value + 1);
+                    if (!(Pattern.matches("\\p{Punct}", c) | Pattern.matches("[.!?”“–—’‘'…-]", c) | c.equals("") | commonWords.contains(c))) {
+                        value = tokens.getOrDefault(c, 0);
+                        tokens.put(c, value + 1);
                     }
                 } else {
                     //return the value assciated with the string if present else it return 0
-                    value = tokens.getOrDefault(splitted[i], 0);
+                    value = tokens.getOrDefault(c, 0);
                     //put a new string in the treemap else it add 1 to the actual value of the asscociated entry
-                    tokens.put(splitted[i], value + 1);
+                    tokens.put(c, value + 1);
                 }
             }
         }
-    }
+
 
 
     /**
