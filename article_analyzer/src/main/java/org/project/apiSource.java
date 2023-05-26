@@ -3,7 +3,6 @@ package org.project;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

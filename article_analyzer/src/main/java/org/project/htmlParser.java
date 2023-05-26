@@ -2,7 +2,6 @@ package org.project;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import javax.swing.text.BadLocationException;
