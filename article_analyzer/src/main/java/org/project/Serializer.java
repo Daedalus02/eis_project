@@ -1,8 +1,8 @@
 package org.project;
 
-import com.thoughtworks.xstream.XStream;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import com.fasterxml.jackson.xml.XmlMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,10 +11,11 @@ import java.util.List;
  */
 public class Serializer
 {
-    XStream xStream;
+    XmlMapper xmlMapper;
+
     public Serializer() throws IOException {
-        //initializing serializer
-        xStream = new XStream();
+        xmlMapper = new XmlMapper();
+        xmlMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
     }
 
     /**
@@ -23,12 +24,8 @@ public class Serializer
      * @throws IOException
      */
     public void serialize(List<Article> articleList, String fileName) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-        xStream.omitField(articleList.getClass(),"id");
-        String xml = xStream.toXML(articleList);
-        writer.write("");
-        writer.append(xml);
-        writer.newLine();
-        writer.close();
+        Articles articles = new Articles(articleList);
+        xmlMapper.writeValue(new File(fileName),articles);
+
     }
 }
