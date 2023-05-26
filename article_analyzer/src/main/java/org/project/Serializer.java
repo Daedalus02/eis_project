@@ -24,6 +24,7 @@ public class Serializer
      */
     public void serialize(List<Article> articleList, String fileName) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        xStream.omitField(articleList.getClass(),"id");
         String xml = xStream.toXML(articleList);
         writer.write("");
         writer.append(xml);

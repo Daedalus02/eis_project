@@ -1,8 +1,10 @@
 package org.project;
 
 import com.opencsv.exceptions.CsvValidationException;
+import org.apache.commons.collections4.properties.SortedProperties;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Properties;
 
 public class Main {
 
@@ -29,6 +32,7 @@ public class Main {
         try {
             List<Article> articles = new ArrayList<Article>();
             String fileName = "res\\pages\\test.xml";
+            String apiFile = "res\\private\\private.properties";
             Tokenizer tokenizer = new Tokenizer("", true);
             Deserializer deserializer = new Deserializer();
             String pageText = "";
@@ -67,9 +71,22 @@ public class Main {
                     //SETTINGS QUESTIONS PHASE
 
                     //setting api_key
-                    System.out.println("Enter your api key to access the \"the Guardian\" articles: ");
-                    String apiKey = console.nextLine();
-
+                    String apiKey = "";
+                    System.out.println("Do you want to use the default apiKey?");
+                    String defaultAnswer = console.nextLine().toLowerCase();
+                    while (!(defaultAnswer.equals("y") || defaultAnswer.equals("n"))) {
+                        System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
+                        defaultAnswer = console.nextLine().toLowerCase();
+                    }
+                    if(defaultAnswer.equals("n")) {
+                        System.out.println("Enter your api key to access the \"the Guardian\" articles: ");
+                        apiKey = console.nextLine();
+                    }else{
+                        FileInputStream fis = new FileInputStream(apiFile);
+                        Properties props = new Properties();
+                        props.load(fis);
+                        apiKey = props.getProperty("apiKey");
+                    }
                     //setting query
                     System.out.println("Do you want to use a query?(y/n)");
                     String queryAnswer = console.nextLine().toLowerCase();

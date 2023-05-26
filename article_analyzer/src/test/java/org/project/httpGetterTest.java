@@ -26,4 +26,16 @@ class httpGetterTest
         URL url = new URL("https://www.jetbrais.com");
         httpGetter getter = new httpGetter(url);
     }
+
+    @Test
+    void setUrl() {
+    }
+
+    @Test
+    void getHttpString() {
+    }
+
+    @Test
+    void closeConnection() {
+    }
 }

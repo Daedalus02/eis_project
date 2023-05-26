@@ -44,7 +44,6 @@ public class apiSource implements articleSource{
         articles = new ArrayList<Article>();
         readArticle();
     }
-
     /**
      * This method read the Articles and parse(from html) the content of the head and body fields of the json response.
      * @throws BadLocationException

@@ -13,6 +13,8 @@ import javax.swing.text.BadLocationException;
 
     public class htmlParser {
 
+    public htmlParser(){}
+
     /**
      * this method allow the program to store the parsed content of the head and body elements in the given article object relative fields
      * @param article
