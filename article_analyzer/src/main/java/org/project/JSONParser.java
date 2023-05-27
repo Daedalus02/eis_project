@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * this class is used to parse the give api response content, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
-public class JSONParser {
+public class jsonParser{
     private String jsonString;
     private String status;
     private String userTier;
@@ -27,7 +27,7 @@ public class JSONParser {
      * @throws JSONException
      * @throws MalformedURLException
      */
-    public JSONParser(String str) throws JSONException, MalformedURLException {
+    public jsonParser(String str) throws JSONException, MalformedURLException {
         jsonString = str;
         //initializing the JsonObject with given string
         JSONObject obj = new JSONObject(str);
@@ -125,6 +125,7 @@ public class JSONParser {
         }
     }
 
+
     /*GETTERS*/
     public String getJsonString() {
         return jsonString;
@@ -156,4 +157,5 @@ public class JSONParser {
     public List<Article> getArticles(){
         return articles;
     }
+
 }

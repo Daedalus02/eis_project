@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * This class is used to represent an Articles source where the articles are read from an api response.
  */
-public class APISource implements ArticleSource {
-    private HTTPGetter httpgetter;
-    private HTMLParser htmlparser;
-    private URLSetter urlsetter;
-    private JSONParser jsonparser;
+public class apiSource implements articleSource{
+    private httpClient client;
+    private htmlParser htmlparser;
+    private urlSetter urlsetter;
+    private jsonParser jsonparser;
     private int maxArticle;
     public final int intialCount = 1;
     private final int pageSize = 100;
@@ -34,11 +34,11 @@ public class APISource implements ArticleSource {
      * @throws JSONException
      * @throws BadLocationException
      */
-    public APISource(String apiKey, String[] tags, String[] query, int maxArticle1) throws IOException, JSONException, BadLocationException {
+    public apiSource(String apiKey, String[] tags, String[] query, int maxArticle1) throws IOException, JSONException, BadLocationException {
         //setting the max number of articles to read (could be less)
         maxArticle = maxArticle1;
         //setting url basing on the fields required for the api request
-        urlsetter = new URLSetter(baseUrl, apiKey, intialCount, pageSize, query, tags);
+        urlsetter = new urlSetter(baseUrl, apiKey, intialCount, pageSize, query, tags);
         //setting articles variable
         articles = new ArrayList<Article>();
         readArticle();
@@ -56,17 +56,18 @@ public class APISource implements ArticleSource {
 
 
         while (articleCount < maxArticle) {
+
             //setting url basing on the fields required for the api request
             url = urlsetter.getUrl();
             urlsetter.incrementPage();
             System.out.println("from " + url + " :");
 
             //getting response from the api point
-            httpgetter = new HTTPGetter(new URL(url));
-            apiString = httpgetter.getHttpString();
+            client = new httpClient(new URL(url));
+            apiString = client.getHttpString();
 
             //parsing the response
-            jsonparser = new JSONParser(apiString);
+            jsonparser = new jsonParser(apiString);
             articles.addAll(jsonparser.getArticles());
 
             //setting the max number of article to analyze, also basing on the number of available ones
@@ -74,9 +75,8 @@ public class APISource implements ArticleSource {
                 maxArticle = jsonparser.getPages();
                 System.out.println("Limited to " + maxArticle + " pages...");
             }
-
             //initializing parser
-            htmlparser = new HTMLParser();
+            htmlparser = new htmlParser();
 
             //analyzing each of the single new articles
             for (Article article : articles.subList(articleCount, articles.size())) {

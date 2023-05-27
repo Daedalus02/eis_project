@@ -21,8 +21,9 @@ public class Serializer
 
     public Serializer() throws IOException {
         xmlMapper = new XmlMapper();
-        //this is used to avoid throwing an exception if an invalid XML character happens to be in the xml
+        //this is used to avoid throwing an exception if an invalid XML character of different version from xml 1.1 happens to be in the xml
         xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
+        //this is used to not serialize null fields
         xmlMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
         xmlMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }

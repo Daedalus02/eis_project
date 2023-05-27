@@ -24,4 +24,7 @@ public class Articles {
     public List<Article> getArticleList() {
         return articleList;
     }
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
 }
