@@ -1,6 +1,6 @@
 package org.project.tests;
 import org.json.*;
-import org.project.jsonParser;
+import org.project.JSONParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ public class test_json
         while (console.hasNextLine()){
             str += console.nextLine();
         }
-        jsonParser json = new jsonParser(str);
+        JSONParser json = new JSONParser(str);
 
     }
 }

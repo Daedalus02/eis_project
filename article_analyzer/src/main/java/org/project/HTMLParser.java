@@ -10,9 +10,9 @@ import javax.swing.text.BadLocationException;
  * This class is used to parse the head and body fields in the article from html format
  */
 
-    public class htmlParser {
+    public class HTMLParser {
 
-    public htmlParser(){}
+    public HTMLParser(){}
 
     /**
      * this method allow the program to store the parsed content of the head and body elements in the given article object relative fields

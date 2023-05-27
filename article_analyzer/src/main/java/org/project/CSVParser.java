@@ -23,9 +23,9 @@ import com.opencsv.exceptions.CsvValidationException;
  * -Source Set
  * -Source
  */
-public class csvParser  {
+public class CSVParser {
     private List<Article> articles;
-    public csvParser(String fileName) throws IOException, CsvValidationException, InvalidPropertiesFormatException {
+    public CSVParser(String fileName) throws IOException, CsvValidationException, InvalidPropertiesFormatException {
 
         //intializing a csv reader
         CSVReader reader = new CSVReader(new FileReader(fileName));

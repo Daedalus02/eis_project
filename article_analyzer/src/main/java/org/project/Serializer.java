@@ -2,6 +2,8 @@ package org.project;
 
 import com.fasterxml.jackson.xml.XmlMapper;
 import com.fasterxml.jackson.xml.ser.ToXmlGenerator;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +24,7 @@ public class Serializer
         //this is used to avoid throwing an exception if an invalid XML character happens to be in the xml
         xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
         xmlMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        xmlMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
     /**

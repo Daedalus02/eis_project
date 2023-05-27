@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * this class is used to parse the give api response content, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
-public class jsonParser{
+public class JSONParser {
     private String jsonString;
     private String status;
     private String userTier;
@@ -27,7 +27,7 @@ public class jsonParser{
      * @throws JSONException
      * @throws MalformedURLException
      */
-    public jsonParser(String str) throws JSONException, MalformedURLException {
+    public JSONParser(String str) throws JSONException, MalformedURLException {
         jsonString = str;
         //initializing the JsonObject with given string
         JSONObject obj = new JSONObject(str);
@@ -125,15 +125,6 @@ public class jsonParser{
         }
     }
 
-    /**
-     *
-     * @return article of arrays parsed from the given string
-     */
-    public List<Article> getArticles(){
-        return articles;
-    }
-
-
     /*GETTERS*/
     public String getJsonString() {
         return jsonString;
@@ -162,38 +153,7 @@ public class jsonParser{
     public int getPages() {
         return pages;
     }
-
-
-    /*SETTERS*/
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
-    public void setJsonString(String jsonString) {
-        this.jsonString = jsonString;
-    }
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public void setStartIndex(int startIndex) {
-        this.startIndex = startIndex;
-    }
-    public void setTotal(int total) {
-        this.total = total;
-    }
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-    }
-
-    public void setArticles(ArrayList<Article> articles) {
-        this.articles = articles;
-    }
-    public void setUserTier(String userTier) {
-        this.userTier = userTier;
+    public List<Article> getArticles(){
+        return articles;
     }
 }
