@@ -3,7 +3,7 @@ package org.project;
 /**
  * this class allow to set the url with some given parameters (tags, query, page, page size, api key, base url ) for the api request
  */
-public class urlSetter {
+public class URLSetter {
     private String url = "";
     private String apiKey;
     private String[] queries;
@@ -22,7 +22,7 @@ public class urlSetter {
      * @param tags1
      * @throws IllegalArgumentException
      */
-    public urlSetter(String baseUrl1, String apiKey1, int page1,int pageSize1, String[] queries1 ,String[] tags1) throws IllegalArgumentException{
+    public URLSetter(String baseUrl1, String apiKey1, int page1, int pageSize1, String[] queries1 , String[] tags1) throws IllegalArgumentException{
         baseUrl = baseUrl1;
         apiKey = apiKey1;
         tags = tags1;

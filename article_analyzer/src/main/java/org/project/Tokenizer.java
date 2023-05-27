@@ -1,6 +1,7 @@
 package org.project;
 
 import edu.stanford.nlp.pipeline.*;
+import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 
 import java.io.*;
 import java.util.*;
@@ -26,6 +27,7 @@ public class Tokenizer {
      * @param check1 which is used to check if there are common words or punctuation in the articles
      */
     public Tokenizer(String str1, boolean check1) {
+        RedwoodConfiguration.current().clear().apply();
         str = str1;
         // set up pipeline properties
         properties = new Properties();
@@ -38,7 +40,6 @@ public class Tokenizer {
 
         //removing non recognized tokens
         properties.setProperty("tokenize.options", "untokenizable=noneDelete");
-
         // build pipeline
         pipeline = new StanfordCoreNLP(properties);
 

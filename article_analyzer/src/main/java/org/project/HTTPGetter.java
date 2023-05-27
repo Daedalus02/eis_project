@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * this class is used to get the response from the "The guardian" api
  */
-public class httpGetter {
+public class HTTPGetter {
     private URL url;
     private HttpURLConnection connection;
     private StringBuffer responseContent;
@@ -25,7 +25,7 @@ public class httpGetter {
      * @throws MalformedURLException
      * @throws IOException
      */
-    public httpGetter(URL url ) throws MalformedURLException, IOException{
+    public HTTPGetter(URL url ) throws MalformedURLException, IOException{
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(5000);
@@ -41,10 +41,10 @@ public class httpGetter {
      * @param url
      * @throws MalformedURLException
      * @throws IOException
-     * @throws impossibleConnection
+     * @throws ImpossibleConnection
      */
-    public void setUrl(URL url ) throws IOException, impossibleConnection{
-        if(connected) throw new impossibleConnection();
+    public void setUrl(URL url ) throws IOException, ImpossibleConnection {
+        if(connected) throw new ImpossibleConnection();
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(5000);
