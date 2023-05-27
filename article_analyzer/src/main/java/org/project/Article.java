@@ -3,7 +3,6 @@ package org.project;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 

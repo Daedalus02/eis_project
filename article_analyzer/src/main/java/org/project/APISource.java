@@ -2,6 +2,7 @@ package org.project;
 
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,11 +11,11 @@ import java.util.List;
 /**
  * This class is used to represent an Articles source where the articles are read from an api response.
  */
-public class apiSource implements articleSource{
+public class APISource implements ArticleSource{
     private httpClient client;
-    private htmlParser htmlparser;
-    private urlSetter urlsetter;
-    private jsonParser jsonparser;
+    private HTMLParser htmlparser;
+    private URLSetter urlsetter;
+    private JSONParser jsonparser;
     private int maxArticle;
     public final int intialCount = 1;
     private final int pageSize = 100;
@@ -34,11 +35,11 @@ public class apiSource implements articleSource{
      * @throws JSONException
      * @throws BadLocationException
      */
-    public apiSource(String apiKey, String[] tags, String[] query, int maxArticle1) throws IOException, JSONException, BadLocationException {
+    public APISource(String apiKey, String[] tags, String[] query, int maxArticle1) throws IOException, JSONException, BadLocationException {
         //setting the max number of articles to read (could be less)
         maxArticle = maxArticle1;
         //setting url basing on the fields required for the api request
-        urlsetter = new urlSetter(baseUrl, apiKey, intialCount, pageSize, query, tags);
+        urlsetter = new URLSetter(baseUrl, apiKey, intialCount, pageSize, query, tags);
         //setting articles variable
         articles = new ArrayList<Article>();
         readArticle();
@@ -67,7 +68,7 @@ public class apiSource implements articleSource{
             apiString = client.getHttpString();
 
             //parsing the response
-            jsonparser = new jsonParser(apiString);
+            jsonparser = new JSONParser(apiString);
             articles.addAll(jsonparser.getArticles());
 
             //setting the max number of article to analyze, also basing on the number of available ones
@@ -76,7 +77,7 @@ public class apiSource implements articleSource{
                 System.out.println("Limited to " + maxArticle + " pages...");
             }
             //initializing parser
-            htmlparser = new htmlParser();
+            htmlparser = new HTMLParser();
 
             //analyzing each of the single new articles
             for (Article article : articles.subList(articleCount, articles.size())) {

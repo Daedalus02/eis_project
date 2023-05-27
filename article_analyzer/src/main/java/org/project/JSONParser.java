@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * this class is used to parse the give api response content, assuming it has fields to describe the response and fields to describe each one of the pages it contains
  */
-public class jsonParser{
+public class JSONParser{
     private String jsonString;
     private String status;
     private String userTier;
@@ -27,7 +27,7 @@ public class jsonParser{
      * @throws JSONException
      * @throws MalformedURLException
      */
-    public jsonParser(String str) throws JSONException, MalformedURLException {
+    public JSONParser(String str) throws JSONException, MalformedURLException {
         jsonString = str;
         //initializing the JsonObject with given string
         JSONObject obj = new JSONObject(str);

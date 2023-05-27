@@ -31,7 +31,7 @@ public class httpClient {
 
         int responseCode = response.getStatusLine().getStatusCode();
         if(responseCode != correctStatus){
-            throw new impossibleConnection();
+            throw new ImpossibleConnection();
         }
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));

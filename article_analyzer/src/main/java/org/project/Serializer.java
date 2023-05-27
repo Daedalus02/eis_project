@@ -25,6 +25,7 @@ public class Serializer
         xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
         //this is used to not serialize null fields
         xmlMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        //this is used to set visibility
         xmlMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
