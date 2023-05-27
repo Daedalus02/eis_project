@@ -3,6 +3,7 @@ package org.project;
 import com.opencsv.exceptions.CsvValidationException;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.Properties;
 
 public class Main {
 
-    private static final String filePath = "res\\pages\\";
+    private static final String filePath = "res" + File.separator + "pages" + File.separator;
     private static final String fileExtension = ".xml";
-    private static final String csvPath = "res\\csv\\";
+    private static final String csvPath = "res" + File.separator + "csv" + File.separator;
     private static final String csvExstension = ".csv";
-    private static final String apiFile = "res\\private\\private.properties";
+    private static final String apiFile = "res" + File.separator + "private" + File.separator + "rivate.properties";
     private static final String errorString = "structure of input from terminal \njava -cp target/article_analyzer-1.0-jar-with-dependencies.jar org.project.Main -source ... \n-if source is file then  the syntax is:\n... -file filename\n-if source is The Guardian api then the syntax is:\n... -api -queries query1 query2 queryN -tags tag1 tag2 tagN -max max_number of articles -apiKey your_api_Key -store filename\n-if the source is csv then the syntax is:\n... -csv filename -store filename\nwhere filepath for csv is res/csv/ and for old research file is res/pages/ notice apiKey, store, tags, queries are optional.";
     public static void main(String Args[]) {
         Scanner console = new Scanner(System.in);

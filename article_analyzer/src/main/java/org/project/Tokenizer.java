@@ -20,7 +20,7 @@ public class Tokenizer {
     private StanfordCoreNLP pipeline;
     private boolean checks = false;
     private List<String> commonWords;
-    private final String fileName = "res\\words\\words.txt";
+    private final String fileName = "res" + File.separator + "words" + File.separator + "words.txt";
     private final String regex = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
     /**
      * @param str1 initial pool of tokens
