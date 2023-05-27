@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * This class represent an Article source where the Articles are read from a csv.
  */
-public class csvSource implements articleSource{
-    private csvParser csvparser;
+public class CSVSource implements ArticleSource {
+    private CSVParser csvparser;
     private List<Article> articles;
 
     /**
@@ -19,9 +19,9 @@ public class csvSource implements articleSource{
      * @throws CsvValidationException if the file content is not formatted as a csv.
      * @throws IOException if filepath is not valid.
      */
-    public csvSource(String filePath) throws CsvValidationException, IOException {
+    public CSVSource(String filePath) throws CsvValidationException, IOException {
         //parsing the content of the csv file
-        csvparser = new csvParser(filePath);
+        csvparser = new CSVParser(filePath);
         //setting the Articles with the ones contained in the csv file
         articles = csvparser.getArticles();
     }

@@ -40,7 +40,7 @@ public class Main {
             int maxArticle = 0;
             List<String> queries = new ArrayList<String>();
             List<String> tags = new ArrayList<String>();
-            articleSource source;
+            ArticleSource source;
 
             /*
              * structure of input from terminal
@@ -62,7 +62,7 @@ public class Main {
                 if(Args[0].equals("-csv")) {
                     boolean validCsv = false;
                     for (int i = 0; i < Args.length; i++) {
-                        source = new csvSource(Args[1]);
+                        source = new CSVSource(Args[1]);
                         articles = source.getArticles();
                         csvAnswer = "y";
                         if (Args[i].contains("-name")) {
@@ -119,7 +119,7 @@ public class Main {
                             throw new IllegalArgumentException("No default api key detected from the properties file in \"article_analyzer/res/private/private.properties\"");
                         }
                     }
-                    source = new apiSource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                    source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
                     articles = source.getArticles();
 
                 }else if(Args[0].equals("-file")){
@@ -163,7 +163,7 @@ public class Main {
                         System.out.println("Enter the name of csv file (without extension): ");
                         csvName = csvPath + console.nextLine().toLowerCase() + csvExstension;
                         //elaborating articles from csv source
-                        source = new csvSource(csvName);
+                        source = new CSVSource(csvName);
                         articles = source.getArticles();
                     } else {
                             //setting api_key
@@ -205,7 +205,7 @@ public class Main {
                             maxArticle = console.nextInt();
 
                             //elaborating Articles from The Guardian api
-                            source = new apiSource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                            source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
                             articles = source.getArticles();
 
                             //asking the user if it's required to print the 50 most frequent words

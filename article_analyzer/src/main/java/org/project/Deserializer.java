@@ -2,6 +2,9 @@ package org.project;
 
 import com.fasterxml.jackson.xml.XmlMapper;
 import com.fasterxml.jackson.xml.ser.ToXmlGenerator;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
+
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -20,6 +23,7 @@ public class Deserializer {
         xmlMapper = new XmlMapper();
         //this is used to avoid throwing an exception if an invalid XML character happens to be in the xml
         xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
+        xmlMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
     /**

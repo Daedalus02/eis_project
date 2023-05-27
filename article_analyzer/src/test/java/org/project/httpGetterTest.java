@@ -3,7 +3,6 @@ package org.project;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,7 +23,7 @@ class httpGetterTest
             e.printStackTrace();
         }*/
         URL url = new URL("https://www.jetbrais.com");
-        httpGetter getter = new httpGetter(url);
+        HTTPGetter getter = new HTTPGetter(url);
     }
 
     @Test

@@ -1,15 +1,16 @@
 package org.project;
 
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * this class is used throughout the entire program to represent an article with all it's properties
- * (which are identical to the ones of the "The Guardian" api response except for the fields head and body )
+
+ this class is used throughout the entire program to represent an article with all it's properties
+ (which are identical to the ones of the "The Guardian" api response except for the fields head and body )
  *
- * notice: it does not describe the parameter like pages, page limit because they are characteristics of the api response
+ notice: it does not describe the parameter like pages, page limit because they are characteristics of the api response
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Article {
