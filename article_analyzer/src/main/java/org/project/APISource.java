@@ -2,6 +2,7 @@ package org.project;
 
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import java.util.List;
 /**
  * This class is used to represent an Articles source where the articles are read from an api response.
  */
-public class APISource implements ArticleSource {
-    private HTTPGetter httpgetter;
+public class APISource implements ArticleSource{
+    private httpClient client;
     private HTMLParser htmlparser;
     private URLSetter urlsetter;
     private JSONParser jsonparser;
@@ -56,14 +57,15 @@ public class APISource implements ArticleSource {
 
 
         while (articleCount < maxArticle) {
+
             //setting url basing on the fields required for the api request
             url = urlsetter.getUrl();
             urlsetter.incrementPage();
             System.out.println("from " + url + " :");
 
             //getting response from the api point
-            httpgetter = new HTTPGetter(new URL(url));
-            apiString = httpgetter.getHttpString();
+            client = new httpClient(new URL(url));
+            apiString = client.getHttpString();
 
             //parsing the response
             jsonparser = new JSONParser(apiString);
@@ -74,7 +76,6 @@ public class APISource implements ArticleSource {
                 maxArticle = jsonparser.getPages();
                 System.out.println("Limited to " + maxArticle + " pages...");
             }
-
             //initializing parser
             htmlparser = new HTMLParser();
 
