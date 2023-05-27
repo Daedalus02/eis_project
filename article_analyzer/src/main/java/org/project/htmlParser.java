@@ -16,6 +16,7 @@ import javax.swing.text.BadLocationException;
 
     /**
      * this method allow the program to store the parsed content of the head and body elements in the given article object relative fields
+     *
      * @param article
      * @throws MalformedURLException
      * @throws IOException

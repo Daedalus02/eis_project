@@ -22,8 +22,6 @@ public class Main {
     private static final String apiFile = "res\\private\\private.properties";
     private static final String errorString = "structure of input from terminal \njava -cp target/article_analyzer-1.0-jar-with-dependencies.jar org.project.Main -source ... \n-if source is file then  the syntax is:\n... -file filename\n-if source is The Guardian api then the syntax is:\n... -api -queries query1 query2 queryN -tags tag1 tag2 tagN -max max_number of articles -apiKey your_api_Key -store filename\n-if the source is csv then the syntax is:\n... -csv filename -store filename\nwhere filepath for csv is res/csv/ and for old research file is res/pages/ notice apiKey, store, tags, queries are optional.";
     public static void main(String Args[]) {
-
-
         Scanner console = new Scanner(System.in);
 
         try {
@@ -165,6 +163,7 @@ public class Main {
                         //elaborating articles from csv source
                         source = new csvSource(csvName);
                         articles = source.getArticles();
+
                     } else {
                             //setting api_key
                             System.out.println("Do you want to use the default apiKey?");

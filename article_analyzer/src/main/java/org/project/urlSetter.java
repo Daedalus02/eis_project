@@ -12,8 +12,6 @@ public class urlSetter {
     private int page;
     private int pageSize;
 
-
-
     /**
      * @param baseUrl1
      * @param apiKey1

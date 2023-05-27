@@ -125,14 +125,6 @@ public class jsonParser{
         }
     }
 
-    /**
-     *
-     * @return article of arrays parsed from the given string
-     */
-    public List<Article> getArticles(){
-        return articles;
-    }
-
 
     /*GETTERS*/
     public String getJsonString() {
@@ -162,38 +154,8 @@ public class jsonParser{
     public int getPages() {
         return pages;
     }
-
-
-    /*SETTERS*/
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
-    public void setJsonString(String jsonString) {
-        this.jsonString = jsonString;
-    }
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public void setStartIndex(int startIndex) {
-        this.startIndex = startIndex;
-    }
-    public void setTotal(int total) {
-        this.total = total;
-    }
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
+    public List<Article> getArticles(){
+        return articles;
     }
 
-    public void setArticles(ArrayList<Article> articles) {
-        this.articles = articles;
-    }
-    public void setUserTier(String userTier) {
-        this.userTier = userTier;
-    }
 }

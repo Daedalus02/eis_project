@@ -11,7 +11,7 @@ import java.util.List;
  * This class is used to represent an Articles source where the articles are read from an api response.
  */
 public class apiSource implements articleSource{
-    private httpGetter httpgetter;
+    private httpClient client;
     private htmlParser htmlparser;
     private urlSetter urlsetter;
     private jsonParser jsonparser;
@@ -56,14 +56,15 @@ public class apiSource implements articleSource{
 
 
         while (articleCount < maxArticle) {
+
             //setting url basing on the fields required for the api request
             url = urlsetter.getUrl();
             urlsetter.incrementPage();
             System.out.println("from " + url + " :");
 
             //getting response from the api point
-            httpgetter = new httpGetter(new URL(url));
-            apiString = httpgetter.getHttpString();
+            client = new httpClient(new URL(url));
+            apiString = client.getHttpString();
 
             //parsing the response
             jsonparser = new jsonParser(apiString);
@@ -74,7 +75,6 @@ public class apiSource implements articleSource{
                 maxArticle = jsonparser.getPages();
                 System.out.println("Limited to " + maxArticle + " pages...");
             }
-
             //initializing parser
             htmlparser = new htmlParser();
 

@@ -202,25 +202,12 @@ public class Tokenizer {
                     int index = counter - maxSize;
                     while(index > 0) {
                         index--;
-                        //System.out.println("here");
                         listPair.getValue().remove(index);
                     }
                     counter = maxSize;
                 }
             }
         }
-
-        //possible printing reverseMap calculated content
-        /*int currentFreq = 0;
-        int currentSize = 0;
-        while(!reverseMap.isEmpty()){
-            currentFreq = reverseMap.lastKey();
-            currentSize = reverseMap.get(reverseMap.lastKey()).size();
-            for(int i = (currentSize-1); i >= 0; i--){
-                System.out.println(reverseMap.get(reverseMap.lastKey()).remove(i)+" "+currentFreq);
-            }
-            reverseMap.remove(currentFreq);
-        }*/
         return reverseMap.entrySet();
     }
 

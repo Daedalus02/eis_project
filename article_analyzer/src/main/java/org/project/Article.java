@@ -1,7 +1,9 @@
 package org.project;
 
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -11,6 +13,7 @@ import java.net.URL;
  *
  * notice: it does not describe the parameter like pages, page limit because they are characteristics of the api response
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Article {
     private String Id = "";
