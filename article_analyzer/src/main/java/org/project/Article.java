@@ -1,5 +1,7 @@
 package org.project;
 
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -9,7 +11,7 @@ import java.net.URL;
  *
  * notice: it does not describe the parameter like pages, page limit because they are characteristics of the api response
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Article {
     private String Id = "";
     private String type = "";

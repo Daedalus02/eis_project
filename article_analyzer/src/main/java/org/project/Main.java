@@ -210,7 +210,7 @@ public class Main {
 
                             //asking the user if it's required to print the 50 most frequent words
                             System.out.println("Do you want to read the 50 most frequent words in the downloaded articles? (y/n)");
-                            downloadAnswer = console.next();
+                            downloadAnswer = console.next().toLowerCase();
                             while (!(downloadAnswer.equals("y") || downloadAnswer.equals("n"))) {
                                 System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
                                 downloadAnswer = console.nextLine().toLowerCase();

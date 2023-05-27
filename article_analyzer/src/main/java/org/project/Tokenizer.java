@@ -22,12 +22,11 @@ public class Tokenizer {
     private final String fileName = "res\\words\\words.txt";
     private final String regex = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
     /**
-     * @param str1
-     * @param check1
+     * @param str1 initial pool of tokens
+     * @param check1 which is used to check if there are common words or punctuation in the articles
      */
     public Tokenizer(String str1, boolean check1) {
         str = str1;
-
         // set up pipeline properties
         properties = new Properties();
 
@@ -36,6 +35,9 @@ public class Tokenizer {
 
         // coref annotator is being set to use the neural algorithm
         properties.setProperty("coref.algorithm", "neural");
+
+        //removing non recognized tokens
+        properties.setProperty("tokenize.options", "untokenizable=noneDelete");
 
         // build pipeline
         pipeline = new StanfordCoreNLP(properties);

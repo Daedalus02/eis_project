@@ -24,7 +24,7 @@ import com.opencsv.exceptions.CsvValidationException;
  * -Source
  */
 public class csvParser  {
-    List<Article> articles;
+    private List<Article> articles;
     public csvParser(String fileName) throws IOException, CsvValidationException, InvalidPropertiesFormatException {
 
         //intializing a csv reader
@@ -46,6 +46,7 @@ public class csvParser  {
             article.setId(Record[0]);
             article.setWebUrl(Record[1]);
             article.setWebTitle(Record[2]);
+            article.setHead(Record[2]);
             article.setBody(Record[3]);
             article.setWebPublicationDate(Record[4]);
             article.setMediaGroup(Record[5]);

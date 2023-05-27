@@ -1,10 +1,12 @@
 package org.project;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import java.util.List;
 
 /**
  * This is a dummy class used to make Jackson capable to serialize a List of articles
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Articles {
     private List<Article> articleList = null;
 

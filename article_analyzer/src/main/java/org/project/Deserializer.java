@@ -1,12 +1,14 @@
 package org.project;
 
 import com.fasterxml.jackson.xml.XmlMapper;
+import com.fasterxml.jackson.xml.ser.ToXmlGenerator;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,6 +18,8 @@ public class Deserializer {
     private XmlMapper xmlMapper;
     public Deserializer(){
         xmlMapper = new XmlMapper();
+        //this is used to avoid throwing an exception if an invalid XML character happens to be in the xml
+        xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
     }
 
     /**

@@ -23,6 +23,7 @@ import javax.swing.text.BadLocationException;
      */
     public void parse(Article article) throws MalformedURLException, IOException, BadLocationException {
         //this allows format the html article content, saving its head and body in 2 variables
+        //notice: replace remove all invalid characters in xml11 format
         Document doc =Jsoup.parse(article.getHead());
         String head = doc.text();
         doc = Jsoup.parse(article.getBody());
