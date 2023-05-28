@@ -1,52 +1,44 @@
 package org.project;
 
-import com.fasterxml.jackson.xml.XmlMapper;
-import com.fasterxml.jackson.xml.ser.ToXmlGenerator;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 /**
- * this class allow to store the information related to the articles read in a file in XML format for possible future usage of the stored data
+ * This class allow to store the information represented in a JSON format file for possible future usage of the stored data
+ * by different classes.
+ * NOTICE: it is a wrapper that contains another serializer ObjectMapper.
  */
 public class Serializer
 {
-    private XmlMapper xmlMapper;
-    // XML 1.1 INVALID CHARACTERS
-    private final String xml11pattern = "[\u0001-\u0008\u000B-\u000C\u000E-\u001F\u007F-\u0084\u0086-\u009F\uFDD0-\uFDDF]";
+    /* This variable is the actual serializer from the jackson.xml package. */
+    private ObjectMapper jsonMapper;
 
+    /**This constructor just sets the {@link Serializer#jsonMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
     public Serializer() throws IOException {
-        xmlMapper = new XmlMapper();
-        //this is used to avoid throwing an exception if an invalid XML character of different version from xml 1.1 happens to be in the xml
-        xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
-        //this is used to not serialize null fields
-        xmlMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-        //this is used to set visibility
-        xmlMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
+        jsonMapper = new ObjectMapper();
+        //This allows to ignore unknown properties in the instance of the object to serialize.
+        jsonMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        //This is used to avoid serializing null fields.
+        jsonMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        //This is used to set visibility of the serializer in relation to the object to serialize.
+        jsonMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
     /**
-     * this method is used to format the content of the articles and store it int a file with XML format
-     * @param articleList
+     * This method is used to format the content of the articles in JSON and store it into a file with JSON format.
+     *
+     * @param filePath which is the path of the file for storing the Article array articles
+     * @param articles which is the Article array to serialize in the file at filePath path.
      * @throws IOException
      */
-    public void serialize(List<Article> articleList, String fileName) throws IOException {
-        removeInvalid(articleList);
-        Articles articles = new Articles(articleList);
-        xmlMapper.writeValue(new File(fileName),articles);
+    public void serialize(Article[] articles, String filePath) throws IOException {
+        //Formatting the object in XML and storing it in the file at filePath path.
+        jsonMapper.writeValue(new File(filePath),articles);
+    }
 
-    }
-    private void removeInvalid(List<Article> articleList){
-        Iterator<Article> iter = articleList.iterator();
-        Article pair;
-        while(iter.hasNext()){
-            pair = iter.next();
-            pair.setHead(pair.getHead().replaceAll(xml11pattern,""));
-            pair.setBody(pair.getBody().replaceAll(xml11pattern,""));
-        }
-    }
 }

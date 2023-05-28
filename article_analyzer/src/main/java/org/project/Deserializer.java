@@ -1,43 +1,55 @@
 package org.project;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.DeserializationConfig;
-import com.fasterxml.jackson.xml.XmlMapper;
-import com.fasterxml.jackson.xml.ser.ToXmlGenerator;
+import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 /**
- * this class is used to deserialize the list of articles previously serialized in the file named with string "filename"
- */
+ * This class is used to deserialize an object previously serialized in a JSON format file.
+ * NOTICE: it is a wrapper that contains another deserializer ObjectMapper.
+ * */
 public class Deserializer {
-    private XmlMapper xmlMapper;
+    /** This variable is the actual deserializer from the org.codehaus.jackson.map package. */
+    private ObjectMapper jsonMapper;
+
+    /**This constructor just sets the {@link Deserializer#jsonMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
     public Deserializer(){
-        xmlMapper = new XmlMapper();
-        //this is used to avoid throwing an exception if an invalid XML character of different version from xml 1.1 happens to be in the xml
-        xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1,true);
-        xmlMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        jsonMapper = new ObjectMapper();
+        //This allows to ignore unknown properties in the instance of the object to serialize.
+        jsonMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        //This is used to avoid serializing null fields.
+        jsonMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        //This is used to set visibility of the serializer in relation to the object to serialize.
+        jsonMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
     /**
-     * @param filename
-     * @throws IOException
+     * This method is used to deserialize an object from a file where it was previously serialized in XML format.
+     *
+     * @param filePath which is the path of the file that contains the serialized object.
+     * @throws IOException which is thrown when the file path specified is unknown.
      */
-    public List<Article> deserialize(String filename) throws IOException {
-        InputStream data = new FileInputStream(new File(filename));
+    public Article[] deserialize(String filePath) throws IOException {
+        //Reading the content of the file at filePath path.
+        InputStream data = new FileInputStream(new File(filePath));
         StringBuilder builder = new StringBuilder();
         String line;
         BufferedReader reader = new BufferedReader(new InputStreamReader(data));
         while ((line = reader.readLine()) != null) {
             builder.append(line);
         }
-        String xmlString = builder.toString();
-        Articles articlesList = xmlMapper.readValue(xmlString,Articles.class);
+        String JSONString = builder.toString();
+        //Deserializing the object from the file content.
+        Article[] articles = jsonMapper.readValue(JSONString,Article[].class);
         reader.close();
-        return articlesList.getArticleList();
+        return articles;
     }
 }

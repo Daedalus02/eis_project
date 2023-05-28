@@ -1,81 +1,106 @@
 package org.project;
 
 /**
- * this class allow to set the url with some given parameters (tags, query, page, page size, api key, base url ) for the api request
+ * This class only allow to set the url with some given parameters (tags, query, page, page size, api key, base url )
+ * for the api request.
+ * Should be used to keep track of the parameters and eventually getting a new url by easily modifying few of them.
  */
 public class URLSetter {
-    private String url = "";
-    private String apiKey;
+    /** This is the representation of a possible URL that is build in this class.*/
+    private String URL = "";
+    /** This is the value of the API key of the media Group API endpoint.*/
+    private String APIKey;
+    /** These are use to search between the set of elements in given in the response.*/
     private String[] queries;
+    /** These are the fields used to determine the specific set of element given in the response.*/
     private String[] tags;
-    private String baseUrl;
+    /** This is the base URL without any specification.*/
+    private String baseURL;
+    /** This is the current page, so a generic group of elements in the response.*/
     private int page;
+    /** This is the number of articles that should be included in the API response.*/
     private int pageSize;
 
     /**
-     * @param baseUrl1
-     * @param apiKey1
-     * @param page1
-     * @param queries1
-     * @param tags1
-     * @throws IllegalArgumentException
+     * This constructor take all the information needed to create a valid URL basing one the parameters passed.
+     *
+     * @param baseURL which sets {@link URLSetter#baseURL}
+     * @param pageSize which sets {@link URLSetter#pageSize}
+     * @param APIKey which sets {@link URLSetter#APIKey}
+     * @param page which sets {@link URLSetter#page}
+     * @param queries which sets {@link URLSetter#queries}
+     * @param tags which sets {@link URLSetter#tags}
+     * @throws IllegalArgumentException when there is no coherence in pageSize and page variables (ex: having a page over the max possible).
      */
-    public URLSetter(String baseUrl1, String apiKey1, int page1, int pageSize1, String[] queries1 , String[] tags1) throws IllegalArgumentException{
-        baseUrl = baseUrl1;
-        apiKey = apiKey1;
-        tags = tags1;
-        page = page1;
-        queries = queries1;
-        pageSize = pageSize1;
+    public URLSetter(String baseURL, String APIKey, int page, int pageSize, String[] queries , String[] tags) throws  IllegalArgumentException{
+        this.baseURL = baseURL;
+        this.APIKey = APIKey;
+        this.tags = tags;
+        this.page = page;
+        this.queries = queries;
+        this.pageSize = pageSize;
         buildUrl();
     }
+    /** This method is internally used by the URLSetter to actually build and store the final URL {@link URLSetter#URL}.  */
     private void buildUrl(){
-        url = baseUrl;
+        // Setting a base URL.
+        URL = baseURL;
 
-        url += "/search?";
+        // We always want to research in the API response, there is no other purpose accepted by this URL setter.
+        URL += "/search?";
 
+        // Setting the page and page checking for them to be coherent (having a page below the max possible).
         if(page > pageSize){
             throw new IllegalArgumentException();
         }
-        url += "page-size=" + pageSize;
+        URL += "page-size=" + pageSize;
         if(page != 0) {
-            url += "&page=" + page;
+            URL += "&page=" + page;
         }
-        url += "&show-fields=body,headline,wordcount";
+        URL += "&show-fields=body,headline,wordcount";
 
+        // Setting tags and queries.
         if(tags.length != 0) {
-            url += "&tag=";
-            url += tags[0];
+            URL += "&tag=";
+            URL += tags[0];
             for (int i = 1; i < tags.length; i++) {
-                url += "/"+tags[i];
+                URL += "/"+tags[i];
             }
         }
         if(queries.length != 0) {
-            url += "&q=";
+            URL += "&q=";
             for (int i = 0; i < queries.length; i++) {
                 queries[i] = queries[i].replace(" ", "%20");
                 if (i == (queries.length - 1)) {
-                    url += queries[i];
+                    URL += queries[i];
                 } else {
-                    url += queries[i] + "%20AND%20";
+                    URL += queries[i] + "%20AND%20";
                 }
             }
         }
-        if(apiKey == ""){
+
+        // Setting APIKey (APIKey must be present to actually get a valid response from the API endpoint).
+        if(APIKey == ""){
             throw new IllegalArgumentException();
         }
-        url += "&api-key=" + apiKey;
+        URL += "&api-key=" + APIKey;
     }
+
+    /**
+     * This method is simply used to change the element viewed in the current response keeping the same parameters
+     * by incrementing the variable page{@link URLSetter#page}.
+     */
     public void incrementPage(){
         page++;
         buildUrl();
     }
 
     /**
+     * This method returns the elaborated URL with all the given specifications.
      *
-     * @return the complete url
+     * @return URL {@link URLSetter#URL}which is the baseURL completed with the specification given in the constructor.
      */
-    public String getUrl(){
-        return url;
+    public String getURL(){
+        return URL;
     }
 }
