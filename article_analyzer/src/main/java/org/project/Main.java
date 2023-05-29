@@ -31,7 +31,8 @@ public class Main {
         Scanner console = new Scanner(System.in);
         List<Article> articles = new ArrayList<Article>();      // This variable store the Articles read from different possible source.
         String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name(only used when not specified).
-        Tokenizer tokenizer = new Tokenizer("", true);      //This variable is used to tokenize articles in their different tokens doing checks.
+        TokensStorage storage = new TreeStorage();      // This variable holds the tokens and is capable of returning them in an ordered set.
+        Tokenizer tokenizer = new Tokenizer("", true,storage);      //This variable is used to tokenize articles in their different tokens doing checks.
         Deserializer deserializer = new Deserializer();     // This variable is used to deserialize Articles from the file they were previously serialized in.
         String pageText = "";       // This is The text contained in both the head and the body fields of an Article.
         String downloadAnswer = "n";        // This variable value is y(yes) if the user decides to visualize the 50 more frequent tokens.
@@ -367,11 +368,7 @@ public class Main {
                 }
             }
 
-
-
-
-
-            //SERIALIZING PHASE
+            // SERIALIZING PHASE
             if (dataAnswer.equals("n")){
                 // Checking if articles is empty.
                 if(articles.size() == 0){
@@ -389,7 +386,7 @@ public class Main {
             // Checking to see if there is a "reason" to deserialize and print among settings.
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
-                //DESERIALIZING PHASE
+                // DESERIALIZING PHASE
                 try {
                     articles = Arrays.stream( deserializer.deserialize(fileName)).collect(Collectors.toList());
                 } catch (IOException e) {
@@ -407,13 +404,13 @@ public class Main {
                 // Entering the Articles textual fields inside of Tokenizer.
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
-                    tokenizer.enterTokens(pageText);
+                    tokenizer.tokenize(pageText);
                 }
 
-                //PRINTING PHASE
+                // PRINTING PHASE
                 System.out.println("The " + 50 + "(or less) most frequent words in the analyzed articles are: ");
-                Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(50);     // This variable stores the entry with tokens list as values
-                                                                                                        // indexed with their frequency.
+                // This variable stores the entry with tokens list as values indexed with their frequency.
+                Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
                 int wordCounter = 0;
                 Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();       // This variable is used to iterate Through the set of ordered tokens Lists.
                 Map.Entry<Integer, List<String>> pair;
