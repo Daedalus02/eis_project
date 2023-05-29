@@ -248,9 +248,10 @@ public class Main {
                         int queriesSize = -1;
                         while(queriesSize < 0){
                             try {
-                                queriesSize = console.nextInt();
+                                queriesSize = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
+                                System.out.println("Sorry, the queries number must be a number, please retry: ");
                             }
                         }
                         for (int i = 0; i < queriesSize; i++) {
@@ -259,13 +260,14 @@ public class Main {
                         }
 
                         // Setting tags if needed.
-                        System.out.println("Enter the number of tag you want to consider (0 if none): ");
+                        System.out.println("Enter the number of tags you want to consider (0 if none): ");
                         int tagNumber = -1;
                         while(tagNumber < 0){
                             try{
-                                tagNumber = console.nextInt();
+                                tagNumber = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
+                                System.out.println("Sorry the tags number must be a number, please retry: ");
                             }
                         }
                         for (int i = 0; i < tagNumber; i++) {

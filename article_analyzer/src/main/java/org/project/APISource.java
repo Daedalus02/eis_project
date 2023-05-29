@@ -30,14 +30,14 @@ public class APISource implements ArticleSource{
 
 
     /**
-     * This constructor sets the url and the max number of article to return, initializer the "urlsetter" with first value
+     * This constructor sets the url and the max number of article to return, initialize the URL setter {@link URLSetter} with first value
      * and the articles.
      *
-     * @param APIKey which needs to by a valid api key of the "The Guardian" api page.
+     * @param APIKey which needs to by a valid API key of the "The Guardian" API page.
      * @param tags which are used to specify a set of articles related to the strings passed.
-     * @param queries which are used to search a specific set oof words inside alle possible articles.
+     * @param queries which are used to search a specific set of words inside all possible articles.
      * @param maxArticle which is the max number of article to return (so the actual number could be less)
-     * @throws IOException
+     * @throws IOException which is thrown
      * @throws JSONException
      * @throws BadLocationException
      */
@@ -56,7 +56,7 @@ public class APISource implements ArticleSource{
     /**
      * This method read the Articles from the API JSON response and parse(from HTML) the content of the head and body fields of the articles.
      *
-     * @throws IOException if the files used to store Articles are does not have correct path.
+     * @throws IOException if the connected went wrong and the HTTP client was not able to connect to the endpoint.
      * @throws JSONException if the API response does not have the expected fields.
      */
     private void readArticle() throws IOException, JSONException {
