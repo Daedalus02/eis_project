@@ -18,7 +18,7 @@ public class APISource implements ArticleSource{
     /** This is used to facilitate setting and storing the URL.*/
     private URLSetter urlSetter;
     /** This is used to parse the field of an article in the response of the API endpoint which is formatted in JSON.*/
-    private JSONParser jsonParser;
+    private APIParser jsonParser;
     /** This is used to elaborate a set maximum number of article (the number of available one could be bigger o lower).*/
     private int maxArticle;
     /** This is used to start the research in the response from the API endpoint starting by the first group of articles.*/
@@ -70,14 +70,14 @@ public class APISource implements ArticleSource{
             URL = urlSetter.getURL();
             // Incrementing the Article page in the response for the next cycle.
             urlSetter.incrementPage();
-            //System.out.println("from " + URL + " :");
+            System.out.println("from " + URL + " :");
 
             // Getting the response from the API endpoint.
             client = new HTTPClient(new URL(URL));
             APIString = client.getHttpString();
 
             // Parsing the response from JSON format.
-            jsonParser = new JSONParser(APIString);
+            jsonParser = new APIParser(APIString);
             // Adding the Articles read in the new Article page.
             articles.addAll(jsonParser.getArticles());
 
