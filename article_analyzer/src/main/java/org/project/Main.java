@@ -148,6 +148,7 @@ public class Main {
                 if(line.hasOption(keyOption)) {
                     apiKey = line.getOptionValue(keyOption);
                 }else{
+                    // Reading the API key from a properties file.
                     FileInputStream fis;
                     try {
                         fis = new FileInputStream(API_FILE);
@@ -331,7 +332,15 @@ public class Main {
 
                         // Setting max articles number.
                         System.out.println("Enter the max number of articles to elaborate: ");
-                        maxArticle = console.nextInt();
+                        maxArticle = -1;
+                        while(maxArticle < 0){
+                            try{
+                                maxArticle = Integer.parseInt(console.nextLine());
+                            }catch(NumberFormatException e){
+                                // Do nothing since we retry to set valid value.
+                                System.out.println("Sorry the max articles number must be a number, please retry: ");
+                            }
+                        }
 
                         // Elaborating Articles from The Guardian API response content.
                         try{
