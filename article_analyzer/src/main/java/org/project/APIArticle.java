@@ -4,10 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * This class is used to represent an article with all or part of its possible properties.
- *
- * NOTICE: It has lots of fields but not all could be used by different users of this class to represent an artile
- * so there's annotation telling a possible serializer or deserializer to ignore null fields or
+ * This class is used to represent an article with all properties af an article of the "The Guardian" media group.
  */
 public class APIArticle extends Article {
     /** Which is the article identifier.*/
