@@ -2,7 +2,6 @@ package org.project;
 
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
-
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -155,11 +154,12 @@ public class Tokenizer {
             String elem;
             while (iter.hasNext()) {
                 elem = iter.next();
-                if ((Pattern.matches("\\p{Punct}", elem) | Pattern.matches("[.!?”“–—’‘'…-]", elem) | elem.equals("") | commonWords.contains(elem))) {
+                if ((Pattern.matches(REGEX, elem) | elem.equals("") | commonWords.contains(elem))) {
                     iter.remove();
                 }
             }
         }
+        // Entering tokens in the tokens storage.
         storage.enterTokens(list);
     }
 }
