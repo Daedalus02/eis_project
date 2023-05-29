@@ -2,8 +2,6 @@ package org.project;
 
 import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.cli.*;
-import org.apache.http.impl.conn.SystemDefaultRoutePlanner;
-import org.apache.xpath.Arg;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.File;
@@ -25,8 +23,6 @@ public class Main {
     /** This constant is complete file address where the default API key could be found. */
     private static final String API_FILE = "res" + File.separator + "private" + File.separator + "private.properties";
     /** This constant is the error printed when the parameters passed from command line are not correct. */
-    private static final String ERROR_STRING = "Structure of input from terminal: \njava -cp target/article_analyzer-1.0-jar-with-dependencies.jar org.project.Main -source ... \n-if source is file then  the syntax is:\n... -file filename\n-if source is The Guardian api then the syntax is:\n... -api -queries query1 query2 queryN -tags tag1 tag2 tagN -max max_number of articles -apiKey your_api_Key -store filename\n-if the source is csv then the syntax is:\n... -csv filename -store filename\nwhere filepath for csv is res/csv/ and for old research file is res/pages/ notice apiKey, store, tags, queries are optional.";
-    /** This constant is the base URL of the "The Guardian" API endpoint. */
     private static final String BASE_URL = "https://content.guardianapis.com";
 
     public static void main(String Args[]) {
