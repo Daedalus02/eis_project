@@ -1,6 +1,7 @@
 package org.project;
 
 import com.opencsv.exceptions.CsvValidationException;
+import org.apache.commons.cli.*;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.File;
@@ -22,8 +23,6 @@ public class Main {
     /** This constant is complete file address where the default API key could be found. */
     private static final String API_FILE = "res" + File.separator + "private" + File.separator + "private.properties";
     /** This constant is the error printed when the parameters passed from command line are not correct. */
-    private static final String ERROR_STRING = "Structure of input from terminal: \njava -cp target/article_analyzer-1.0-jar-with-dependencies.jar org.project.Main -source ... \n-if source is file then  the syntax is:\n... -file filename\n-if source is The Guardian api then the syntax is:\n... -api -queries query1 query2 queryN -tags tag1 tag2 tagN -max max_number of articles -apiKey your_api_Key -store filename\n-if the source is csv then the syntax is:\n... -csv filename -store filename\nwhere filepath for csv is res/csv/ and for old research file is res/pages/ notice apiKey, store, tags, queries are optional.";
-    /** This constant is the base URL of the "The Guardian" API endpoint. */
     private static final String BASE_URL = "https://content.guardianapis.com";
 
     public static void main(String Args[]) {
@@ -32,7 +31,8 @@ public class Main {
         Scanner console = new Scanner(System.in);
         List<Article> articles = new ArrayList<Article>();      // This variable store the Articles read from different possible source.
         String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name(only used when not specified).
-        Tokenizer tokenizer = new Tokenizer("", true);      //This variable is used to tokenize articles in their different tokens doing checks.
+        TokensStorage storage = new TreeStorage();      // This variable holds the tokens and is capable of returning them in an ordered set.
+        Tokenizer tokenizer = new Tokenizer("", true,storage);      //This variable is used to tokenize articles in their different tokens doing checks.
         Deserializer deserializer = new Deserializer();     // This variable is used to deserialize Articles from the file they were previously serialized in.
         String pageText = "";       // This is The text contained in both the head and the body fields of an Article.
         String downloadAnswer = "n";        // This variable value is y(yes) if the user decides to visualize the 50 more frequent tokens.
@@ -65,78 +65,91 @@ public class Main {
 
         //COMMAND LINE INPUT
         if(Args.length != 0){
-            /* CSV SOURCE SELECTED. */
-            if(Args[0].equals("-csv")) {
-                boolean validCsv = false;   // This variable is set to true only if a file name is specified.
-                for (int i = 0; i < Args.length; i++) {     // Iterating through given parameters to set the respective variables.
-                    try {
-                        source = new CSVSource(Args[1]);
-                        articles.addAll(source.getArticles());
-                    } catch (CsvValidationException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    csvAnswer = "y";
-                    // Setting the CSV file path (if respective field is detected).
-                    if (Args[i].contains("-name")) {
-                        csvName = CSV_PATH + Args[i + 1] + CSV_EXSTENSION;
-                        validCsv = true;
-                    }
-                    // Setting the path for the JSON file to serialize in (if respective field is detected).
-                    if (Args[i].contains("-store")) {
-                        fileName = FILE_PATH + Args[i + 1] + FILE_EXTENSION;
-                    }
-                }
-                if(!validCsv){      // Throw an exception if no CSV file name was detected.
-                    throw new IllegalArgumentException(ERROR_STRING);
-                }
+            // Initializing new sets of option.
+            Options options = new Options();
 
-            }else if(Args[0].equals("-api")){   /* API ENDPOINT RESPONSE SOURCE SELECTED. */
-                boolean validApi = false;       // This variable is set to true if a valid API key is specified.
-                boolean validMax = false;       // This variable is set to true if a valid max number of articles is entered.
-                for(int i = 0; i < Args.length; i++) {      // Iterating through given parameters to set the respective variables.
-                    // Setting tags (if respective field is detected).
-                    if(Args[i].contains("-tags")){
-                        while(i < (Args.length-1) && Args[i+1].toCharArray()[0] != '-'){
-                            i++;
-                            tags.add(Args[i]);
-                        }
-                    }
-                    // Setting the API key (if respective field is detected).
-                    if(Args[i].contains("-apiKey")){
-                        apiKey = Args[i+1];
-                        validApi = true;
-                    }
-                    // Setting max number of article to analyze (if respective field is detected).
-                    if(Args[i].contains("-max")){
-                        maxArticle = Integer.parseInt(Args[i+1]);
-                        validMax = true;
-                    }
-                    // Setting queries (if respective field is detected).
-                    if(Args[i].contains("-queries")){
-                        while(i < (Args.length-1) && Args[i+1].toCharArray()[0] != '-') {
-                            i++;
-                            queries.add(Args[i]);
-                        }
-                    }
-                    // Setting the option to show most frequent tokens (if respective field is detected).
-                    if(Args[i].contains("-show")){
-                        downloadAnswer = "y";
-                    }
-                    //setting the option to store in a file the serialization of the articles (if respective field is detected).
-                    if(Args[i].contains("-store")){
-                        fileName = FILE_PATH + Args[i+1] + FILE_EXTENSION;
+            // Setting a group of mutually exclusive options.
+            OptionGroup actions = new OptionGroup();
+            // Display help to use the command line input.
+            Option hOption = new Option("h", "help", false, "Print the help.");
+            // Option for setting the API endpoint response analysis parameters.
+            Option APIOption = new Option("api","read-api",false,"Read article from API response.");
+            // Option for setting the CSV file analysis.
+            Option CSVOption = new Option("csv","read-csv",false,"Read article from CSV file.");
+            // Option for setting the previously stored articles analysis.
+            Option fileOption = new Option("file", "read-file", false, "Read article from previous research.");
+            // Adding the options to the mutually exclusive group.
+            actions.addOption(hOption);
+            actions.addOption(APIOption);
+            actions.addOption(CSVOption);
+            actions.addOption(fileOption);
+
+            // Other possible options for the different types of Article sources:
+            Option maxOption = new Option("max", "max-articles",true, "The max number of articles to elaborate.");
+            Option tagsOption = new Option("tags", "tags", true, "The tags to search for in the articles research.");
+            tagsOption.setArgs(Option.UNLIMITED_VALUES);
+            Option queriesOption = new Option("queries", "queries", true, "The queries to use for parsing the articles research.");
+            queriesOption.setArgs(Option.UNLIMITED_VALUES);
+            Option storeOption = new Option("store", "store",true,"The name of the file to store the articles in.");
+            Option keyOption = new Option("apikey","api-key", true,"The value of the api key to use to connect to the \"The Guardian\" endpoint.");
+            Option showOption = new Option("show","show",false,"Print the 50(or less) most frequent words in the articles read.");
+            Option nameOption = new Option("name","csv-file-name",true,"The name of the CSV file.");
+            Option jsonOption = new Option("json","json-file-name",true,"The name of the file where previously stored a research.");
+
+            // Adding the parameters options to the possible set of options.
+            options.addOptionGroup(actions);
+            options.addOption(maxOption);
+            options.addOption(tagsOption);
+            options.addOption(queriesOption);
+            options.addOption(keyOption);
+            options.addOption(showOption);
+            options.addOption(storeOption);
+            options.addOption(nameOption);
+            options.addOption(jsonOption);
+
+            // Initializing the help message formatter.
+            HelpFormatter helpFormatter = new HelpFormatter();
+            // Initializing the options parser from the command line.
+            CommandLineParser lineParser = new DefaultParser();
+            // This variable holds the parsed command line.
+            CommandLine line = null;
+            // Trying to set the line.
+            try{
+                line = lineParser.parse(options,Args);
+            }catch(org.apache.commons.cli.ParseException e){
+                // Printing error and stopping execution.
+                System.err.println("ERROR: not a valid input.");
+                System.err.println(e.getMessage());
+                helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                System.exit(1);
+            }
+            // Checking to see if the user required a help message.
+            if(line.hasOption(hOption)){
+                helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+            } else if(line.hasOption(APIOption)){       // Checking to see if the user chose the API endpoint response as articles source.
+                /* Checking the presence of coherent parameters and setting their value if present (some of
+                 * them are necessary so their absence cause the execution to stop).
+                 * */
+                if(line.hasOption(maxOption)) {
+                    try {
+                        maxArticle = Integer.parseInt(line.getOptionValue(maxOption));
+                    }catch(NumberFormatException e){
+                        // Printing error and stopping execution.
+                        helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                        System.err.println("--> max field must be a number");
+                        System.exit(1);
                     }
                 }
-                // This throw an exception if the obligatory "max number of article" field was not set.
-                if(!validMax){
-                    throw new IllegalArgumentException(ERROR_STRING);
+                if(line.hasOption(tagsOption)) {
+                    tags = Arrays.stream(line.getOptionValues(tagsOption)).collect(Collectors.toList());
                 }
-                // Checking to see if a default API key is present in the properties file
-                if(!validApi){
+                if(line.hasOption(queriesOption)) {
+                    queries = Arrays.stream(line.getOptionValues(queriesOption)).collect(Collectors.toList());
+                }
+                if(line.hasOption(keyOption)) {
+                    apiKey = line.getOptionValue(keyOption);
+                }else{
+                    // Reading the API key from a properties file.
                     FileInputStream fis;
                     try {
                         fis = new FileInputStream(API_FILE);
@@ -149,8 +162,17 @@ public class Main {
                         e.printStackTrace();
                     }
                     if(apiKey.equals("your_api_key")){      // Standard value when not set.
-                        throw new IllegalArgumentException("No default api key detected from the properties file in \"article_analyzer/res/private/private.properties\"");
+                        // Printing error and stopping execution.
+                        helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                        System.err.println("--> apikey field must be specified if a default is not set in properties file.");
+                        System.exit(1);
                     }
+                }
+                if(line.hasOption(showOption)) {
+                    downloadAnswer = "y";
+                }
+                if(line.hasOption(storeOption)){
+                    fileName = FILE_PATH + line.getOptionValue(storeOption) + FILE_EXTENSION;
                 }
                 // Trying to add the read articles from API endpoint response to the abstract article List.
                 try {
@@ -165,16 +187,50 @@ public class Main {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-
-            }else if(Args[0].equals("-file")){      /* PREVIOUS SEARCH ARTICLE SOURCE SELECTED */
-
-                // Reading the file name if present else throwing exception.
-                if(Args.length > 1) {
-                    fileName = FILE_PATH + Args[1] + FILE_EXTENSION;
+            } else if(line.hasOption(CSVOption)){       // Checking to see if the user chose the CSV formatted file as articles source.
+                /* Checking the presence of coherent parameters and setting their value if present (some of
+                 * them are necessary so their absence cause the execution to stop).
+                 * */
+                if(line.hasOption(nameOption)){
+                    csvName = CSV_PATH + line.getOptionValue(nameOption) + CSV_EXSTENSION;
+                    csvAnswer = "y";
+                    // Trying to add the read articles from CSV formatted file to the abstract article List.
+                    try {
+                        source = new CSVSource(csvName);
+                        articles.addAll(source.getArticles());
+                    } catch (CsvValidationException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }else{
-                    throw new IllegalArgumentException(ERROR_STRING);
+                    // Printing error and stopping execution.
+                    helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                    System.err.println("The csv option must specify a file name ({-name})!");
+                    System.exit(1);
                 }
-                dataAnswer = "y";
+                if(line.hasOption(storeOption)){        // Checking to see if the user chose some old research file for tokens analysis.
+                    fileName = FILE_PATH + line.getOptionValue(storeOption) + FILE_EXTENSION;
+                }
+            } else if(line.hasOption(fileOption)){
+                /* Checking the presence of coherent parameters and setting their value if present (some of
+                 * them are necessary so their absence cause the execution to stop).
+                 * */
+                if(line.hasOption(jsonOption)){
+                    fileName = FILE_PATH + line.getOptionValue(jsonOption) + FILE_EXTENSION;
+                    dataAnswer = "y";
+                    System.out.println(fileName);
+                }else{
+                    // Printing error and stopping execution.
+                    helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                    System.err.println("The file option must specify a file name ({-json})!");
+                    System.exit(1);
+                }
+            } else {
+                helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                System.exit(1);
             }
         }else {
             //USER INPUT (SETTINGS QUESTIONS PHASE)
@@ -248,9 +304,10 @@ public class Main {
                         int queriesSize = -1;
                         while(queriesSize < 0){
                             try {
-                                queriesSize = console.nextInt();
+                                queriesSize = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
+                                System.out.println("Sorry, the queries number must be a number, please retry: ");
                             }
                         }
                         for (int i = 0; i < queriesSize; i++) {
@@ -259,13 +316,14 @@ public class Main {
                         }
 
                         // Setting tags if needed.
-                        System.out.println("Enter the number of tag you want to consider (0 if none): ");
+                        System.out.println("Enter the number of tags you want to consider (0 if none): ");
                         int tagNumber = -1;
                         while(tagNumber < 0){
                             try{
-                                tagNumber = console.nextInt();
+                                tagNumber = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
+                                System.out.println("Sorry the tags number must be a number, please retry: ");
                             }
                         }
                         for (int i = 0; i < tagNumber; i++) {
@@ -275,7 +333,15 @@ public class Main {
 
                         // Setting max articles number.
                         System.out.println("Enter the max number of articles to elaborate: ");
-                        maxArticle = console.nextInt();
+                        maxArticle = -1;
+                        while(maxArticle < 0){
+                            try{
+                                maxArticle = Integer.parseInt(console.nextLine());
+                            }catch(NumberFormatException e){
+                                // Do nothing since we retry to set valid value.
+                                System.out.println("Sorry the max articles number must be a number, please retry: ");
+                            }
+                        }
 
                         // Elaborating Articles from The Guardian API response content.
                         try{
@@ -302,11 +368,7 @@ public class Main {
                 }
             }
 
-
-
-
-
-            //SERIALIZING PHASE
+            // SERIALIZING PHASE
             if (dataAnswer.equals("n")){
                 // Checking if articles is empty.
                 if(articles.size() == 0){
@@ -324,7 +386,7 @@ public class Main {
             // Checking to see if there is a "reason" to deserialize and print among settings.
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
-                //DESERIALIZING PHASE
+                // DESERIALIZING PHASE
                 try {
                     articles = Arrays.stream( deserializer.deserialize(fileName)).collect(Collectors.toList());
                 } catch (IOException e) {
@@ -342,13 +404,13 @@ public class Main {
                 // Entering the Articles textual fields inside of Tokenizer.
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
-                    tokenizer.enterTokens(pageText);
+                    tokenizer.tokenize(pageText);
                 }
 
-                //PRINTING PHASE
+                // PRINTING PHASE
                 System.out.println("The " + 50 + "(or less) most frequent words in the analyzed articles are: ");
-                Set<Map.Entry<Integer, List<String>>> set = tokenizer.getOrderedTokens(50);     // This variable stores the entry with tokens list as values
-                                                                                                        // indexed with their frequency.
+                // This variable stores the entry with tokens list as values indexed with their frequency.
+                Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
                 int wordCounter = 0;
                 Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();       // This variable is used to iterate Through the set of ordered tokens Lists.
                 Map.Entry<Integer, List<String>> pair;

@@ -14,7 +14,7 @@ import java.util.List;
  * NOTICE: only getters could be useful for this class because all the fields are part of a coherent
  * API response and should not be altered singularly.
  */
-public class JSONParser{
+public class APIParser {
     /** This is used to store the API endpoint response. */
     private String JSONString;
     /** This variable represent the status of the connection to the API endpoint. */
@@ -27,7 +27,7 @@ public class JSONParser{
     private int startIndex;
     /** This is the number of pages in the API response. */
     private int pageSize;
-    /** This is the current page out of a maximum {@link JSONParser#total}. */
+    /** This is the current page out of a maximum {@link APIParser#total}. */
     private int currentPage;
     /** This is the max number od pages, that contain articles, possible. */
     private int pages;
@@ -37,13 +37,13 @@ public class JSONParser{
     private List<APIArticle> articles;
 
     /**
-     * This constructor is used to set the JSON formatted string{@link JSONParser#JSONString}
+     * This constructor is used to set the JSON formatted string{@link APIParser#JSONString}
      *
      * @param str which is a JSON formatted string.
      * @throws JSONException         which is thrown when the string parameter is not in a valid JSON format.
      * @throws MalformedURLException when the URLs contained in the articles fields are not correct.
      */
-    public JSONParser(String str) throws JSONException, MalformedURLException {
+    public APIParser(String str) throws JSONException, MalformedURLException {
         JSONString = str;
         // Initializing the JsonObject with given string.
         JSONObject obj = new JSONObject(str);
@@ -135,7 +135,7 @@ public class JSONParser{
 
 
     /**
-     * Gets JSON string{@link JSONParser#JSONString}.
+     * Gets JSON string{@link APIParser#JSONString}.
      *
      * @return which is the JSON formatted string
      */
@@ -145,7 +145,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets status {@link JSONParser#status}.
+     * Gets status {@link APIParser#status}.
      *
      * @return the status of the API response.
      */
@@ -154,7 +154,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets total{@link JSONParser#total}.
+     * Gets total{@link APIParser#total}.
      *
      * @return the total number of articles with given parameters.
      */
@@ -163,7 +163,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets start index{@link JSONParser#startIndex}.
+     * Gets start index{@link APIParser#startIndex}.
      *
      * @return the starting index.
      */
@@ -172,7 +172,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets page size{@link JSONParser#pageSize}.
+     * Gets page size{@link APIParser#pageSize}.
      *
      * @return the page size.
      */
@@ -181,7 +181,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets user tier{@link JSONParser#userTier}.
+     * Gets user tier{@link APIParser#userTier}.
      *
      * @return the user tier in the "The Guardian".
      */
@@ -190,7 +190,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets current page{@link JSONParser#currentPage}.
+     * Gets current page{@link APIParser#currentPage}.
      *
      * @return the current page.
      */
@@ -199,7 +199,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets order method {@link JSONParser#orderBy}.
+     * Gets order method {@link APIParser#orderBy}.
      *
      * @return the order method.
      */
@@ -208,7 +208,7 @@ public class JSONParser{
     }
 
     /**
-     * Gets pages{@link JSONParser#pages}.
+     * Gets pages{@link APIParser#pages}.
      *
      * @return the max number of pages.
      */
@@ -217,7 +217,7 @@ public class JSONParser{
     }
 
     /**
-     * Get articles list {@link JSONParser#articles}.
+     * Get articles list {@link APIParser#articles}.
      *
      * @return the List with all articles read in the API response.
      */

@@ -16,17 +16,17 @@ import java.io.IOException;
 public class Serializer
 {
     /* This variable is the actual serializer from the jackson.xml package. */
-    private ObjectMapper jsonMapper;
+    private ObjectMapper JSONMapper;
 
-    /**This constructor just sets the {@link Serializer#jsonMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
+    /**This constructor just sets the {@link Serializer#JSONMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
     public Serializer() throws IOException {
-        jsonMapper = new ObjectMapper();
+        JSONMapper = new ObjectMapper();
         //This allows to ignore unknown properties in the instance of the object to serialize.
-        jsonMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        JSONMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //This is used to avoid serializing null fields.
-        jsonMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        JSONMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
         //This is used to set visibility of the serializer in relation to the object to serialize.
-        jsonMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
+        JSONMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Serializer
      */
     public void serialize(Article[] articles, String filePath) throws IOException {
         //Formatting the object in XML and storing it in the file at filePath path.
-        jsonMapper.writeValue(new File(filePath),articles);
+        JSONMapper.writeValue(new File(filePath),articles);
     }
 
 }

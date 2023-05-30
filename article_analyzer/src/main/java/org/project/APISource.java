@@ -18,7 +18,7 @@ public class APISource implements ArticleSource{
     /** This is used to facilitate setting and storing the URL.*/
     private URLSetter urlSetter;
     /** This is used to parse the field of an article in the response of the API endpoint which is formatted in JSON.*/
-    private JSONParser jsonParser;
+    private APIParser jsonParser;
     /** This is used to elaborate a set maximum number of article (the number of available one could be bigger o lower).*/
     private int maxArticle;
     /** This is used to start the research in the response from the API endpoint starting by the first group of articles.*/
@@ -30,14 +30,14 @@ public class APISource implements ArticleSource{
 
 
     /**
-     * This constructor sets the url and the max number of article to return, initializer the "urlsetter" with first value
+     * This constructor sets the url and the max number of article to return, initialize the URL setter {@link URLSetter} with first value
      * and the articles.
      *
-     * @param APIKey which needs to by a valid api key of the "The Guardian" api page.
+     * @param APIKey which needs to by a valid API key of the "The Guardian" API page.
      * @param tags which are used to specify a set of articles related to the strings passed.
-     * @param queries which are used to search a specific set oof words inside alle possible articles.
+     * @param queries which are used to search a specific set of words inside all possible articles.
      * @param maxArticle which is the max number of article to return (so the actual number could be less)
-     * @throws IOException
+     * @throws IOException which is thrown
      * @throws JSONException
      * @throws BadLocationException
      */
@@ -56,7 +56,7 @@ public class APISource implements ArticleSource{
     /**
      * This method read the Articles from the API JSON response and parse(from HTML) the content of the head and body fields of the articles.
      *
-     * @throws IOException if the files used to store Articles are does not have correct path.
+     * @throws IOException if the connected went wrong and the HTTP client was not able to connect to the endpoint.
      * @throws JSONException if the API response does not have the expected fields.
      */
     private void readArticle() throws IOException, JSONException {
@@ -70,14 +70,14 @@ public class APISource implements ArticleSource{
             URL = urlSetter.getURL();
             // Incrementing the Article page in the response for the next cycle.
             urlSetter.incrementPage();
-            //System.out.println("from " + URL + " :");
+            System.out.println("from " + URL + " :");
 
             // Getting the response from the API endpoint.
             client = new HTTPClient(new URL(URL));
             APIString = client.getHttpString();
 
             // Parsing the response from JSON format.
-            jsonParser = new JSONParser(APIString);
+            jsonParser = new APIParser(APIString);
             // Adding the Articles read in the new Article page.
             articles.addAll(jsonParser.getArticles());
 

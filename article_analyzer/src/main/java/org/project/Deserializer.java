@@ -18,17 +18,17 @@ import java.io.InputStreamReader;
  * */
 public class Deserializer {
     /** This variable is the actual deserializer from the org.codehaus.jackson.map package. */
-    private ObjectMapper jsonMapper;
+    private ObjectMapper JSONMapper;
 
-    /**This constructor just sets the {@link Deserializer#jsonMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
+    /**This constructor just sets the {@link Deserializer#JSONMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
     public Deserializer(){
-        jsonMapper = new ObjectMapper();
+        JSONMapper = new ObjectMapper();
         //This allows to ignore unknown properties in the instance of the object to serialize.
-        jsonMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        JSONMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //This is used to avoid serializing null fields.
-        jsonMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        JSONMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
         //This is used to set visibility of the serializer in relation to the object to serialize.
-        jsonMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
+        JSONMapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Deserializer {
         }
         String JSONString = builder.toString();
         //Deserializing the object from the file content.
-        Article[] articles = jsonMapper.readValue(JSONString,Article[].class);
+        Article[] articles = JSONMapper.readValue(JSONString,Article[].class);
         reader.close();
         return articles;
     }
