@@ -2,100 +2,114 @@ package org.project;
 
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is used to represent an Articles source where the articles are read from an api response.
+ * This class is used to represent an Articles source where the articles are read from the API response of the "The Guardian" API endpoint.
  */
 public class APISource implements ArticleSource{
-    private httpClient client;
-    private HTMLParser htmlparser;
-    private URLSetter urlsetter;
-    private JSONParser jsonparser;
+    /** This is used to actually connect to the API endpoint.*/
+    private HTTPClient client;
+    /** This is used to parse the content of the articles body and head fields.*/
+    private HTMLParser htmlParser;
+    /** This is used to facilitate setting and storing the URL.*/
+    private URLSetter urlSetter;
+    /** This is used to parse the field of an article in the response of the API endpoint which is formatted in JSON.*/
+    private APIParser jsonParser;
+    /** This is used to elaborate a set maximum number of article (the number of available one could be bigger o lower).*/
     private int maxArticle;
-    public final int intialCount = 1;
-    private final int pageSize = 100;
-    private final String baseUrl = "https://content.guardianapis.com";
-    private List<Article> articles;
+    /** This is used to start the research in the response from the API endpoint starting by the first group of articles.*/
+    public final int INITIALCOUNT = 1;
+    /** This is used to set a max number of articles present in the response of the API endpoint.*/
+    private final int PAGESIZE = 100;
+    /** This is used to keep track of the article List to eventually returning it when asked. */
+    private List<APIArticle> articles;
 
 
     /**
-     * This constructor sets the url and the max number of article to return, initializer the "urlsetter" with first value
+     * This constructor sets the url and the max number of article to return, initialize the URL setter {@link URLSetter} with first value
      * and the articles.
      *
-     * @param apiKey which needs to by a valid api key of the "The Guardian" api page.
+     * @param APIKey which needs to by a valid API key of the "The Guardian" API page.
      * @param tags which are used to specify a set of articles related to the strings passed.
-     * @param query which are used to search a specific set oof words inside alle possible articles.
-     * @param maxArticle1 which is the max number of article to return (so the actual number could be less)
-     * @throws IOException
+     * @param queries which are used to search a specific set of words inside all possible articles.
+     * @param maxArticle which is the max number of article to return (so the actual number could be less)
+     * @throws IOException which is thrown
      * @throws JSONException
      * @throws BadLocationException
      */
-    public APISource(String apiKey, String[] tags, String[] query, int maxArticle1) throws IOException, JSONException, BadLocationException {
-        //setting the max number of articles to read (could be less)
-        maxArticle = maxArticle1;
-        //setting url basing on the fields required for the api request
-        urlsetter = new URLSetter(baseUrl, apiKey, intialCount, pageSize, query, tags);
-        //setting articles variable
-        articles = new ArrayList<Article>();
+    public APISource(String baseURL, String APIKey, String[] tags, String[] queries, int maxArticle) throws IOException, JSONException, BadLocationException, ClassNotFoundException {
+        // Setting the max number of articles to read (could be less or more).
+        this.maxArticle = maxArticle;
+        // Setting URL basing on the fields required for the API  request.
+        urlSetter = new URLSetter(baseURL, APIKey, INITIALCOUNT, PAGESIZE, queries, tags);
+        // Initializing the articles variable.
+        articles = new ArrayList<APIArticle>();
+        // This read all the articles from the JSON response of the API endpoint.
         readArticle();
     }
+
+
     /**
-     * This method read the Articles and parse(from html) the content of the head and body fields of the json response.
-     * @throws BadLocationException
-     * @throws IOException
-     * @throws JSONException
+     * This method read the Articles from the API JSON response and parse(from HTML) the content of the head and body fields of the articles.
+     *
+     * @throws IOException if the connected went wrong and the HTTP client was not able to connect to the endpoint.
+     * @throws JSONException if the API response does not have the expected fields.
      */
-    private void readArticle() throws BadLocationException, IOException, JSONException {
+    private void readArticle() throws IOException, JSONException {
         int articleCount = 0;
-        String url = "";
-        String apiString = "";
+        String URL = "";
+        String APIString = "";
 
 
         while (articleCount < maxArticle) {
+            // Setting url basing on the fields required for the API request.
+            URL = urlSetter.getURL();
+            // Incrementing the Article page in the response for the next cycle.
+            urlSetter.incrementPage();
+            System.out.println("from " + URL + " :");
 
-            //setting url basing on the fields required for the api request
-            url = urlsetter.getUrl();
-            urlsetter.incrementPage();
-            System.out.println("from " + url + " :");
+            // Getting the response from the API endpoint.
+            client = new HTTPClient(new URL(URL));
+            APIString = client.getHttpString();
 
-            //getting response from the api point
-            client = new httpClient(new URL(url));
-            apiString = client.getHttpString();
+            // Parsing the response from JSON format.
+            jsonParser = new APIParser(APIString);
+            // Adding the Articles read in the new Article page.
+            articles.addAll(jsonParser.getArticles());
 
-            //parsing the response
-            jsonparser = new JSONParser(apiString);
-            articles.addAll(jsonparser.getArticles());
-
-            //setting the max number of article to analyze, also basing on the number of available ones
-            if (jsonparser.getTotal() < maxArticle) {
-                maxArticle = jsonparser.getPages();
+            // Setting the max number of Article to analyze, also basing on the number of available ones.
+            if (jsonParser.getTotal() < maxArticle) {
+                maxArticle = jsonParser.getPages();
                 System.out.println("Limited to " + maxArticle + " pages...");
             }
-            //initializing parser
-            htmlparser = new HTMLParser();
 
-            //analyzing each of the single new articles
-            for (Article article : articles.subList(articleCount, articles.size())) {
+            // Initializing the HTMLParser.
+            htmlParser = new HTMLParser();
+            // Parsing the content of each of the single new articles from HTML.
+            for (APIArticle article : articles.subList(articleCount, articles.size())) {
                 if (articleCount == maxArticle) {
                     break;
                 }
                 System.out.println("Anayzing site number: " + (articleCount + 1) + " with title: " + article.getWebTitle());
-                htmlparser.parse(article);
+                htmlParser.parse(article);
                 articleCount++;
             }
         }
-
-        //TRIM --> reducing the size the number of actual articles read
-        articles = new ArrayList<Article>(articles.subList(0, maxArticle));
+        // Reducing the size of Articles to the actual number of Articles read.
+        articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }
 
+    /**
+     * This method is used to simply return the elaborated List of Articles {@link APISource#articles}
+     *
+     * @return Article List
+     */
     @Override
-    public List<Article> getArticles() {
+    public List<APIArticle> getArticles() {
         return articles;
     }
 }
