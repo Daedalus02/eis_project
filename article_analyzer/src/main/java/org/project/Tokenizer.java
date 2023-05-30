@@ -121,7 +121,7 @@ public class Tokenizer {
     }
 
     /**
-     * This method is used by this class to correctly enter tokens in the map {@link Tokenizer#storage}.
+     * This method is used by this class to enter tokens in the map {@link Tokenizer#storage}.
      *
      * @param str which is the string containing text to add to the class variable to obtain a bigger set of tokens.
      */
@@ -132,19 +132,20 @@ public class Tokenizer {
         this.str += str;
 
         /*
-        * The next lines operation combine multiple operation:
+        * The next lines operation combine multiple operations:
         * It first converts each element(coreLabel) of the document produced by coreNLP tokenization into a string of lower case characters.
         *
-        * Then it split it using regex (see the definition in the finals fields definitions), this return an array of String.
+        * Then it split it using regex (see the definition in the finals fields definitions), this return an array of Strings. ("split(REGEX)")
         *
-        * At this point it convert this array into a list using "collect(Collectors.toList()". But in the end this would return an array of Lists.
+        * At this point it convert this array into a List using "collect(Collectors.toList()". But in the end this would return an array of Lists.
         *
-        * So instead of considering only one association between each coreLabel and the list of its inner split tokens, we consider multiple association
-        * between a coreLabel and all the inner tokens returned from the split operation (Strings).
+        * So instead of considering only one single association between each coreLabel and the list of its inner split tokens, we consider multiple association
+        * between a coreLabel and all the inner tokens returned from the split operation (Strings). ("flatMap(List::stream)")
         *
-        * Again, in the end we would have an array of String, so, as we did before, we convert the final big array containing all the inner tokens of coreLabels
+        * Again, in the end we would have an array of Strings, so, as we did before, we convert the final big array containing all the inner tokens of coreLabels
         * into a list with the same method.
         *
+        * NOTICE: We use distinct to eliminate duplicates.
          */
         List<String> list = document.tokens().stream().map(coreLabel -> Arrays.stream(coreLabel.toString().toLowerCase().split(REGEX))
                 .collect(Collectors.toList())).flatMap(List::stream).distinct().collect(Collectors.toList());
