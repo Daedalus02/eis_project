@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * This class is a wrapper that contain another tokenizer ("core NLP") from the package edu.stanford.mlp.pipeline
- * and allow to tokenize a given string of text into its words giving the possibility to check the presence of punctuation
+ * This class is a wrapper that contain a tokenizer ("core NLP") from the package edu.stanford.mlp.pipeline.
+ * It allows to tokenize a given string of text into its words. If needed, it checks the presence of punctuation
  * and common words, eventually returning a lexically/frequency ordered version to iterate through.
  */
 public class Tokenizer {
@@ -18,11 +18,11 @@ public class Tokenizer {
     /** This is a wrapper built around an annotation representing a document.*/
     private CoreDocument document = null;
 
-    /** This is the pipeline which divide the text processing into phases(here only one is used). */
+    /** This is the pipeline which divides the text processing into phases (here only one is used). */
     private StanfordCoreNLP pipeline = null;
     /** This boolean enables class methods to take punctuation and current words into account.*/
     private boolean checks = false;
-    /** This List of String allow the methods to know which words should be considered when checking for common words.*/
+    /** This List of String allows the methods to know which words should be considered when checking for common words.*/
     private List<String> commonWords = null;
     /** This variable stores the tokens and is capable of returning them in an ordered set. */
     private TokensStorage storage;
@@ -33,17 +33,20 @@ public class Tokenizer {
     private final String REGEX = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
 
     /**
-     * This constructor is used to set whether to do checks on the tokens or not ({@link Tokenizer#checks}),
-     * eventually setting common word ({@link Tokenizer#commonWords}), the string to initialize the pipeline with ({@link Tokenizer#str}),
-     * the actual pipeline ({@link Tokenizer#pipeline}), the document containing tokens ({@link Tokenizer#document}),
-     * the storage class {@link Tokenizer#storage}.
+     * This constructor is used to set:
+     *  whether to do checks on the tokens or not ({@link Tokenizer#checks});
+     *  common word ({@link Tokenizer#commonWords});
+     *  the string to initialize the pipeline with ({@link Tokenizer#str});
+     *  the pipeline ({@link Tokenizer#pipeline});
+     *  the document containing tokens ({@link Tokenizer#document});
+     *  the storage class {@link Tokenizer#storage}.
      *
      * @param str is a text containing the initial pool of tokens.
-     * @param checks which is used to check if there are common words or punctuation in the tokens.
-     * @param storage  which is a structure capable of storing tokens of returning them in an ordered set.
+     * @param checks checks if there are common words or punctuation in the tokens.
+     * @param storage a structure capable of storing tokens or returning them in an ordered set.
      */
     public Tokenizer(String str, boolean checks, TokensStorage storage) {
-        // This configures the internal tokenize core NLP so that it won't print warning messages.
+        // This configures the internal tokenizer core NLP so that it won't print warning messages.
         RedwoodConfiguration.current().clear().apply();
 
         // Setting the text string
@@ -53,25 +56,28 @@ public class Tokenizer {
         this.storage = storage;
 
         //SETTING PIPELINE PROPERTIES
-        // This is a variables that store the properties of the core NLP pipeline.
+
+        // This is a variable that stores the properties of the core NLP pipeline.
          Properties properties = new Properties();
 
-        // This set the pipeline to only tokenize the processed string.
+        // This sets the pipeline to only tokenize the processed string.
         properties.setProperty("annotators", "tokenize");
 
         // This sets the pipeline algorithm to neural algorithm.
         properties.setProperty("coref.algorithm", "neural");
 
-        // This remove the unrecognized tokens (some Unicodes are not processable).
+        // This removes the unrecognized tokens (some Unicodes are not processable).
         properties.setProperty("tokenize.options", "untokenizable=noneDelete");
+
         // This initializes the pipeline.
         pipeline = new StanfordCoreNLP(properties);
 
-        // This process the string containing tokens.
+        // This processes the string containing tokens.
         document = pipeline.processToCoreDocument(str);
 
         // This sets the possibility to do checks on the processed document.
         this.checks = checks;
+
         // Assigning values to the variable that store common words.
         if(this.checks){
             // This initializes the commonWords String List.
@@ -88,12 +94,12 @@ public class Tokenizer {
             }
         }
 
-        // Finally entering tokens inside the Maps.
+        //Insert tokens inside the storage.
         tokenize(this.str);
     }
 
     /**
-     * This method enables punctuation and common words check for the future entered tokens by setting the check variable{@link Tokenizer#checks}.
+     * This method enables punctuation and common words check for the future entered tokens by setting the check variable {@link Tokenizer#checks}.
      */
     public void enableCheck(){
         if(!checks){
@@ -114,38 +120,36 @@ public class Tokenizer {
     }
 
     /**
-     * This method disables punctuation and common words checks for the future entered tokens by setting the check variable{@link Tokenizer#checks}.
+     * This method disables punctuation and common words checks for the future entered tokens by setting the check variable {@link Tokenizer#checks}.
      */
     public void disableCheck(){
         checks = false;
     }
 
     /**
-     * This method is used by this class to enter tokens in the map {@link Tokenizer#storage}.
+     * This method is used by this class to insert tokens in the {@link Tokenizer#storage}.
      *
      * @param str which is the string containing text to add to the class variable to obtain a bigger set of tokens.
      */
     public void tokenize(String str){
         //save string tokens in a list (without duplicates)
         document = pipeline.processToCoreDocument(str);
-        //updating the content of the text containing tokens
+        //update the content of the text containing tokens
         this.str += str;
 
         /*
-        * The next lines operation combine multiple operations:
+        * The following lines combine multiple operations:
         * It first converts each element(coreLabel) of the document produced by coreNLP tokenization into a string of lower case characters.
         *
-        * Then it split it using regex (see the definition in the finals fields definitions), this return an array of Strings. ("split(REGEX)")
+        * Then, the string is split using regex, this produces an array of Strings. ("split(REGEX)")
         *
-        * At this point it convert this array into a List using "collect(Collectors.toList()". But in the end this would return an array of Lists.
+        * At this point it converts this array into a List using "collect(Collectors.toList()".
         *
-        * So instead of considering only one single association between each coreLabel and the list of its inner split tokens, we consider multiple association
-        * between a coreLabel and all the inner tokens returned from the split operation (Strings). ("flatMap(List::stream)")
+        * Multiple associations between a coreLabel and all the inner tokens obtained from the split operation are considered. ("flatMap(List::stream)")
         *
-        * Again, in the end we would have an array of Strings, so, as we did before, we convert the final big array containing all the inner tokens of coreLabels
-        * into a list with the same method.
+        * The final array containing all the inner tokens of coreLabels is converted into a list.
         *
-        * NOTICE: We use distinct to eliminate duplicates.
+        * NOTE: Duplicates are eliminated.
          */
         List<String> list = document.tokens().stream().map(coreLabel -> Arrays.stream(coreLabel.toString().toLowerCase().split(REGEX))
                 .collect(Collectors.toList())).flatMap(List::stream).distinct().collect(Collectors.toList());
@@ -160,7 +164,7 @@ public class Tokenizer {
                 }
             }
         }
-        // Entering tokens in the tokens storage.
+        //Inserts tokens in the tokens storage.
         storage.enterTokens(list);
     }
 }
