@@ -1,5 +1,7 @@
 package org.project;
 
+import java.net.URL;
+
 /**
  * This class represents the fields that are used in the CSV source to represent an Article.
  */
@@ -7,7 +9,7 @@ public class CSVArticle extends Article{
     /** This is used to identify the article.*/
     private String identifier;
     /** This is the URL to the article online page.*/
-    private String URL;
+    private URL URL;
     /** This is the date of publication of the article. */
     private String Date;
     /** This is the group that published the article. */
@@ -34,7 +36,7 @@ public class CSVArticle extends Article{
      * @param sourceSet  which is the group the published the article.
      * @param source     which is the article type.
      */
-    public CSVArticle(String head, String body, String identifier, String URL, String Date, String sourceSet, String source) {
+    public CSVArticle(String head, String body, String identifier, URL URL, String Date, String sourceSet, String source) {
         super(head, body);
         this.identifier = identifier;
         this.URL = URL;
@@ -58,7 +60,7 @@ public class CSVArticle extends Article{
      *
      * @param URL which is the article web page URL.
      */
-    public void setURL(String URL) {
+    public void setURL(URL URL) {
         this.URL = URL;
     }
     /**
@@ -104,8 +106,6 @@ public class CSVArticle extends Article{
 
 
     /* GETTERS */
-
-
     /**
      * Gets {@link CSVArticle#sourceSet}.
      *
@@ -127,7 +127,7 @@ public class CSVArticle extends Article{
      *
      * @return the article web page URL.
      */
-    public String getURL() {
+    public URL getURL() {
         return URL;
     }
     /**

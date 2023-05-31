@@ -126,7 +126,7 @@ public class APIParser {
                 article.setHead(arr.getJSONObject(i).getJSONObject("fields").getString("headline"));
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("wordcount")){
-                article.setWordcount(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount"));
+                article.setWordcount(Integer.parseInt(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount")));
             }
             // Adding the elaborated article to the List.
             articles.add(article);

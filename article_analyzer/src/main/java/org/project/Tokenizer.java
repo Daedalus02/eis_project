@@ -159,7 +159,7 @@ public class Tokenizer {
             String elem;
             while (iter.hasNext()) {
                 elem = iter.next();
-                if ((Pattern.matches(REGEX, elem) | elem.equals("") | commonWords.contains(elem))) {
+                if ((elem.length() < 3 | Pattern.matches(REGEX, elem) | elem.equals("") | commonWords.contains(elem) )) {
                     iter.remove();
                 }
             }

@@ -3,7 +3,7 @@ package org.project;
 import java.util.List;
 
 /**
- * This interface is used to represent a general source of srticles.
+ * This interface is used to represent a general source of articles.
  */
 public interface ArticleSource {
     /**
