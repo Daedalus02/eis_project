@@ -1,5 +1,7 @@
 package org.project;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 /**
  * This class allows to set the url with some given parameters (tags, query, page, page size, api key, base url )
  * for the api request.
@@ -7,7 +9,7 @@ package org.project;
  */
 public class URLSetter {
     /** Representation of a URL that is built in this class.*/
-    private String URL = "";
+    private URL URL;
     /** Value of the API key of the media Group API endpoint.*/
     private String APIKey;
     /** Queries used to search among the set of elements in the response.*/
@@ -32,7 +34,7 @@ public class URLSetter {
      * @param tags sets {@link URLSetter#tags}
      * @throws IllegalArgumentException if there is no coherence in pageSize and page variables.
      */
-    public URLSetter(String baseURL, String APIKey, int page, int pageSize, String[] queries , String[] tags) throws  IllegalArgumentException{
+    public URLSetter(String baseURL, String APIKey, int page, int pageSize, String[] queries , String[] tags) throws IllegalArgumentException, MalformedURLException{
         this.baseURL = baseURL;
         this.APIKey = APIKey;
         this.tags = tags;
@@ -42,39 +44,39 @@ public class URLSetter {
         buildUrl();
     }
     /** Used by the URLSetter to build and store the final {@link URLSetter#URL}.  */
-    private void buildUrl(){
+    private void buildUrl() throws MalformedURLException{
         // Setting a base URL.
-        URL = baseURL;
+        String URLString = baseURL;
 
         //Setting the request type as a search.
-        URL += "/search?";
+        URLString += "/search?";
 
         // Setting the page and checking for coherence.
         if(page > pageSize){
             throw new IllegalArgumentException();
         }
-        URL += "page-size=" + pageSize;
+        URLString += "page-size=" + pageSize;
         if(page != 0) {
-            URL += "&page=" + page;
+            URLString += "&page=" + page;
         }
-        URL += "&show-fields=body,headline,wordcount";
+        URLString += "&show-fields=body,headline,wordcount";
 
         // Setting tags and queries.
         if(tags.length != 0) {
-            URL += "&tag=";
-            URL += tags[0];
+            URLString += "&tag=";
+            URLString += tags[0];
             for (int i = 1; i < tags.length; i++) {
-                URL += "/"+tags[i];
+                URLString += "/"+tags[i];
             }
         }
         if(queries.length != 0) {
-            URL += "&q=";
+            URLString += "&q=";
             for (int i = 0; i < queries.length; i++) {
                 queries[i] = queries[i].replace(" ", "%20");
                 if (i == (queries.length - 1)) {
-                    URL += queries[i];
+                    URLString += queries[i];
                 } else {
-                    URL += queries[i] + "%20AND%20";
+                    URLString += queries[i] + "%20AND%20";
                 }
             }
         }
@@ -83,13 +85,14 @@ public class URLSetter {
         if(APIKey == ""){
             throw new IllegalArgumentException();
         }
-        URL += "&api-key=" + APIKey;
+        URLString += "&api-key=" + APIKey;
+        URL = new URL(URLString);
     }
 
     /**
      * Increment page number to show the next elements keeping the same parameter.
      */
-    public void incrementPage(){
+    public void incrementPage() throws MalformedURLException{
         page++;
         buildUrl();
     }
@@ -99,7 +102,7 @@ public class URLSetter {
      *
      * @return {@link URLSetter#URL} which is the baseURL completed.
      */
-    public String getURL(){
+    public URL getURL(){
         return URL;
     }
 }
