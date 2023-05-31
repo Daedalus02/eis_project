@@ -2,6 +2,7 @@ package org.project;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
@@ -66,7 +67,7 @@ public class CSVParser {
             }
             article = new CSVArticle();
             article.setIdentifier(Record[0]);
-            article.setURL(Record[1]);
+            article.setURL(new URL(Record[1]));
             article.setHead(Record[2]);
             article.setBody(Record[3]);
             article.setDate(Record[4]);

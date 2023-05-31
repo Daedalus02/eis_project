@@ -61,19 +61,19 @@ public class APISource implements ArticleSource{
      */
     private void readArticle() throws IOException, JSONException {
         int articleCount = 0;
-        String URL = "";
+        URL URL = null;
         String APIString = "";
 
 
         while (articleCount < maxArticle) {
-            // Setting url based on the fields required for the API request.
+            // Setting URL based on the fields required for the API request.
             URL = urlSetter.getURL();
             // Incrementing the Article page in the response for the next cycle.
             urlSetter.incrementPage();
             System.out.println("from " + URL + " :");
 
             // Getting the response from the API endpoint.
-            client = new HTTPClient(new URL(URL));
+            client = new HTTPClient(new URL(URL.toString()));
             APIString = client.getHttpString();
 
             // Parsing the response from JSON format.

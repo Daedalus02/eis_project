@@ -30,7 +30,7 @@ public class APIArticle extends Article {
     /** This is the name od the column the article is located at. */
     private String pillarName;
     /** This is the number of words contained in the article. */
-    private String wordcount;
+    private int wordcount;
 
 
     /**
@@ -51,7 +51,7 @@ public class APIArticle extends Article {
      * @param pillarName         the pillar name {@link APIArticle#pillarName}.
      * @param wordcount          the word count {@link APIArticle#wordcount}.
      */
-    public APIArticle(String head, String body, String id, String type, String sectionId, String sectionName, String webPublicationDate, String webTitle, URL webUrl, URL apiUrl, boolean isHosted, String pillarId, String pillarName, String wordcount)  {
+    public APIArticle(String head, String body, String id, String type, String sectionId, String sectionName, String webPublicationDate, String webTitle, URL webUrl, URL apiUrl, boolean isHosted, String pillarId, String pillarName, Integer wordcount)  {
         super(head, body);
         Id = id;
         this.type = type;
@@ -201,7 +201,7 @@ public class APIArticle extends Article {
      *
      * @param wordcount which is the word in contained in the article.
      */
-    public void setWordcount(String wordcount) {
+    public void setWordcount(int wordcount) {
         this.wordcount = wordcount;
     }
 
@@ -325,11 +325,11 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Gets wordcount {@link APIArticle#wordcount}.
+     * Gets word count {@link APIArticle#wordcount}.
      *
      * @return word count in the articles .
      */
-    public String getWordcount() {
+    public int getWordcount() {
         return wordcount;
     }
 }
