@@ -3,7 +3,7 @@ package org.project;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 /**
- * This abstract class is the general representation of an Article. It only contains the body and head field of it's
+ * This abstract class is the general representation of an Article. It only contains the body and head fields of its
  * HTML page, allowing to set and get their values.
  */
 
@@ -21,11 +21,11 @@ public abstract class Article {
     public Article(){
     }
     /**
-     * This constructor take as argument the values of the head and body to set the Article with,
-     * also check if the article type is a valid article.
+     * This constructor takes as argument the values of the head and body using them to set the Article.
+     * It also checks if the article type is a valid article.
      *
-     * @param head        which is the value the class variable head {@link Article#head} is set with.
-     * @param body        which is the value the class variable body {@link Article#body} is set with.
+     * @param head        which is the value of the variable {@link Article#head}.
+     * @param body        which is the value of the variable {@link Article#body}.
      */
     public Article(String head, String body){
         this.body = body;
@@ -33,10 +33,12 @@ public abstract class Article {
     }
 
     /* GETTERS */
+
+
     /**
      * Gets head {@link  Article#head}.
      *
-     * @return the head field of the article page HTML.
+     * @return the head field of the article.
      */
     public String getHead() {
         return head;
@@ -44,7 +46,7 @@ public abstract class Article {
     /**
      * Gets body {@link Article#body}.
      *
-     * @return the body field of the article page HTML.
+     * @return the body field of the article.
      */
     public String getBody() {
         return body;
@@ -53,17 +55,17 @@ public abstract class Article {
     /* SETTERS */
 
     /**
-     * Sets head {@link Article#head}.
+     * Sets {@link Article#head}.
      *
-     * @param head which is the head field of an article page HTML.
+     * @param head which is the head field of an article.
      */
     public void setHead(String head) {
         this.head = head;
     }
     /**
-     * Sets body {@link Article#body}.
+     * Sets {@link Article#body}.
      *
-     * @param body which is the body field af an Article page HTML .
+     * @param body which is the body field af an article.
      */
     public void setBody(String body) {
         this.body = body;
