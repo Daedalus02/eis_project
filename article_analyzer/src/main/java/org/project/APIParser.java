@@ -11,25 +11,25 @@ import java.util.List;
  * This class is used to parse the given JSON formatted String content assuming it has fields to
  * describe an API response from the "The Guardian" and to each one of the Articles it contains.
  *
- * NOTICE: only getters could be useful for this class because all the fields are part of a coherent
+ * NOTE: only getters could be useful for this class because all the fields are part of a coherent
  * API response and should not be altered singularly.
  */
 public class APIParser {
     /** This is used to store the API endpoint response. */
     private String JSONString;
-    /** This variable represent the status of the connection to the API endpoint. */
+    /** This variable represents the status of the connection to the API endpoint. */
     private String status;
     /** This is the description of the user level in the "The Guardian".  */
     private String userTier;
     /** This is the Max possible number of article for the specified parameters. */
     private int total;
-    /** This is the lower number associated to page. */
+    /** This is the lowest number associated to a page. */
     private int startIndex;
     /** This is the number of pages in the API response. */
     private int pageSize;
     /** This is the current page out of a maximum {@link APIParser#total}. */
     private int currentPage;
-    /** This is the max number od pages, that contain articles, possible. */
+    /** This is the max number of pages possible. */
     private int pages;
     /** This is the way articles are ordered in the API response. */
     private String orderBy;
@@ -40,8 +40,8 @@ public class APIParser {
      * This constructor is used to set the JSON formatted string{@link APIParser#JSONString}
      *
      * @param str which is a JSON formatted string.
-     * @throws JSONException         which is thrown when the string parameter is not in a valid JSON format.
-     * @throws MalformedURLException when the URLs contained in the articles fields are not correct.
+     * @throws JSONException         if the string parameter is not in a valid JSON format.
+     * @throws MalformedURLException if the URLs contained in the articles fields are not correct.
      */
     public APIParser(String str) throws JSONException, MalformedURLException {
         JSONString = str;
@@ -49,8 +49,8 @@ public class APIParser {
         JSONObject obj = new JSONObject(str);
 
         /* Parsing the string to see if it contains attributes of a "The Guardian" API response.
-         * NOTICE: here we do not check if those fields are present because if they are not it means
-         * that the API response is not in a correct format*/
+         * NOTE: the response is assumed to be in the correct format
+         * */
         status = obj.getJSONObject("response").getString("status");
         userTier = obj.getJSONObject("response").getString("userTier");
         total = Integer.parseInt( obj.getJSONObject("response").getString("total"));
@@ -60,7 +60,7 @@ public class APIParser {
         pages = Integer.parseInt(obj.getJSONObject("response").getString("pages"));
         orderBy = obj.getJSONObject("response").getString("orderBy");
 
-        /* Reading all the contained articles properties, and initializing List of articles with those.
+        /* Reading all the contained articles properties and initializing List of articles with them.
          * (after checking if those fields are contained, not all are necessary)
          */
         JSONArray arr = obj.getJSONObject("response").getJSONArray("results");
@@ -126,7 +126,7 @@ public class APIParser {
                 article.setHead(arr.getJSONObject(i).getJSONObject("fields").getString("headline"));
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("wordcount")){
-                article.setWordcount(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount"));
+                article.setWordcount(Integer.parseInt(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount")));
             }
             // Adding the elaborated article to the List.
             articles.add(article);
@@ -134,12 +134,14 @@ public class APIParser {
     }
 
 
+    /*GETTERS*/
+
+
     /**
      * Gets JSON string{@link APIParser#JSONString}.
      *
-     * @return which is the JSON formatted string
+     * @return JSON formatted string
      */
-    /*GETTERS*/
     public String getJSONString() {
         return JSONString;
     }
@@ -156,7 +158,7 @@ public class APIParser {
     /**
      * Gets total{@link APIParser#total}.
      *
-     * @return the total number of articles with given parameters.
+     * @return the total number of articles with the given parameters.
      */
     public int getTotal() {
         return total;
@@ -217,7 +219,7 @@ public class APIParser {
     }
 
     /**
-     * Get articles list {@link APIParser#articles}.
+     * Gets articles list {@link APIParser#articles}.
      *
      * @return the List with all articles read in the API response.
      */

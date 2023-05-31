@@ -7,34 +7,34 @@ import java.net.URL;
  * This class is used to represent an article with all properties af an article of the "The Guardian" media group.
  */
 public class APIArticle extends Article {
-    /** Which is the article identifier.*/
+    /** This is the article identifier.*/
     private String Id;
-    /** Which is the article type. */
+    /** This is the article type. */
     private String type;
-    /** Which is the article section identifier. */
+    /** This is the article section identifier. */
     private String sectionId;
-    /** Which is the article section name. */
+    /** This is the article section name. */
     private String sectionName;
-    /** Which is the date of publication of the article. */
+    /** This is the date of publication of the article. */
     private String webPublicationDate;
-    /** Which is the name of the article. */
+    /** This is the name of the article. */
     private String webTitle;
-    /** Which is the url of the article. */
+    /** This is the url of the article. */
     private URL webUrl = null;
-    /** Which is the url of the API of the article. */
+    /** This is the url of the API of the article. */
     private URL apiUrl = null;
-    /** Which tells whether the article is hosted or not (always set to true if not specified). */
+    /** This tells whether the article is hosted or not (always set to true if not specified). */
     private boolean isHosted = true;
-    /** Which is the column identifier. */
+    /** This is the column identifier. */
     private String pillarId;
-    /** Which is the name od the column the article is located at. */
+    /** This is the name od the column the article is located at. */
     private String pillarName;
-    /** Which is the number of words contained in the article. */
-    private String wordcount;
+    /** This is the number of words contained in the article. */
+    private int wordcount;
 
 
     /**
-     * Instantiates a new Api article setting its fields with the given parameters.
+     * Initialises a new Api article setting its fields with the given parameters.
      *
      * @param head               the head.
      * @param body               the body.
@@ -51,7 +51,7 @@ public class APIArticle extends Article {
      * @param pillarName         the pillar name {@link APIArticle#pillarName}.
      * @param wordcount          the word count {@link APIArticle#wordcount}.
      */
-    public APIArticle(String head, String body, String id, String type, String sectionId, String sectionName, String webPublicationDate, String webTitle, URL webUrl, URL apiUrl, boolean isHosted, String pillarId, String pillarName, String wordcount)  {
+    public APIArticle(String head, String body, String id, String type, String sectionId, String sectionName, String webPublicationDate, String webTitle, URL webUrl, URL apiUrl, boolean isHosted, String pillarId, String pillarName, Integer wordcount)  {
         super(head, body);
         Id = id;
         this.type = type;
@@ -154,7 +154,7 @@ public class APIArticle extends Article {
     /**
      * Sets isHosted{@link APIArticle#isHosted}.
      *
-     * @param hosted which tells wheter the site is hosted or not.
+     * @param hosted which tells whether the site is hosted or not.
      */
     public void setHosted(boolean hosted) {
         isHosted = hosted;
@@ -201,14 +201,14 @@ public class APIArticle extends Article {
      *
      * @param wordcount which is the word in contained in the article.
      */
-    public void setWordcount(String wordcount) {
+    public void setWordcount(int wordcount) {
         this.wordcount = wordcount;
     }
 
     /* GETTERS */
 
     /**
-     * Get Id string {@link APIArticle#Id}.
+     * Gets Id string {@link APIArticle#Id}.
      *
      * @return the article identifier.
      */
@@ -217,7 +217,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get type string {@link APIArticle#type}.
+     * Gets type string {@link APIArticle#type}.
      *
      * @return the article type.
      */
@@ -226,7 +226,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get web URL {@link APIArticle#webUrl}.
+     * Gets web URL {@link APIArticle#webUrl}.
      *
      * @return the URL of the article web page .
      */
@@ -235,7 +235,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get API URL {@link APIArticle#apiUrl}.
+     * Gets API URL {@link APIArticle#apiUrl}.
      *
      * @return the URL of the article API endpoint.
      */
@@ -244,7 +244,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get section id string {@link APIArticle#sectionId}.
+     * Gets section id string {@link APIArticle#sectionId}.
      *
      * @return article section identifier.
      */
@@ -253,7 +253,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get section name string {@link APIArticle#sectionName}.
+     * Gets section name string {@link APIArticle#sectionName}.
      *
      * @return article section name.
      */
@@ -262,7 +262,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get web publication date string {@link APIArticle#webPublicationDate}.
+     * Gets web publication date string {@link APIArticle#webPublicationDate}.
      *
      * @return the article publication date.
      */
@@ -271,7 +271,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get web title string {@link APIArticle#webTitle}.
+     * Gets web title string {@link APIArticle#webTitle}.
      *
      * @return the title of the article.
      */
@@ -280,7 +280,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get hosted boolean {@link APIArticle#isHosted}.
+     * Gets hosted boolean {@link APIArticle#isHosted}.
      *
      * @return true if the article is hosted.
      */
@@ -289,7 +289,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get pillar id string {@link APIArticle#pillarId}.
+     * Gets pillar id string {@link APIArticle#pillarId}.
      *
      * @return the article column identifier.
      */
@@ -298,7 +298,7 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Get pillar name string {@link APIArticle#pillarName}.
+     * Gets pillar name string {@link APIArticle#pillarName}.
      *
      * @return the name of the column associated with the article.
      */
@@ -325,11 +325,11 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Gets wordcount {@link APIArticle#wordcount}.
+     * Gets word count {@link APIArticle#wordcount}.
      *
      * @return word count in the articles .
      */
-    public String getWordcount() {
+    public int getWordcount() {
         return wordcount;
     }
 }

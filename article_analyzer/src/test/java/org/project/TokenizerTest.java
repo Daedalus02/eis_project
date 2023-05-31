@@ -7,14 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TokenizerTest {
 
     @Test
-    void removeTokens() {
-    }
-
-    @Test
-    void enterTokens() {
-    }
-
-    @Test
-    void getOrderedTokens() {
+    void tokenize() {
     }
 }

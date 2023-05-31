@@ -1,13 +1,15 @@
 package org.project;
 
+import java.net.URL;
+
 /**
- * This class represent the fields that are used in the CSV source to represent an Article.
+ * This class represents the fields that are used in the CSV source to represent an Article.
  */
 public class CSVArticle extends Article{
     /** This is used to identify the article.*/
     private String identifier;
     /** This is the URL to the article online page.*/
-    private String URL;
+    private URL URL;
     /** This is the date of publication of the article. */
     private String Date;
     /** This is the group that published the article. */
@@ -16,7 +18,7 @@ public class CSVArticle extends Article{
     private String source;
 
     /**
-     * This is a dummy constructor needed by other classes to just instantiate
+     * This is a dummy constructor needed by other classes to just initialise
      * a new instance of this class.
      */
     public CSVArticle(){
@@ -24,18 +26,17 @@ public class CSVArticle extends Article{
     }
 
     /**
-     * This construct is used to set all the fields when they are known to the
-     * class that try to initialize an instance of CSVArticle.
+     * This constructor is used to set all the fields.
      *
-     * @param head       which is the head field of the article HTML page.
-     * @param body       which is the body field of the article HTML page.
-     * @param identifier which is the article identifier {@link CSVArticle#identifier}.
-     * @param URL        which is the article HTML page URL {@link CSVArticle#URL}.
-     * @param Date       which is the article web publication date {@link CSVArticle#Date}.
-     * @param sourceSet  which is the group the published the article {@link CSVArticle#sourceSet}.
-     * @param source     which is the article type {@link CSVArticle#source}.
+     * @param head       which is the head field of the article.
+     * @param body       which is the body field of the article.
+     * @param identifier which is the article {@link CSVArticle#identifier}.
+     * @param URL        which is the article HTML page {@link CSVArticle#URL}.
+     * @param Date       which is the article web publication {@link CSVArticle#Date}.
+     * @param sourceSet  which is the group the published the article.
+     * @param source     which is the article type.
      */
-    public CSVArticle(String head, String body, String identifier, String URL, String Date, String sourceSet, String source) {
+    public CSVArticle(String head, String body, String identifier, URL URL, String Date, String sourceSet, String source) {
         super(head, body);
         this.identifier = identifier;
         this.URL = URL;
@@ -45,8 +46,9 @@ public class CSVArticle extends Article{
     }
 
     /* SETTERS */
+
     /**
-     * Sets identifier {@link CSVArticle#identifier}.
+     * Sets {@link CSVArticle#identifier}.
      *
      * @param identifier which is the article identifier.
      */
@@ -54,15 +56,15 @@ public class CSVArticle extends Article{
         this.identifier = identifier;
     }
     /**
-     * Sets URL {@link CSVArticle#URL}.
+     * Sets {@link CSVArticle#URL}.
      *
      * @param URL which is the article web page URL.
      */
-    public void setURL(String URL) {
+    public void setURL(URL URL) {
         this.URL = URL;
     }
     /**
-     * Sets Date {@link CSVArticle#Date}.
+     * Sets {@link CSVArticle#Date}.
      *
      * @param date which is the web publication date of the article.
      */
@@ -70,7 +72,7 @@ public class CSVArticle extends Article{
         Date = date;
     }
     /**
-     * Sets source set {@link CSVArticle#sourceSet}.
+     * Sets {@link CSVArticle#sourceSet}.
      *
      * @param sourceSet which is the group the published the article.
      */
@@ -78,7 +80,7 @@ public class CSVArticle extends Article{
         this.sourceSet = sourceSet;
     }
     /**
-     * Sets source {@link CSVArticle#source}.
+     * Sets {@link CSVArticle#source}.
      *
      * @param source which is the article type.
      */
@@ -86,25 +88,26 @@ public class CSVArticle extends Article{
         this.source = source;
     }
     /**
-     * Sets the body field of the article page HTML.
+     * Sets the body field of the article.
      *
-     * @param body which is the body field af an Article page HTML.
+     * @param body which is the body field af an Article.
      */
     public void setBody(String body){
         super.setBody(body);
     }
     /**
-     * Sets the head field of the article page HTML.
+     * Sets the head field of the article.
      *
-     * @param head which is the head field of an article page HTML.
+     * @param head which is the head field of an article.
      */
     public void setHead(String head){
         super.setHead(head);
     }
 
+
     /* GETTERS */
     /**
-     * Gets source set {@link CSVArticle#sourceSet}.
+     * Gets {@link CSVArticle#sourceSet}.
      *
      * @return the source set.
      */
@@ -112,31 +115,31 @@ public class CSVArticle extends Article{
         return sourceSet;
     }
     /**
-     * gets the body field of the article page HTML.
+     * Gets the body field of the article.
      *
-     * @return body field of the article page HTML.
+     * @return body field of the article.
      */
     public String getBody(){
         return super.getBody();
     }
     /**
-     * Gets URL {@link CSVArticle#URL}.
+     * Gets {@link CSVArticle#URL}.
      *
      * @return the article web page URL.
      */
-    public String getURL() {
+    public URL getURL() {
         return URL;
     }
     /**
-     * Gets the head field of the article page HTML.
+     * Gets the head field of the article.
      *
-     * @return the head field of the article page HTML.
+     * @return the head field of the article.
      */
     public String getHead(){
         return super.getHead();
     }
     /**
-     * Gets source {@link CSVArticle#source}.
+     * Gets {@link CSVArticle#source}.
      *
      * @return the article type.
      */
@@ -144,7 +147,7 @@ public class CSVArticle extends Article{
         return source;
     }
     /**
-     * Gets date {@link CSVArticle#Date}.
+     * Gets {@link CSVArticle#Date}.
      *
      * @return the article web publication date.
      */
@@ -152,7 +155,7 @@ public class CSVArticle extends Article{
         return Date;
     }
     /**
-     * Gets identifier {@link CSVArticle#identifier}.
+     * Gets {@link CSVArticle#identifier}.
      *
      * @return the article identifier.
      */
