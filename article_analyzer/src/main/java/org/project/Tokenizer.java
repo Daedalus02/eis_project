@@ -13,22 +13,22 @@ import java.util.stream.Collectors;
  * and common words, eventually returning a lexically/frequency ordered version to iterate through.
  */
 public class Tokenizer {
-    /** This is the String that initially contains the entire text to process using this class.*/
+    /** String that initially contains the entire text to process using this class.*/
     private String str = "";
-    /** This is a wrapper built around an annotation representing a document.*/
+    /** Wrapper built around an annotation representing a document.*/
     private CoreDocument document = null;
 
-    /** This is the pipeline which divides the text processing into phases (here only one is used). */
+    /** Pipeline which divides the text processing into phases (here only one is used). */
     private StanfordCoreNLP pipeline = null;
-    /** This boolean enables class methods to take punctuation and current words into account.*/
+    /** Enables class methods to take punctuation and current words into account.*/
     private boolean checks = false;
-    /** This List of String allows the methods to know which words should be considered when checking for common words.*/
+    /** Allows the methods to know which words should be considered when checking for common words.*/
     private List<String> commonWords = null;
-    /** This variable stores the tokens and is capable of returning them in an ordered set. */
+    /**Stores the tokens and is capable of returning them in an ordered set. */
     private TokensStorage storage;
-    /** This String contains the file where {@link Tokenizer#commonWords} are stored.*/
+    /** Contains the file where {@link Tokenizer#commonWords} are stored.*/
     private final String FILENAME = "res" + File.separator + "words" + File.separator + "words.txt";
-    /** This String contains the regex for common punctuation plus few more characters that
+    /** Contains the regex for common punctuation plus few more characters that
      *  are used to split the tokens (see {@link TreeStorage#getOrderedTokens(int)}).*/
     private final String REGEX = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
 
@@ -46,7 +46,7 @@ public class Tokenizer {
      * @param storage a structure capable of storing tokens or returning them in an ordered set.
      */
     public Tokenizer(String str, boolean checks, TokensStorage storage) {
-        // This configures the internal tokenizer core NLP so that it won't print warning messages.
+        // Configures the internal tokenizer core NLP so that it won't print warning messages.
         RedwoodConfiguration.current().clear().apply();
 
         // Setting the text string

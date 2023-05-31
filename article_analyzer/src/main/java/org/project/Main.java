@@ -12,55 +12,53 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
-    /** This constant is the relative path of the old serialized research. */
+    /** Relative path of the old serialized research. */
     private static final String FILE_PATH = "res" + File.separator + "pages" + File.separator;
-    /** This constant is the extension of the serialized file. */
+    /** Extension of the serialized file. */
     private static final String FILE_EXTENSION = ".json";
-    /** This constant is the relative path where the CSV files are stored. */
+    /** Relative path to where the CSV files are stored. */
     private static final String CSV_PATH = "res" + File.separator + "csv" + File.separator;
-    /** This constant is the extension of CSV formatted file. */
+    /** Extension of CSV formatted file. */
     private static final String CSV_EXSTENSION = ".csv";
-    /** This constant is complete file address where the default API key could be found. */
+    /** Complete file address where the default API key can be found. */
     private static final String API_FILE = "res" + File.separator + "private" + File.separator + "private.properties";
-    /** This constant is the error printed when the parameters passed from command line are not correct. */
+    /** Base url of the API guardian endpoint. */
     private static final String BASE_URL = "https://content.guardianapis.com";
 
     public static void main(String Args[]) {
 
         // SETTING ALL THE "COMMON" VARIABLE NEEDED DURING EXECUTION.
         Scanner console = new Scanner(System.in);
-        List<Article> articles = new ArrayList<Article>();      // This variable store the Articles read from different possible source.
-        String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name(only used when not specified).
-        TokensStorage storage = new TreeStorage();      // This variable holds the tokens and is capable of returning them in an ordered set.
-        Tokenizer tokenizer = new Tokenizer("", true,storage);      //This variable is used to tokenize articles in their different tokens doing checks.
-        Deserializer deserializer = new Deserializer();     // This variable is used to deserialize Articles from the file they were previously serialized in.
-        String pageText = "";       // This is The text contained in both the head and the body fields of an Article.
-        String downloadAnswer = "n";        // This variable value is y(yes) if the user decides to visualize the 50 more frequent tokens.
-        String csvAnswer = "n";         // This variable value is y(yes) if the user decides to read articles from a CSV file.
-        String dataAnswer = "n";        // This variable value is y(yes) if the user decides to read articles from previous researches.
-        String csvName = "";        // This variable stores the name of the CSV file if the user want to read articles from a CSV file.
-        String apiKey = "";         // This Variable value is the API key of the user to be able to log to the "The Guardian" API endpoint.
-        int maxArticle = 0;     // This variable contains the max accepted number of articles to elaborate.
-        List<String> queries = new ArrayList<String>();     // This variable contains the queries to consider when doing
-                                                       // research in the "The Guardian" APi endpoint response.
-        List<String> tags = new ArrayList<String>();        // This variable contains the tags to consider when doing
-                                                       // research in the "The Guardian" APi endpoint response.
-        ArticleSource source;       // This variable represent a general Article source (example: CSV file, API endpoint response).
+        List<Article> articles = new ArrayList<Article>();      // Store the Articles read from different possible sources.
+        String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name (only used when not specified).
+        TokensStorage storage = new TreeStorage();      // Holds the tokens and is capable of returning them in an ordered set.
+        Tokenizer tokenizer = new Tokenizer("", true,storage);      //Used to tokenize articles in their different tokens checking them.
+        Deserializer deserializer = new Deserializer();     // Used to deserialize Articles from the file they were previously serialized in.
+        String pageText = "";       //Text contained in both the head and the body fields of an Article.
+        String downloadAnswer = "n";        // y(yes) if the user decides to visualize the 50 more frequent tokens.
+        String csvAnswer = "n";         // y(yes) if the user decides to read articles from a CSV file.
+        String dataAnswer = "n";        // y(yes) if the user decides to read articles from previous researches.
+        String csvName = "";        // Stores the name of the CSV file if the user want to read articles from a CSV file.
+        String apiKey = "";         // API key of the user to be able to log to the "The Guardian" API endpoint.
+        int maxArticle = 0;     // Max accepted number of articles to elaborate.
+        List<String> queries = new ArrayList<String>();     // Queries to consider when doing research in the "The Guardian" APi endpoint response.
+        List<String> tags = new ArrayList<String>();        // Tags to consider when doing research in the "The Guardian" APi endpoint response.
+        ArticleSource source;       // General Article source (example: CSV file, API endpoint response).
 
         /*
-         * Structure of input from terminal:
+         * Input structure from terminal:
          *
          * java -cp target/article_analyzer-1.0-jar-with-dependencies.jar org.project.Main -source ...
-         * -If source is file then  the syntax is:
+         * -If source is file:
          *      ... -file fileName -store storingFileName(optional)
-         * -If source is The Guardian api then the syntax is:
+         * -If source is The Guardian api:
          *      ... -api -queries query1 query2 queryN -tags(optional) tag1 tag2 tagN -max max_number_of_articles
          *          -apiKey(optional if entered in apikey properties file) your_api_Key -store storingFileName(optional)
-         * -If the source is CSV then the syntax is:
+         * -If the source is CSV:
          *      ... -csv filename -store storingFileName(optional)
          *
-         * Where the implicit file path for csv is res/csv/ and for old research file is res/pages
-         * (NOTICE apiKey, store, tags, queries are optional.)
+         * The implicit file path for csv is res/csv/ and for old research file is res/pages
+         * (NOTE apiKey, store, tags, queries are optional.)
          * */
 
         //COMMAND LINE INPUT
@@ -71,13 +69,13 @@ public class Main {
             // Setting a group of mutually exclusive options.
             OptionGroup actions = new OptionGroup();
             // Display help to use the command line input.
-            Option hOption = new Option("h", "help", false, "Print the help.");
+            Option hOption = new Option("h", "help", false, "Prints the help.");
             // Option for setting the API endpoint response analysis parameters.
-            Option APIOption = new Option("api","read-api",false,"Read article from API response.");
+            Option APIOption = new Option("api","read-api",false,"Reads article from API response.");
             // Option for setting the CSV file analysis.
-            Option CSVOption = new Option("csv","read-csv",false,"Read article from CSV file.");
+            Option CSVOption = new Option("csv","read-csv",false,"Reads article from CSV file.");
             // Option for setting the previously stored articles analysis.
-            Option fileOption = new Option("file", "read-file", false, "Read article from previous research.");
+            Option fileOption = new Option("file", "read-file", false, "Reads article from previous research.");
             // Adding the options to the mutually exclusive group.
             actions.addOption(hOption);
             actions.addOption(APIOption);
@@ -92,7 +90,7 @@ public class Main {
             queriesOption.setArgs(Option.UNLIMITED_VALUES);
             Option storeOption = new Option("store", "store",true,"The name of the file to store the articles in.");
             Option keyOption = new Option("apikey","api-key", true,"The value of the api key to use to connect to the \"The Guardian\" endpoint.");
-            Option showOption = new Option("show","show",false,"Print the 50(or less) most frequent words in the articles read.");
+            Option showOption = new Option("show","show",false,"Print the 50(or less) most frequent words in the read articles.");
             Option nameOption = new Option("name","csv-file-name",true,"The name of the CSV file.");
             Option jsonOption = new Option("json","json-file-name",true,"The name of the file where previously stored a research.");
 
@@ -111,8 +109,9 @@ public class Main {
             HelpFormatter helpFormatter = new HelpFormatter();
             // Initializing the options parser from the command line.
             CommandLineParser lineParser = new DefaultParser();
-            // This variable holds the parsed command line.
+            // Holds the parsed command line.
             CommandLine line = null;
+
             // Trying to set the line.
             try{
                 line = lineParser.parse(options,Args);
@@ -123,7 +122,8 @@ public class Main {
                 helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
                 System.exit(1);
             }
-            // Checking to see if the user required a help message.
+
+            // Checking to see if the user requested a help message.
             if(line.hasOption(hOption)){
                 helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
             } else if(line.hasOption(APIOption)){       // Checking to see if the user chose the API endpoint response as articles source.
@@ -208,7 +208,7 @@ public class Main {
                 }else{
                     // Printing error and stopping execution.
                     helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
-                    System.err.println("The csv option must specify a file name ({-name})!");
+                    System.err.println("The csv option must specify a file name ({-name}).");
                     System.exit(1);
                 }
                 if(line.hasOption(storeOption)){        // Checking to see if the user chose some old research file for tokens analysis.
@@ -225,7 +225,7 @@ public class Main {
                 }else{
                     // Printing error and stopping execution.
                     helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
-                    System.err.println("The file option must specify a file name ({-json})!");
+                    System.err.println("The file option must specify a file name ({-json}).");
                     System.exit(1);
                 }
             } else {
@@ -236,31 +236,31 @@ public class Main {
             //USER INPUT (SETTINGS QUESTIONS PHASE)
 
             // Asking if the user want to use older data.
-            System.out.println("Do you want to load data from file?(y/n)");
+            System.out.println("Do you want to load data from file? (y/n) ");
             dataAnswer = console.nextLine().toLowerCase();
             while (!(dataAnswer.equals("y") || dataAnswer.equals("n"))) {
-                System.out.println("Sorry i didn't understood your answer please enter a valid one(y/n): ");
+                System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                 dataAnswer = console.nextLine().toLowerCase();
             }
             if (dataAnswer.equals("y")) {
                 // Selecting file name.
-                System.out.println("Enter the name of the file you saved a previous search");
+                System.out.println("Enter the name of the file where you saved a previous search.");
                 fileName = FILE_PATH + console.nextLine() + FILE_EXTENSION;
             } else {
-                // Asking the user to set the name of the file for storing the research.
-                System.out.println("Enter the name of the file you want to save your research(enter \"test\" if not important): ");
+                // Asking the user to set the name of the file where the research will be stored.
+                System.out.println("Enter the name of the file where you want to save your research (enter \"test\" if not important): ");
                 fileName = FILE_PATH + console.nextLine() + FILE_EXTENSION;
 
-                // Asking if the user want to read articles from the CSV file source.
-                System.out.println("Do you want to load data from CSV file? (y/n)");
+                // Asking if the user wants to read articles from the CSV file source.
+                System.out.println("Do you want to load data from CSV file? (y/n) ");
                 csvAnswer = console.nextLine().toLowerCase();
                 while (!(csvAnswer.equals("y") || csvAnswer.equals("n"))) {
-                    System.out.println("Sorry I didn't understand your answer please enter a valid one(y/n): ");
+                    System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                     csvAnswer = console.next().toLowerCase();
                 }
                 if (csvAnswer.equals("y")) {
                     // Asking for the user to enter the CSV file name.
-                    System.out.println("Enter the name of csv file (without extension): ");
+                    System.out.println("Enter the name of CSV file (without extension): ");
                     csvName = CSV_PATH + console.nextLine().toLowerCase() + CSV_EXSTENSION;
                     // Elaborating articles from CSV source.
                     try {
@@ -274,16 +274,16 @@ public class Main {
                         e.printStackTrace();
                     }
                 } else {
-                        // At this point since we consider only three option the "The Guardian" API endpoint response is the only possible article source.
+                        // At this point the "The Guardian" API endpoint response is the only possible article source.
                         // Setting API key.
-                        System.out.println("Do you want to use the default apiKey? (y/n)");
+                        System.out.println("Do you want to use the default apiKey? (y/n) ");
                         String defaultAnswer = console.nextLine().toLowerCase();
                         while (!(defaultAnswer.equals("y") || defaultAnswer.equals("n"))) {
-                            System.out.println("Sorry I didn't understand your answer please enter a valid one(y/n): ");
+                            System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                             defaultAnswer = console.nextLine().toLowerCase();
                         }
                         if (defaultAnswer.equals("n")) {
-                            System.out.println("Enter your api key to access the \"the Guardian\" articles: ");
+                            System.out.println("Enter your API Key to access the \"the Guardian\" articles: ");
                             apiKey = console.nextLine();
                         } else {
                             // Reading API key from properties file.
@@ -307,7 +307,7 @@ public class Main {
                                 queriesSize = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
-                                System.out.println("Sorry, the queries number must be a number, please retry: ");
+                                System.out.println("Sorry, the queries number must be a number. Please retry: ");
                             }
                         }
                         for (int i = 0; i < queriesSize; i++) {
@@ -323,7 +323,7 @@ public class Main {
                                 tagNumber = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
-                                System.out.println("Sorry the tags number must be a number, please retry: ");
+                                System.out.println("Sorry the tags number must be a number. Please retry: ");
                             }
                         }
                         for (int i = 0; i < tagNumber; i++) {
@@ -339,7 +339,7 @@ public class Main {
                                 maxArticle = Integer.parseInt(console.nextLine());
                             }catch(NumberFormatException e){
                                 // Do nothing since we retry to set valid value.
-                                System.out.println("Sorry the max articles number must be a number, please retry: ");
+                                System.out.println("Sorry the max articles number must be a number. Please retry: ");
                             }
                         }
 
@@ -361,7 +361,7 @@ public class Main {
                         System.out.println("Do you want to read the 50(or less) most frequent words in the downloaded articles? (y/n)");
                         downloadAnswer = console.next().toLowerCase();
                         while (!(downloadAnswer.equals("y") || downloadAnswer.equals("n"))) {
-                            System.out.println("Sorry I didn't understand your answer please enter a valid one(y/n): ");
+                            System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                             downloadAnswer = console.nextLine().toLowerCase();
                         }
                     }
@@ -372,7 +372,7 @@ public class Main {
             if (dataAnswer.equals("n")){
                 // Checking if articles is empty.
                 if(articles.size() == 0){
-                    System.out.println("No articles was found!");
+                    System.out.println("No articles were found.");
                     System.exit(0);
                 }
                 try {
@@ -383,7 +383,7 @@ public class Main {
                 }
             }
 
-            // Checking to see if there is a "reason" to deserialize and print among settings.
+            // Checking to see if deserialization is needed.
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
 
                 // DESERIALIZING PHASE
@@ -397,22 +397,22 @@ public class Main {
                 if(articles.size() != 0){
                     System.out.println(articles.get(0).getClass().getSimpleName() + " article source detected");
                 }else{
-                    System.out.println("No articles was found!");
+                    System.out.println("No articles were found.");
                     System.exit(0);
                 }
 
-                // Entering the Articles textual fields inside of Tokenizer.
+                // Inserts the Articles textual fields inside of Tokenizer.
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
                     tokenizer.tokenize(pageText);
                 }
 
                 // PRINTING PHASE
-                System.out.println("The " + 50 + "(or less) most frequent words in the analyzed articles are: ");
+                System.out.println("The 50(or less) most frequent words in the analyzed articles are: ");
                 // This variable stores the entry with tokens list as values indexed with their frequency.
                 Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
                 int wordCounter = 0;
-                Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();       // This variable is used to iterate Through the set of ordered tokens Lists.
+                Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();       // This variable is used to iterate through the set of ordered tokens Lists.
                 Map.Entry<Integer, List<String>> pair;
                 while (iter.hasNext()) {
                     pair = iter.next();

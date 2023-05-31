@@ -8,19 +8,19 @@ import java.util.*;
  * such as removing all tokens, printing them, printing a given token frequency.
  */
 public class TreeStorage implements TokensStorage{
-    /** This map is used to store the tokens using them as indexes and using the associated values to store their frequency.*/
+    /** Map is used to store the tokens using them as indexes and using the associated values to store their frequency.*/
     private HashMap<String, Integer> tokens = null;
 
     /**
-     * This constructor initializes an empty hash map {@link TreeStorage#tokens}.
+     * Initializes an empty hash map {@link TreeStorage#tokens}.
      */
     public TreeStorage() {
-        // This initializes the map containing the entries of tokens(String) as indexes and their frequency(int) as values.
+        // Initializes the map containing the entries of tokens(String) as indexes and their frequency(int) as values.
         tokens = new HashMap<String, Integer>();
     }
 
     /**
-     * This method allows to print all the tokens with their "frequency".
+     * Allows to print all the tokens with their "frequency".
      */
     public void printTokens(){
         Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
@@ -31,9 +31,9 @@ public class TreeStorage implements TokensStorage{
     }
 
     /**
-     * This method print the frequency of the given string (0 if not contained).
+     * Print the frequency of the given string (0 if not contained).
      *
-     * @param str This string is searched inside the map.
+     * @param str string searched inside the map.
      */
     public void printFrequency(String str) {
         int frequency = 0;
@@ -42,14 +42,14 @@ public class TreeStorage implements TokensStorage{
     }
 
     /**
-     * This method removes the tokens.
+     * Removes the tokens.
      */
     public void removeTokens(){
         tokens = new HashMap<String, Integer>();
     }
 
     /**
-     * This method inserts a new list of tokens in the hashmap.
+     * Inserts a new list of tokens in the hashmap.
      *
      * @param list list of tokens to insert in the storage.
      */
@@ -59,10 +59,10 @@ public class TreeStorage implements TokensStorage{
         if(list.size() == 0){
             return;
         }
-        // This variable stores the frequency of the tokens to insert in the map
+        // Stores the frequency of the tokens to insert in the map
         int value = 0;
         for (String c : list) {
-            // This line either gets the previous frequency of the token (if present) or 0.
+            // Either gets the previous frequency of the token (if present) or 0.
             value = tokens.getOrDefault(c, 0);
             // Inserts the token incrementing its frequency.
             tokens.put(c, value + 1);
@@ -70,9 +70,9 @@ public class TreeStorage implements TokensStorage{
     }
 
     /**
-     * This method returns a Set of Ordered entries of Integers and String Lists.
+     * Returns a Set of Ordered entries of Integers and String Lists.
      *
-     * @param maxSize which is the max quantity of tokens present in the returned map.
+     * @param maxSize max quantity of tokens present in the returned map.
      * @return a TreeMap which contains the entries of tokens values indexed with their frequency.
      */
     @Override
@@ -87,7 +87,7 @@ public class TreeStorage implements TokensStorage{
         List<String> stringList;
         while(iter.hasNext()){
             pair = iter.next();
-            // This checks if the list is already contained.
+            // Checks if the list is already contained.
             stringList = reverseMap.get(pair.getValue());
             // If there was no List with that specific frequency a new one is created and initialized with the current token.
             if(stringList == null){
@@ -102,11 +102,11 @@ public class TreeStorage implements TokensStorage{
 
         /* Reducing the token size to maxSize or smaller than the number of tokens entered within the reverse map. */
 
-        // This variable is used to keep track of the number of tokens encountered.
+        // Used to keep track of the number of tokens encountered.
         int counter = 0;
         Iterator<Map.Entry<Integer, List<String>>> listIter = reverseMap.entrySet().iterator();
         Map.Entry<Integer, List<String>> listPair;
-        // This checks if it already reached the max possible number of tokens.
+        // Checks if it already reached the max possible number of tokens.
         boolean max = false;
         while(listIter.hasNext()){
             listPair = listIter.next();
@@ -126,7 +126,7 @@ public class TreeStorage implements TokensStorage{
                     counter = maxSize;
                 }
             }else {
-                //removes the exceeding Lists if already reached the max number of tokens.
+                //Removes the exceeding Lists if already reached the max number of tokens.
                 listIter.remove();
             }
         }

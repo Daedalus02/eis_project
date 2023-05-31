@@ -11,15 +11,15 @@ import java.util.Set;
 public interface TokensStorage {
 
     /**
-     * This method is used to insert tokens
+     * Used to insert tokens
      * */
     void enterTokens(List<String> tokens);
 
     /**
-     * This method is used to return Tokens ordered by their frequency in insertion operations.
+     * Used to return Tokens ordered by their frequency in insertion operations.
      * Also associates how many insertion operations uses a token.
      *
-     * @param maxSize which is the max dimension of the set of entries to return.
+     * @param maxSize max dimension of the set of entries to return.
      * @return  a set of entries of integers (frequencies) as indexes and String
      *          List(tokens with same frequency) as values.
      */
