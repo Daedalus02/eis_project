@@ -134,4 +134,22 @@ public class TreeStorage implements TokensStorage{
         // Returning the set of ordered entries.
         return reverseMap.entrySet();
     }
+
+    /**
+     * This method is used to return the number of tokens contained in the Storage.
+     *
+     * @return the size of tokens storage(so the number of tokens present);
+     */
+    public int size(){
+        return tokens.size();
+    }
+
+    /**
+     * This method is used to tell if the storage is empty or not.
+     *
+     * @return true if the tokens storage is empty, otherwise it return false.
+     */
+    public boolean isEmpty(){
+        return (tokens.size() == 0);
+    }
 }

@@ -2,6 +2,7 @@ package org.project;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,19 +23,17 @@ class APISourceTest {
     @BeforeAll
     void instanceCreator() throws JSONException, IOException, ClassNotFoundException, BadLocationException {
         String apiKey;
-        try {
-            FileInputStream fis = new FileInputStream("res" + File.separator + "private" + File.separator + "private.properties");
-            Properties props = new Properties();
-            props.load(fis);
-            apiKey = props.getProperty("apiKey");
-        } catch (FileNotFoundException e) {
-            return;     // Means the test cannot be done.
-        } catch (IOException e) {
-            return;     //Means the test cannot be done.
-        }
+        FileInputStream fis = new FileInputStream("res" + File.separator + "private" + File.separator + "private.properties");
+        Properties props = new Properties();
+        props.load(fis);
+        apiKey = props.getProperty("apiKey");
         source = new APISource("https://content.guardianapis.com",apiKey,new String[]{},new String[]{},1000);
     }
     @Test
-    void getArticles() {
+    @DisplayName("Testing the article returned by the APISource")
+    void testGetArticles() {
+        List<APIArticle> articleList = source.getArticles();
+        assertEquals(articleList.size(),1000);
+
     }
 }
