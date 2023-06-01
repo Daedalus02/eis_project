@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,6 +53,21 @@ class TokenizerTest {
     @Test
     @DisplayName("")
     void test2Tokenize() {
+        String fable = " ‘The Hare and the Tortoise’. A hare was making fun of a tortoise for moving so slowly." +
+                " The tortoise, tiring of the hare’s gibes about how slow he was on his feet, eventually challenged the hare to a race." +
+                " ‘I’ll race you, hare,’ he said; ‘and I bet I’ll win the race.’ The hare agreed to this challenge, " +
+                "and a fox was found who set the course of the race and to judge who had won at the end. When the race started, " +
+                "the hare bounded off in front, making good progress. He was so far ahead of the tortoise that he decided he could " +
+                "afford to stop and have a rest. The tortoise was so far behind that a little rest wouldn’t hurt!" +
+                "However, the hare fell fast asleep, and as he lay sleeping, the tortoise continued to plod along at his slow pace. " +
+                "In time, he reached the finish-line and won the race. When the hare woke up, he was annoyed at himself for falling asleep." +
+                " So he ran off towards the finish-line as fast as his legs would carry him, but it was too late, as the tortoise had already won.";
+        TreeStorage storage = new TreeStorage();
+        Tokenizer tokenizer = new Tokenizer(fable,true,storage);
+        List<String> list3 = new ArrayList<>();
+        Map<Integer, List<String>> expected = new TreeMap<Integer, List<String>>();
+        expected.add(new AbstractMap.SimpleEntry(1000,list1));
+        assertEquals(storage.getOrderedTokens(50));
     }
     @Test
     @DisplayName("")
