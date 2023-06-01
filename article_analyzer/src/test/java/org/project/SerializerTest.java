@@ -16,7 +16,7 @@ import java.net.URL;
 class SerializerTest {
     private Serializer serializer;
     private Deserializer deserializer;
-    private final String fileName = "res" + File.separator + "pages" + File.separator + "TestSerializer.xml";
+    private final String fileName = "res" + File.separator + "test_res" + File.separator + "pages" + File.separator + "TestSerializer.xml";
     @BeforeAll
     void instanceCreator() throws IOException {
         serializer = new Serializer();

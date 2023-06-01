@@ -18,7 +18,7 @@ class DeserializerTest {
     private Deserializer deserializer;
     private Serializer serializer;
 
-    private final String fileName = "res" + File.separator + "pages" + File.separator + "TestDeserializer.xml";
+    private final String fileName = "res" + File.separator + "test_res" + File.separator + "pages" + File.separator + "TestDeserializer.xml";
     @BeforeAll
     @DisplayName("This creates an instance of both a serializer and deserializer.")
     void InstanceCreator() throws IOException {
