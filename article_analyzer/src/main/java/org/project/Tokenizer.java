@@ -27,7 +27,7 @@ public class Tokenizer {
     /**Stores the tokens and is capable of returning them in an ordered set. */
     private TokensStorage storage;
     /** Contains the file where {@link Tokenizer#commonWords} are stored.*/
-    private final String FILENAME = "res" + File.separator + "words" + File.separator + "words.txt";
+    private final String FILENAME = "resources" + File.separator + "blacklist" + File.separator + "words.txt";
     /** Contains the regex for common punctuation plus few more characters that
      *  are used to split the tokens (see {@link TreeStorage#getOrderedTokens(int)}).*/
     private final String REGEX = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
@@ -90,7 +90,8 @@ public class Tokenizer {
                     commonWords.add(word);
                 }
             }catch(IOException e){
-                e.printStackTrace();
+                System.out.println("Wordlist not found not doing checks!");
+                this.checks = false;
             }
         }
 
@@ -113,10 +114,12 @@ public class Tokenizer {
                     commonWords.add(word);
                 }
             }catch(IOException e){
-                e.printStackTrace();
+                System.out.println("Wordlist not found(check documentation for more information), not doing checks!");
+                checks = false;
+                return; // Setting the tokenizer to not do checks(since no wordlist was found) and returning.
             }
+            checks = true;
         }
-        checks = true;
     }
 
     /**

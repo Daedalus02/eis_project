@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -15,7 +16,7 @@ import java.net.URL;
 class SerializerTest {
     private Serializer serializer;
     private Deserializer deserializer;
-    private final String fileName = "res" + File.separator + "pages" + File.separator + "TestSerializer.xml";
+    private final String fileName = "res" + File.separator + "test_res" + File.separator + "pages" + File.separator + "TestSerializer.xml";
     @BeforeAll
     void instanceCreator() throws IOException {
         serializer = new Serializer();
@@ -69,5 +70,16 @@ class SerializerTest {
         for(int i = 0; i < 3; i++){
             assertThat(articles[i], not(samePropertyValuesAs((APIArticle) articles1[i])));
         }
+    }
+
+    @Test
+    @DisplayName("Testing the exception if the filename is not valid.")
+    void IOExcptionThrown(){
+        String invalidFileName = "invalid" + File.separator + " invalid.json";
+        assertThrows(
+                IOException.class,
+                () -> serializer.serialize(new Article[]{},invalidFileName),
+                "Expected serializer to throw IOException but didn't."
+        );
     }
     }

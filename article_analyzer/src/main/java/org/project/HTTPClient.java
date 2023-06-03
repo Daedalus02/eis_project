@@ -69,6 +69,7 @@ public class HTTPClient {
         // Getting the response status and checking if everything went ok in the connection phase.
         int responseCode = response.getStatusLine().getStatusCode();
         if(responseCode != CORRECT_STATUS){
+            System.err.println("STATUS_CODE = " + responseCode);
             throw new ImpossibleConnection();
         }
 
@@ -113,9 +114,11 @@ public class HTTPClient {
      * @throws IOException if the client and response connection closure was not possible.
      */
     public void closeConnection() throws IOException {
-        client.close();
-        response.close();
-        // Now not connected so setting connected to false.
-        connected = false;
+        if(connected) {
+            client.close();
+            response.close();
+            // Now not connected so setting connected to false.
+            connected = false;
+        }
     }
 }

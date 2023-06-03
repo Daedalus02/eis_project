@@ -3,6 +3,8 @@ package org.project;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,7 @@ class DeserializerTest {
     private Deserializer deserializer;
     private Serializer serializer;
 
-    private final String fileName = "res" + File.separator + "pages" + File.separator + "TestDeserializer.xml";
+    private final String fileName = "res" + File.separator + "test_res" + File.separator + "pages" + File.separator + "TestDeserializer.xml";
     @BeforeAll
     @DisplayName("This creates an instance of both a serializer and deserializer.")
     void InstanceCreator() throws IOException {
@@ -71,5 +73,15 @@ class DeserializerTest {
         for(int i = 0; i < 3; i++){
             assertThat(articles[i], not(samePropertyValuesAs((APIArticle) articles1[i])));
         }
+    }
+    @Test
+    @DisplayName("Testing the exception if the filename is not valid.")
+    void IOExcptionThrown(){
+        String invalidFileName = "invalid" + File.separator + " invalid.json";
+        assertThrows(
+                IOException.class,
+                () -> deserializer.deserialize(invalidFileName),
+                "Expected serializer to throw IOException but didn't."
+        );
     }
 }

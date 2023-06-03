@@ -1,6 +1,7 @@
 package org.project;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to keep the tokens associated with their frequency in insertion operations.
@@ -133,5 +134,32 @@ public class TreeStorage implements TokensStorage{
 
         // Returning the set of ordered entries.
         return reverseMap.entrySet();
+    }
+
+    /**
+     * This method is used to get all the tokens entered in storage.
+     *
+     * @return the set containing all tokens entered in  storage.
+     */
+    public List<String> getTokens(){
+        return tokens.keySet().stream().collect(Collectors.toList());
+    }
+
+    /**
+     * This method is used to return the number of tokens contained in the Storage.
+     *
+     * @return the size of tokens storage(so the number of tokens present);
+     */
+    public int size(){
+        return tokens.entrySet().size();
+    }
+
+    /**
+     * This method is used to tell if the storage is empty or not.
+     *
+     * @return true if the tokens storage is empty, otherwise it return false.
+     */
+    public boolean isEmpty(){
+        return (tokens.size() == 0);
     }
 }

@@ -70,7 +70,7 @@ public class APISource implements ArticleSource{
             URL = urlSetter.getURL();
             // Incrementing the Article page in the response for the next cycle.
             urlSetter.incrementPage();
-            System.out.println("from " + URL + " :");
+            //System.out.println("from " + URL + " :");
 
             // Getting the response from the API endpoint.
             client = new HTTPClient(new URL(URL.toString()));
@@ -84,7 +84,7 @@ public class APISource implements ArticleSource{
             // Setting the max number of Articles to analyze, based on the number of available ones.
             if (jsonParser.getTotal() < maxArticle) {
                 maxArticle = jsonParser.getPages();
-                System.out.println("Limited to " + maxArticle + " pages...");
+                //System.out.println("Limited to " + maxArticle + " pages...");
             }
 
             // Initializing the HTMLParser.
@@ -94,7 +94,7 @@ public class APISource implements ArticleSource{
                 if (articleCount == maxArticle) {
                     break;
                 }
-                System.out.println("Analyzing site number: " + (articleCount + 1) + " with title: " + article.getWebTitle());
+                //System.out.println("Analyzing site number: " + (articleCount + 1) + " with title: " + article.getWebTitle());
                 htmlParser.parse(article);
                 articleCount++;
             }
