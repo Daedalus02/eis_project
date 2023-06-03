@@ -1,5 +1,6 @@
 package org.project;
 
+import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 import java.io.*;
@@ -30,7 +31,7 @@ public class Tokenizer {
     private final String FILENAME = "resources" + File.separator + "blacklist" + File.separator + "words.txt";
     /** Contains the regex for common punctuation plus few more characters that
      *  are used to split the tokens (see {@link TreeStorage#getOrderedTokens(int)}).*/
-    private final String REGEX = "[\\p{Punct}\\s.!?”“–—’‘'…+1234567890-]";
+    private final String REGEX = "[\\p{Punct}\\s.!?”“–—’‘'’…+1234567890-]";
 
     /**
      * This constructor is used to set:
@@ -154,6 +155,7 @@ public class Tokenizer {
         *
         * NOTE: Duplicates are eliminated.
          */
+        System.out.println(document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList()).contains("doesn't"));
         List<String> list = document.tokens().stream().map(coreLabel -> Arrays.stream(coreLabel.toString().toLowerCase().split(REGEX))
                 .collect(Collectors.toList())).flatMap(List::stream).distinct().collect(Collectors.toList());
         // Checks if the element in the list is not punctuation, a common word or an empty string.
