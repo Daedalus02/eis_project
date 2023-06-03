@@ -1,0 +1,101 @@
+1) GENERATING TOKENS REMOVING PUNCTUATION.
+
+‘The Hare and the Tortoise’.
+A hare was making fun of a tortoise for moving so slowly. The tortoise, tiring of the hare’s gibes about how slow he was on his feet,
+eventually challenged the hare to a race. ‘I’ll race you, hare,’ he said; ‘and I bet I’ll win the race.’ The hare agreed to this challenge,
+and a fox was found who set the course of the race and to judge who had won at the end. When the race started, the hare bounded off in front,
+making good progress. He was so far ahead of the tortoise that he decided he could afford to stop and have a rest.
+The tortoise was so far behind that a little rest wouldn’t hurt!
+However, the hare fell fast asleep, and as he lay sleeping, the tortoise continued to plod along at his slow pace. In time,
+he reached the finish-line and won the race. When the hare woke up, he was annoyed at himself for falling asleep.
+So he ran off towards the finish-line as fast as his legs would carry him, but it was too late, as the tortoise had already won.
+
+TOKENS1
+The Hare and the Tortoise
+A hare was making fun of a tortoise for moving so slowly The tortoise tiring of the hare s gibes about how slow he was on his feet
+eventually challenged the hare to a race I ll race you hare he said and I bet I ll win the race The hare agreed to this challenge and
+a fox was found who set the course of the race and to judge who had won at the end When the race started the hare bounded off in front
+making good progress He was so far ahead of the tortoise that he decided he could afford to stop and have a rest The tortoise was so
+far behind that a little rest wouldn t hurt
+However the hare fell fast asleep and as he lay sleeping the tortoise continued to plod along at his slow pace In time he reached the
+finish line and won the race When the hare woke up he was annoyed at himself for falling asleep So he ran off towards the finish line
+as fast as his legs would carry him but it was too late as the tortoise had already won
+
+
+
+‘The Fox and the Hedgehog’.
+A fox, after crossing a river, got its tail entangled in a bush, and couldn’t move. A number of mosquitoes, upon seeing the fox trapped,
+settled upon him and enjoyed a good meal, feasting upon the fox’s blood, the fox unable to swish them away with his trapped tail.
+A hedgehog that was strolling by took pity on the fox and went up to him.
+‘You are in a bad way, neighbour,’ said the hedgehog; ‘shall I help you out by driving off those mosquitoes who are sucking your blood?’
+‘Thank you, Master Hedgehog,’ said the fox, ‘but I would rather you didn’t.’ ‘Why not?’ asked the hedgehog. ‘Well, you see,’ the fox replied,
+‘these mosquitoes have had their fill; if you drive these away, others will come with fresh appetite and bleed me to death.’
+
+TOKENS2:
+The Fox and the Hedgehog
+A fox after crossing a river got it s tail entangled in a bush and couldn t move A number of mosquitoes upon seeing the fox trapped
+settled upon him and enjoyed a good meal feasting upon the fox s blood the fox unable to swish them away with his trapped tail
+A hedgehog that was strolling by took pity on the fox and went up to him
+You are in a bad way neighbour said the hedgehog shall I help you out by driving off those mosquitoes who are sucking your blood
+Thank you Master Hedgehog said the fox but I would rather you didn t Why not asked the hedgehog Well you see the fox replied
+these mosquitoes have had their fill if you drive these away others will come with fresh appetite and bleed me to death
+
+
+‘The Frogs Asking for a King’.
+Once upon a time, the Frogs were discontented because they had no one to rule over them: so they sent a deputation to Jupiter to ask him to give them a King.
+Jupiter, despising the folly of their request, cast a log into the pool where they lived, and said that the log should be their King.
+The Frogs were terrified at first by the splash, and scuttled away into the deepest parts of the pool; but gradually, when they saw that the log remained motionless,
+one by one they began to venture to the surface again, and before long, growing bolder, they began to feel such contempt for the log
+that they even took to sitting on it.
+Thinking that a King of that sort was an insult to their dignity, they sent to Jupiter a second time, and begged him to take away the
+sluggish King he had given them, and to give them another and a better one. Jupiter, annoyed at being pestered in this way, sent a Stork to rule over them.
+No sooner had the Stork arrived among them than he began to catch and eat the Frogs as fast as he could
+
+TOKENS3:
+The Frogs Asking for a King
+Once upon a time the Frogs were discontented because they had no one to rule over them so they sent a deputation to Jupiter to ask him to give them a King
+Jupiter despising the folly of their request cast a log into the pool where they lived and said that the log should be their King
+The Frogs were terrified at first by the splash and scuttled away into the deepest parts of the pool but gradually when they saw that the log remained motionless
+one by one they began to venture to the surface again and before long growing bolder they began to feel such contempt for the log
+that they even took to sitting on it
+Thinking that a King of that sort was an insult to their dignity they sent to Jupiter a second time and begged him to take away the
+sluggish King he had given them and to give them another and a better one Jupiter annoyed at being pestered in this way sent a Stork to rule over them
+No sooner had the Stork arrived among them than he began to catch and eat the Frogs as fast as he could
+
+
+TRANSFORMING TOKENS INTO LOWERCASE TOKENS:
+TOKENS1:
+the hare and the tortoise
+a hare was making fun of a tortoise for moving so slowly the tortoise tiring of the hare s gibes about how slow he was on his feet
+eventually challenged the hare to a race i ll race you hare he said and i bet i ll win the race the hare agreed to this challenge and
+a fox was found who set the course of the race and to judge who had won at the end when the race started the hare bounded off in front
+making good progress he was so far ahead of the tortoise that he decided he could afford to stop and have a rest the tortoise was so
+far behind that a little rest wouldn t hurt
+however the hare fell fast asleep and as he lay sleeping the tortoise continued to plod along at his slow pace in time he reached the
+finish line and won the race when the hare woke up he was annoyed at himself for falling asleep so he ran off towards the finish line
+as fast as his legs would carry him but it was too late as the tortoise had already won
+
+TOKENS2:
+the fox and the hedgehog
+a fox after crossing a river got it s tail entangled in a bush and couldn t move a number of mosquitoes upon seeing the fox trapped
+settled upon him and enjoyed a good meal feasting upon the fox s blood the fox unable to swish them away with his trapped tail
+a hedgehog that was strolling by took pity on the fox and went up to him
+you are in a bad way neighbour said the hedgehog shall i help you out by driving off those mosquitoes who are sucking your blood
+thank you master hedgehog said the fox but i would rather you didn t why not asked the hedgehog well you see the fox replied
+these mosquitoes have had their fill if you drive these away others will come with fresh appetite and bleed me to death
+
+TOKENS3:
+the frogs asking for a king
+once upon a time the frogs were discontented because they had no one to rule over them so they sent a deputation to jupiter to ask him to give them a king
+jupiter despising the folly of their request cast a log into the pool where they lived and said that the log should be their king
+the frogs were terrified at first by the splash and scuttled away into the deepest parts of the pool but gradually when they saw that the log remained motionless
+one by one they began to venture to the surface again and before long growing bolder they began to feel such contempt for the log
+that they even took to sitting on it
+thinking that a king of that sort was an insult to their dignity they sent to jupiter a second time and begged him to take away the
+sluggish king he had given them and to give them another and a better one jupiter annoyed at being pestered in this way sent a stork to rule over them
+no sooner had the stork arrived among them than he began to catch and eat the frogs as fast as he could
+
+ANALYZING COMMON TOKENS:
+1-2 --> {a,and,but,fox,good,had,have,him,his,i,in,it,of,on,s,said,t,that,the,to,up,was,who,would}
+1-3
+2-3 --> {a,and,away,but,by,had,him,in,it,of,on,said,that,the,their,them}
