@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -313,7 +312,7 @@ public class Main {
                         }
                         for (int i = 0; i < queriesSize; i++) {
                             System.out.println("Enter the topic you want to investigate: ");
-                            queries.add(console.next());
+                            queries.add(console.nextLine());
                         }
 
                         // Setting tags if needed.
@@ -329,7 +328,7 @@ public class Main {
                         }
                         for (int i = 0; i < tagNumber; i++) {
                             System.out.println("Enter the tag: ");
-                            tags.add(console.next());
+                            tags.add(console.nextLine());
                         }
 
                         // Setting max articles number.

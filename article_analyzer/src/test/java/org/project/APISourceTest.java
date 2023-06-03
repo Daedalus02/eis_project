@@ -30,10 +30,9 @@ class APISourceTest {
         source = new APISource("https://content.guardianapis.com",apiKey,new String[]{},new String[]{},1000);
     }
     @Test
-    @DisplayName("Testing the article returned by the APISource")
+    @DisplayName("Testing the article returned by the APISource.")
     void testGetArticles() {
         List<APIArticle> articleList = source.getArticles();
         assertEquals(articleList.size(),1000);
-
     }
 }
