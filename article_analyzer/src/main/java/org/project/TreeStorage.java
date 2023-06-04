@@ -100,7 +100,6 @@ public class TreeStorage implements TokensStorage{
                 reverseMap.get(pair.getValue()).add(pair.getKey());
             }
         }
-
         /* Reducing the token size to maxSize or smaller than the number of tokens entered within the reverse map. */
 
         // Used to keep track of the number of tokens encountered.
@@ -121,7 +120,7 @@ public class TreeStorage implements TokensStorage{
                     // Removing eventual exceeding tokens from the List.
                     while (index > 0) {
                         index--;
-                        listPair.getValue().remove(index);
+                        listPair.getValue().remove(index);       // Removing from the head of the list.
                     }
                     max = true;
                     counter = maxSize;
@@ -131,7 +130,6 @@ public class TreeStorage implements TokensStorage{
                 listIter.remove();
             }
         }
-
         // Returning the set of ordered entries.
         return reverseMap.entrySet();
     }

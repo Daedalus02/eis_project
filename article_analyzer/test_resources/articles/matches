@@ -1,4 +1,4 @@
-//ENTERED THE FIRST ARTICLES TOKENS
+ENTERED THE FIRST ARTICLES TOKENS
 1   --> ,atomic, hope, review, a, powerful, case, for, pressing, the, nuclear, power, button, it, s, not, first, doc, to, herald, eco, movement, but, even, so,
         this, is, still, convincing, argument, in, favour, of, long, tabooed, energy, source, here, film, that, returns, us, thorny, revisionist, subject, which,
         i, haven, t, seen, aired, documentary, form, since, pandora, promise, isn, mentioned, though, poster, visible, one, shot, many, environmentalists, last,
@@ -12,7 +12,7 @@
         too, late, include, thunberg, startling, intervention, october, when, she, claimed, german, government, wrong, close, plants, anything, stimulates, discussion,
         welcomed
 
-//ENTERED THE SECOND ARTICLE TOKENS
+ENTERED THE SECOND ARTICLE TOKENS
 1+2 --> 2:   ,a, and, anything, are, as, at, be, been, but, by, clean, danger, does, doesn, down, energy even, first, for, fossil, from, fuels, fukushima, guardian, has, have, i, in, industry, is, it, know,
              like, need, not, now, nuclear, of, on, one, out, plants, power, question, risk, s, safety, say, she, shut, source, such, t, that, the, them, they, think, this, though, to, up, us, very, was, way,
              we, what, which, will
@@ -44,8 +44,8 @@
               warehouse, water, week, welcomed, well, were, west, when, where, whether, while, who, why, wind, with, within, work, worked, worries, worrying, would,
               wrong, wrote, xcel, year, you, your
 
-//NOTE HERE CORE NLP TRANSFORM DOESN INTO DOES+N, DON INT DO+N, IS INTO IS+N, DIDN INTO DID+N, CANNOT INTO CAN+NOT
-//ENTERED THE THIRD ARTICLE TOKENS
+NOTE HERE CORE NLP TRANSFORM DOESN INTO DOES+N, DON INT DO+N, IS INTO IS+N, DIDN INTO DID+N, CANNOT INTO CAN+NOT
+ENTERED THE THIRD ARTICLE TOKENS
 1+2+3--> 3:  ,a, and, are, as, at, be, been, but, by, does, down, energy, first, for, fossil, from, fukushima, has, have, in, industry, is, it, need, not, now, nuclear, of, on, one,
              out, plants, power, s, say, source, such, that, the, they, this, to, up, very, was, way, which, will
          2:  across, after, again, also, an, anything, around, based, capacity, chornobyl, clean, climate, commission, considered, could, country, crucial, danger,
@@ -92,3 +92,49 @@
              uk, ukraine, un, uncle, uncontextualised, under, underground, undermine, understand, understanding, union, university, unmentionable, unthinkable, until,
              updates, upset, uranium, use, useful, uses, ventilated, visible, vital, voll, wake, want, warehouse, waste, weather, wednesday, welcomed, well, were,
              where, whereas, whether, while, who, within, worked, worries, worrying, wrong, wrote, xcel, years, you, your, zaporizhzhia, zero
+
+THIS PART IS ONLY DONE IF CHECKS ARE ACTIVE;
+
+REMOVING ALL COMMON WORDS (SEE RESOURCES/BLACKLIST/WORDS.TXT):
+1+2+3 --> 3: energy,fossil,fukushima,industry,nuclear,plants,power,source
+          2: based,capacity,chornobyl,clean,climate,commission,considered,country,crucial,danger,emissions,fears,fuels,general,generations,global,good,government,great,
+             guardian,hope,important,incidents,increasing,island,life,long,making,mile,north,plant,potential,prevent,promise,provide,question,questions,radioactive,remains,risk,
+             running,safety,senior,shut,significant,smaller,solar,sources,speech,water,week,west,wind,work,year
+          1:  accidents , accurate , act , added , advocates , affect , affected , ageing , agencies , agency , agree , agreed , aim , aimed , air , aired , alert , allowed ,
+              amount , analyst , announce , announced , announcement , answer , answered , answers , apocalypse , apparently , approach , argue , argued , argues , argument , assembly ,
+              associate , atomic , attack , attend , attendees , attract , avert , back , backers , ban , bankers , baseload , basement , benefited , beset , bidens , big , biggest ,
+              billions , bn , body , bold , boost , boris , breakthrough , britain , britains , british , broke , brought , budget , build , building , buildings , built , bury ,
+              business , button , california , call , carbon , carefully , case , cash , catastrophic , caused , challenge , challenges , chancellor , change , charlyne , chernobyl ,
+              china , claim , claimed , classed , classification , classify , cleaning , clear , close , coal , coast , colossally , commercialised , committed , community , company ,
+              compared , competition , complete , completed , concern , concerns , concert , concluded , concrete , conditions , conduct , consultation , contained , contaminated ,
+              continue , control , convincing , cooling , coss , cost , create , creation , crisis , criticized , cs , customers , dad , date , day , debate , december , decided ,
+              decision , dedicated , deep , delays , delivers , delivery , demand , dependent , desperately , detected , determine , detractors , devastating , develop , developed ,
+              developments , difference , disaster , disasters , discovering , discussion , doc , documentary , drain , drinking , ease , easing , easy , eco , economy , edf ,
+              effective , effects , efficient , effort , efforts , electricity , element , email , engineering , england , ensure , ensuring , environmental , environmentalists ,
+              environmentally , equals , esg , european , europes , eus , events , evolved , expected , experts , extended , faced , facility , factory , fail , favour , feared ,
+              federal , film , financial , finding , finished , finite , finland , fired , fleet , focused , footsteps , form , frances , free , fresh , friendly , frustrated , fuel ,
+              fund , funders , funds , fusion , gallons , gas , generate , generation , george , german , governance , governments , green , greenpeace , greenwashing , greta , grid ,
+              ground , group , groups , grown , happen , harm , harmful , hazards , health , hear , held , herald , high , highly , hinkley , history , home , hopes , horror , houses ,
+              huge , hundreds , hunt , idea , ideas , immediately , importance , improving , incident , include , including , independence , independent , industries , inevitable ,
+              inflation , influenced , informed , inspection , institute , interest , intervention , investigating , investment , investments , investors , involves , issue , jammes ,
+              janica , jeremy , job , joe , johnson , kevin , kickstarted , label , lack , lake , large , late , launched , leak , leaked , leaks , learn , learning , legal , levels ,
+              lifecycle , light , lived , ll , local , love , lower , made , maintain , make , managing , march , margaret , markets , match , meaning , measures , meet , meetings ,
+              mentioned , meshkati , michael , microgreens , mid , miles , mined , minister , minneapolis , minnesota , mishandled , mission , mississippi , misunderstood , modular ,
+              monbiot , month , months , monticello , mother , movement , mythology , najmedin , national , net , networks , notified , nourish , november , obligations , obsolete ,
+              occurred , october , official , offline , onshore , open , opened , operates , opposite , oscillating , overruns , package , painstaking , pandora , parliament , partly ,
+              partnership , past , path , people , pipe , place , plan , point , pollution , pose , posed , poses , poster , pounds , powerbase , powerful , practiced , preferable ,
+              present , presentation , pressing , pressure , prime , private , process , product , production , professor , programme , progress , project , projects , proliferation ,
+              promote , prompt , proponents , prove , providing , public , publicly , pursuing , push , quarter , quick , radius , raise , raised , rapidly , rate , reached , reactors ,
+              readers , real , realistic , realistically , receive , recent , reclassified , reducing , reduction , refueling , regulators , regulatory , release , relied , renewable ,
+              renewables , reopen , reported , reports , representatives , residents , resolve , resource , resources , respond , resulting , results , returns , review , revisionist ,
+              revisits , rising , risks , river , rolls , royce , royces , russias , safe , scale , scaling , scheduled , scientists , scrutinized , sea , sector , secure , security ,
+              sellafield , series , serve , setback , shot , shown , shutting , side , significantly , sister , site , sites , situation , sizewell , slow , small , smith , smoothing ,
+              social , somerset , sort , southern , specializes , spent , spill , spokesperson , springing , stage , started , startling , state , stated , statements , stations ,
+              steps , stimulates , stood , stop , storage , studies , studying , stymied , subject , submarine , subsidy , success , suffolk , supply , supporter , sustainable ,
+              system , tables , tabooed , tackling , tainted , tasked , taxonomy , tens , term , thatcher , thing , thinktank , thorny , thought , threat , thunberg , time , trade ,
+              transition , transparency , transparent , trays , tritium , trust , uk , ukraine , uncle , uncontextualised , underground , undermine , understand , understanding ,
+              union , university , unmentionable , unthinkable , updates , upset , uranium , ventilated , visible , vital , voll , wake , warehouse , waste , weather , wednesday ,
+              welcomed , worked , worries , worrying , wrong , wrote , xcel , years , zaporizhzhia
+
+
+NOTE: WHEN WE NEED TO RETURN THE ORDERED TOKENS WE START REMOVING FROM THE WORDS IN THE LIST THAT COME AFTER IN ALPHABETICAL ORDER.

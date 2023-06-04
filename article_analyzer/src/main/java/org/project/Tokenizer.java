@@ -1,6 +1,5 @@
 package org.project;
 
-import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 import java.io.*;
@@ -155,7 +154,6 @@ public class Tokenizer {
         *
         * NOTE: Duplicates are eliminated.
          */
-        System.out.println(document.tokens().stream().map(coreLabel -> coreLabel.toString().toLowerCase()).distinct().collect(Collectors.toList()).contains("doesn't"));
         List<String> list = document.tokens().stream().map(coreLabel -> Arrays.stream(coreLabel.toString().toLowerCase().split(REGEX))
                 .collect(Collectors.toList())).flatMap(List::stream).distinct().collect(Collectors.toList());
         // Checks if the element in the list is not punctuation, a common word or an empty string.
