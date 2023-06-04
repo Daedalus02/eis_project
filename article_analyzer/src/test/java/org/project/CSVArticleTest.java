@@ -4,13 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class URLSetterTest {
+class CSVArticleTest {
 
     @Test
-    void incrementPage() {
-    }
-
-    @Test
-    void getURL() {
+    void testEquals() {
     }
 }

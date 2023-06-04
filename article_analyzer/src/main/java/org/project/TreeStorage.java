@@ -1,5 +1,6 @@
 package org.project;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,33 @@ public class TreeStorage implements TokensStorage{
         int frequency = 0;
         frequency = tokens.getOrDefault(str,0);
         System.out.println(frequency);
+    }
+
+    /**
+     * Check if the parameter obj (which need to be an TreeStorage) is a field by field copy of the class instance this method is invoked to.
+     *
+     * @param obj which should be an TreeStorage object (checked).
+     * @return  true if the TreeStorage obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if ((obj instanceof TreeStorage) &&  (obj != null)){
+            TreeStorage storage = (TreeStorage) obj;
+            Field[] fields = this.getClass().getDeclaredFields();
+            for(Field field : fields){
+                try {
+                    field.setAccessible(true);
+                    if(!field.get(this).equals(field.get(storage))){
+                        return false;
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

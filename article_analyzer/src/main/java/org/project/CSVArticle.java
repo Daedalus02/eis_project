@@ -1,5 +1,6 @@
 package org.project;
 
+import java.lang.reflect.Field;
 import java.net.URL;
 
 /**
@@ -43,6 +44,32 @@ public class CSVArticle extends Article{
         this.Date = Date;
         this.sourceSet = sourceSet;
         this.source = source;
+    }
+    /**
+     * Check if the parameter obj (which need to be an CSVArticle) is a field by field copy of the class instance this method is invoked to.
+     *
+     * @param obj which should be an CSVArticle object (checked).
+     * @return  true if the CSVArticle obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+    @Override
+    public boolean equals(Object obj)  {
+        if (obj == this) return true;
+        if ((obj instanceof CSVArticle) &&  (obj != null) && (super.equals(obj))){
+            CSVArticle article = (CSVArticle) obj;
+            Field[] fields = this.getClass().getDeclaredFields();
+            for(Field field : fields){
+                try {
+                    field.setAccessible(true);
+                    if(!field.get(this).equals(field.get(article))){
+                        return false;
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /* SETTERS */

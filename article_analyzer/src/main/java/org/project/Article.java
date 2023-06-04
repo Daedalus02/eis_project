@@ -1,6 +1,8 @@
 package org.project;
 
 import org.codehaus.jackson.annotate.JsonTypeInfo;
+import java.lang.reflect.Field;
+
 
 /**
  * This abstract class is the general representation of an Article. It only contains the body and head fields of its
@@ -32,9 +34,33 @@ public abstract class Article {
         this.head = head;
     }
 
+    /**
+     * Check if the parameter obj (which need to be an Article) is a field by field copy of the class instance this method is invoked to.
+     *
+     * @param obj which should be an Article object (checked).
+     * @return  true if the Article obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+    @Override
+    public boolean equals(Object obj)  {
+        if (obj == this) return true;
+        if (obj.getClass() == getClass() && (obj != null)) {
+            Article article = (Article) obj;
+            Field[] fields = this.getClass().getSuperclass().getDeclaredFields();
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    if (!field.get(this).equals(field.get(article))) {
+                        return false;
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return true;
+    }
+
     /* GETTERS */
-
-
     /**
      * Gets head {@link  Article#head}.
      *

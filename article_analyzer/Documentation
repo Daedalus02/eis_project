@@ -1,0 +1,1 @@
+Since we need to override equals when 2 objects need to be logically identical articles of the same type has equals and also TreeStorage.

@@ -1,5 +1,6 @@
 package org.project;
 
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -74,6 +75,34 @@ public class APIArticle extends Article {
         // Calling the superclass Article dummy constructor.
         super();
     }
+
+    /**
+     * Check if the parameter obj (which need to be an APIArticle) is a field by field copy of the class instance this method is invoked to.
+     *
+     * @param obj which should be an APIArticle object (checked).
+     * @return  true if the APIArticle obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if ((obj instanceof APIArticle) &&  (obj != null) && (super.equals(obj))){
+            APIArticle article = (APIArticle) obj;
+            Field[] fields = this.getClass().getDeclaredFields();
+            for(Field field : fields){
+                try {
+                    field.setAccessible(true);
+                    if(!field.get(this).equals(field.get(article))){
+                        return false;
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     /* SETTERS */
 
