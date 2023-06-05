@@ -32,4 +32,20 @@ class APIArticleTest {
                 new URL("https://www.mediawiki.org/w/api.php"),true,"pillarId","pillarName",1);
         assertNotEquals(null, article);
     }
+
+    /* Note that article1 and article2 are two distinct object in memory while they're considered equals by the APIArticle equals
+     * method, so they should produce the same hashCode.
+     * */
+    @DisplayName("Testing hashCode method for APIArticle")
+    @Test
+    void testHashCode() throws MalformedURLException {
+        APIArticle article1 = new APIArticle("head","body","Id", "type", "sectionId",
+                "sectionName","webPublicationDate","webTitle",new URL("https://it.wikipedia.org"),
+                new URL("https://www.mediawiki.org/w/api.php"),true,"pillarId","pillarName",1);
+        APIArticle article2 = new APIArticle("head","body","Id", "type", "sectionId",
+                "sectionName","webPublicationDate","webTitle",new URL("https://it.wikipedia.org"),
+                new URL("https://www.mediawiki.org/w/api.php"),true,"pillarId","pillarName",1);
+        assertEquals(article1, article2);
+        assertEquals(article1.hashCode(), article2.hashCode());
+    }
 }

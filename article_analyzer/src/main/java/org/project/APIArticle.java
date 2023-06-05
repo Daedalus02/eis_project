@@ -3,6 +3,7 @@ package org.project;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * This class is used to represent an article with all properties af an article of the "The Guardian" media group.
@@ -103,6 +104,32 @@ public class APIArticle extends Article {
         return false;
     }
 
+    /**
+     * This method return a hash code to eventually be able to enter APIArticles in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @return a hash code based one the private variables  ({@link APIArticle#Id}, {@link APIArticle#type},{@link APIArticle#sectionId},
+     *         {@link APIArticle#sectionName}, {@link APIArticle#webPublicationDate}, {@link APIArticle#webTitle}, {@link APIArticle#webUrl},
+     *         {@link APIArticle#apiUrl}, {@link APIArticle#isHosted}, {@link APIArticle#pillarId}, {@link APIArticle#pillarName}, {@link APIArticle#wordcount}).
+     */
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        final int primeNumber = 31;
+        hash = primeNumber * hash + (this.Id != null ? this.Id.hashCode() : 0);
+        hash = primeNumber * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = primeNumber * hash + (this.sectionId != null ? this.sectionId.hashCode() : 0);
+        hash = primeNumber * hash + (this.sectionName != null ? this.sectionName.hashCode() : 0);
+        hash = primeNumber * hash + (this.webPublicationDate != null ? this.webPublicationDate.hashCode() : 0);
+        hash = primeNumber * hash + (this.webTitle != null ? this.webTitle.hashCode() : 0);
+        hash = primeNumber * hash + (this.webUrl != null ? this.webUrl.hashCode() : 0);
+        hash = primeNumber * hash + (this.apiUrl != null ? this.apiUrl.hashCode() : 0);
+        hash = primeNumber * hash + (this.isHosted ? 1 : 0);
+        hash = primeNumber * hash + (this.pillarId != null ? this.pillarId.hashCode() : 0);
+        hash = primeNumber * hash + (this.pillarName != null ? this.pillarName.hashCode() : 0);
+        hash = primeNumber * hash + (this.wordcount);
+        return hash;
+    }
 
     /* SETTERS */
 
@@ -361,4 +388,5 @@ public class APIArticle extends Article {
     public int getWordcount() {
         return wordcount;
     }
+
 }

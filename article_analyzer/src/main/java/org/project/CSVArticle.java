@@ -2,6 +2,7 @@ package org.project;
 
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * This class represents the fields that are used in the CSV source to represent an Article.
@@ -44,6 +45,25 @@ public class CSVArticle extends Article{
         this.Date = Date;
         this.sourceSet = sourceSet;
         this.source = source;
+    }
+
+    /**
+     * This method return a hash code to eventually be able to enter CSVArticles in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @return a hash code based one the private variables  ({@link CSVArticle#identifier}, {@link CSVArticle#URL},{@link CSVArticle#Date},
+     *         {@link CSVArticle#sourceSet}, {@link CSVArticle#source}).
+     */
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        final int primeNumber = 31;
+        hash = primeNumber * hash + (this.identifier != null ? this.identifier.hashCode() : 0);
+        hash = primeNumber * hash + (this.URL != null ? this.URL.hashCode() : 0);
+        hash = primeNumber * hash + (this.Date != null ? this.Date.hashCode() : 0);
+        hash = primeNumber * hash + (this.sourceSet != null ? this.sourceSet.hashCode() : 0);
+        hash = primeNumber * hash + (this.source != null ? this.source.hashCode() : 0);
+        return hash;
     }
     /**
      * Check if the parameter obj (which need to be an CSVArticle) is a field by field copy of the class instance this method is invoked to.

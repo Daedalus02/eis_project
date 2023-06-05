@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class TreeStorage implements TokensStorage{
     /** Map is used to store the tokens using them as indexes and using the associated values to store their frequency.*/
     private HashMap<String, Integer> tokens = null;
-
     /**
      * Initializes an empty hash map {@link TreeStorage#tokens}.
      */
@@ -22,25 +21,17 @@ public class TreeStorage implements TokensStorage{
     }
 
     /**
-     * Allows to print all the tokens with their "frequency".
-     */
-    public void printTokens(){
-        Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
-        while(iter.hasNext()){
-            Map.Entry<String,Integer> pair = iter.next();
-            System.out.println(pair.getKey()+" "+pair.getValue());
-        }
-    }
-
-    /**
-     * Print the frequency of the given string (0 if not contained).
+     * This method return a hash code to be able to eventually enter TreeStorages in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
      *
-     * @param str string searched inside the map.
+     * @return a hash code based one the hashMap containing all the tokens{@link TreeStorage#tokens}.
      */
-    public void printFrequency(String str) {
-        int frequency = 0;
-        frequency = tokens.getOrDefault(str,0);
-        System.out.println(frequency);
+    @Override
+    public int hashCode() {
+        final int primeNumber = 31;
+        int hash = primeNumber;
+        hash = hash * hash +(tokens != null ? tokens.hashCode() : 0);
+        return hash;
     }
 
     /**
@@ -69,6 +60,29 @@ public class TreeStorage implements TokensStorage{
         }
         return false;
     }
+
+    /**
+     * Allows to print all the tokens with their "frequency".
+     */
+    public void printTokens(){
+        Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry<String,Integer> pair = iter.next();
+            System.out.println(pair.getKey()+" "+pair.getValue());
+        }
+    }
+
+    /**
+     * Print the frequency of the given string (0 if not contained).
+     *
+     * @param str string searched inside the map.
+     */
+    public void printFrequency(String str) {
+        int frequency = 0;
+        frequency = tokens.getOrDefault(str,0);
+        System.out.println(frequency);
+    }
+
 
     /**
      * Removes the tokens.

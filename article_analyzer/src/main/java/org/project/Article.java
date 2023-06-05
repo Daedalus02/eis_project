@@ -2,6 +2,7 @@ package org.project;
 
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 
 /**
@@ -34,6 +35,20 @@ public abstract class Article {
         this.head = head;
     }
 
+    /**
+     * This method return a hash code to be able to eventually enter Articles in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @return a hash code based one the private variables head and body ({@link Article#body}, {@link Article#head}).
+     */
+    @Override
+    public int hashCode() {
+        final int primeNumber = 31;
+        int hash = primeNumber;
+        hash = hash * primeNumber + (head != null ? head.hashCode() : 0 );
+        hash = hash * primeNumber + (body != null ? body.hashCode() : 0 );
+        return hash;
+    }
     /**
      * Check if the parameter obj (which need to be an Article) is a field by field copy of the class instance this method is invoked to.
      *
