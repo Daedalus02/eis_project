@@ -64,34 +64,33 @@ public final class APISource implements ArticleSource{
         int articleCount = 0;
         URL URL = null;
         String APIString = "";
-        ProgressBar pb = new ProgressBar("Retrieving articles...",100);
-        while (articleCount < maxArticle) {
-            // Setting URL based on the fields required for the API request.
-            URL = urlSetter.getURL();
-            // Incrementing the Article page in the response for the next cycle.
-            urlSetter.incrementPage();
-            //System.out.println("from " + URL + " :");
+        try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
+            while (articleCount < maxArticle) {
+                // Setting URL based on the fields required for the API request.
+                URL = urlSetter.getURL();
+                // Incrementing the Article page in the response for the next cycle.
+                urlSetter.incrementPage();
+                //System.out.println("from " + URL + " :");
 
-            // Getting the response from the API endpoint.
-            client = new HTTPClient(new URL(URL.toString()));
-            APIString = client.getHttpString();
+                // Getting the response from the API endpoint.
+                client = new HTTPClient(new URL(URL.toString()));
+                APIString = client.getHttpString();
 
-            // Parsing the response from JSON format.
-            jsonParser = new APIParser(APIString);
-            // Adding the Articles read in the new Article page.
-            articles.addAll(jsonParser.getArticles());
+                // Parsing the response from JSON format.
+                jsonParser = new APIParser(APIString);
+                // Adding the Articles read in the new Article page.
+                articles.addAll(jsonParser.getArticles());
 
-            // Setting the max number of Articles to analyze, based on the number of available ones.
-            if (jsonParser.getTotal() < maxArticle) {
-                maxArticle = jsonParser.getPages();
-                //blockNumber = maxArticle / 100;
-                //System.out.println("Limited to " + maxArticle + " pages...");
+                // Setting the max number of Articles to analyze, based on the number of available ones.
+                if (jsonParser.getTotal() < maxArticle) {
+                    maxArticle = jsonParser.getPages();
+                    //blockNumber = maxArticle / 100;
+                    //System.out.println("Limited to " + maxArticle + " pages...");
+                }
+                articleCount += PAGESIZE;
+                pb.stepBy(PAGESIZE * 100 / maxArticle);
             }
-            articleCount += PAGESIZE;
-            pb.stepBy(PAGESIZE * 100 / maxArticle);
-            }
-
-        System.out.println("| Done retrieving articles from API endpoint response! |");
+        }
         // Reducing the size of Articles to the actual number of Articles read.
         articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }
