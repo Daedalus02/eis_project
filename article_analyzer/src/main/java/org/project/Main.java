@@ -426,7 +426,7 @@ public class Main {
 
                 // Printing the detected article Source.
                 if(articles.size() != 0){
-                    System.out.println(articles.get(0).getClass().getSimpleName() + " article source detected, calculating frequent tokens:");
+                    System.out.println(articles.get(0).getClass().getSimpleName() + " source detected, calculating frequent tokens:");
                 }else{
                     System.out.println("No articles were found.");
                     System.exit(0);

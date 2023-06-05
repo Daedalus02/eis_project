@@ -64,6 +64,7 @@ public final class APISource implements ArticleSource{
         int articleCount = 0;
         URL URL = null;
         String APIString = "";
+        // This is the process bar printed on screen to show the evolution of the articles retrieving process.
         try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
             while (articleCount < maxArticle) {
                 // Setting URL based on the fields required for the API request.
@@ -90,7 +91,12 @@ public final class APISource implements ArticleSource{
                 articleCount += PAGESIZE;
                 pb.stepBy(PAGESIZE * 100 / maxArticle);
             }
+            // Ending printing the process bar.
+            long remaining = pb.getMax() - pb.getCurrent();
+            pb.stepBy(remaining);
+
         }
+
         // Reducing the size of Articles to the actual number of Articles read.
         articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }
