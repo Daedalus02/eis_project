@@ -9,56 +9,15 @@ import java.util.stream.Collectors;
  * It inserts tokens and orders them based on their frequencies. It has few more features
  * such as removing all tokens, printing them, printing a given token frequency.
  */
-public class TreeStorage implements TokensStorage{
+public final class TreeStorage implements TokensStorage{
     /** Map is used to store the tokens using them as indexes and using the associated values to store their frequency.*/
-    private HashMap<String, Integer> tokens = null;
+    private HashMap<String, Integer> tokens;
     /**
      * Initializes an empty hash map {@link TreeStorage#tokens}.
      */
     public TreeStorage() {
         // Initializes the map containing the entries of tokens(String) as indexes and their frequency(int) as values.
         tokens = new HashMap<String, Integer>();
-    }
-
-    /**
-     * This method return a hash code to be able to eventually enter TreeStorages in a hash map.
-     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
-     *
-     * @return a hash code based one the hashMap containing all the tokens{@link TreeStorage#tokens}.
-     */
-    @Override
-    public int hashCode() {
-        final int primeNumber = 31;
-        int hash = primeNumber;
-        hash = hash * hash +(tokens != null ? tokens.hashCode() : 0);
-        return hash;
-    }
-
-    /**
-     * Check if the parameter obj (which need to be an TreeStorage) is a field by field copy of the class instance this method is invoked to.
-     *
-     * @param obj which should be an TreeStorage object (checked).
-     * @return  true if the TreeStorage obj has the same field values of the instance this method is invoked to, else it returns false.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if ((obj instanceof TreeStorage) &&  (obj != null)){
-            TreeStorage storage = (TreeStorage) obj;
-            Field[] fields = this.getClass().getDeclaredFields();
-            for(Field field : fields){
-                try {
-                    field.setAccessible(true);
-                    if(!field.get(this).equals(field.get(storage))){
-                        return false;
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            return true;
-        }
-        return false;
     }
 
     /**

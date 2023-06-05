@@ -1,5 +1,8 @@
 package org.project;
 
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarBuilder;
+import me.tongfei.progressbar.ProgressBarStyle;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
@@ -10,7 +13,7 @@ import java.util.List;
 /**
  * This class is used to represent a source of articles which are read from the API response of the "The Guardian" API endpoint.
  */
-public class APISource implements ArticleSource{
+public final class APISource implements ArticleSource{
     /** This is used to actually connect to the API endpoint.*/
     private HTTPClient client;
     /** This is used to parse the content of the articles body and head fields.*/
@@ -63,8 +66,12 @@ public class APISource implements ArticleSource{
         int articleCount = 0;
         URL URL = null;
         String APIString = "";
-
-
+        /*final String lineBlock = "=";
+        final String marginLine = "|";
+        final String lineArrow = ">";
+        String line = "";
+        int blockNumber = 10;*/
+        ProgressBar pb = new ProgressBar("Retrieving articles...",100);
         while (articleCount < maxArticle) {
             // Setting URL based on the fields required for the API request.
             URL = urlSetter.getURL();
@@ -84,21 +91,29 @@ public class APISource implements ArticleSource{
             // Setting the max number of Articles to analyze, based on the number of available ones.
             if (jsonParser.getTotal() < maxArticle) {
                 maxArticle = jsonParser.getPages();
+                //blockNumber = maxArticle / 100;
                 //System.out.println("Limited to " + maxArticle + " pages...");
             }
-
-            // Initializing the HTMLParser.
-            htmlParser = new HTMLParser();
-            // Parsing the content of each of the single new articles from HTML.
-            for (APIArticle article : articles.subList(articleCount, articles.size())) {
-                if (articleCount == maxArticle) {
-                    break;
+            articleCount += PAGESIZE;
+            pb.stepBy(PAGESIZE * 100 / maxArticle);
+            // Building and printing the loading line.
+            /*line = marginLine;
+            for(int i = 0 ; i < blockNumber; i++){
+                if(i < articleCount/100) {
+                    line += lineBlock;
+                }else{
+                    if(i == articleCount/100){
+                        line += lineArrow;
+                    }else {
+                        line += " ";
+                    }
                 }
-                //System.out.println("Analyzing site number: " + (articleCount + 1) + " with title: " + article.getWebTitle());
-                htmlParser.parse(article);
-                articleCount++;
             }
-        }
+            line += marginLine;
+            System.out.print(line + "\r");*/
+            }
+
+        System.out.println("| Done retrieving articles from API endpoint response! |");
         // Reducing the size of Articles to the actual number of Articles read.
         articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }

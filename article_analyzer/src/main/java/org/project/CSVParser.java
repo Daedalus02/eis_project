@@ -25,7 +25,7 @@ import com.opencsv.exceptions.CsvValidationException;
  *  * -Source Set
  *  * -Source
  */
-public class CSVParser {
+public final class CSVParser {
     /** This is used to keep track of the Article List to eventually return it when asked. */
     private List<CSVArticle> articles;
     /** This is the actual CSV parser capable of reading the fields contained in a CSV formatted file. */
@@ -65,15 +65,7 @@ public class CSVParser {
             if(Record.length != 7){
                 throw new InvalidPropertiesFormatException("The CSV is in the incorrect format.");
             }
-            article = new CSVArticle();
-            article.setIdentifier(Record[0]);
-            article.setURL(new URL(Record[1]));
-            article.setHead(Record[2]);
-            article.setBody(Record[3]);
-            article.setDate(Record[4]);
-            article.setSourceSet(Record[5]);
-            article.setSource(Record[6]);
-            articles.add(article);
+            articles.add(new CSVArticle(Record[2],Record[3],Record[0],new URL(Record[1]),Record[4],Record[5],Record[6]));
         }
     }
 

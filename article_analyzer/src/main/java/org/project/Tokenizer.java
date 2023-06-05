@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * It allows to tokenize a given string of text into its words. If needed, it checks the presence of punctuation
  * and common words, eventually returning a lexically/frequency ordered version to iterate through.
  */
-public class Tokenizer {
+public final class Tokenizer {
     /** String that initially contains the entire text to process using this class.*/
     private String str = "";
     /** Wrapper built around an annotation representing a document.*/

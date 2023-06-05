@@ -7,7 +7,7 @@ import java.net.URL;
  * for the api request.
  * It should be used to keep track of the parameters and to get a new url.
  */
-public class URLSetter {
+public final class URLSetter {
     /** Representation of a URL that is built in this class.*/
     private URL URL;
     /** Value of the API key of the media Group API endpoint.*/

@@ -1,5 +1,6 @@
 package org.project;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -107,109 +108,5 @@ class TreeStorageTest {
         storage.enterTokens(tokens);
         assertEquals(expected, storage.getOrderedTokens(3));
     }
-    @DisplayName("Testing the validity of the equals method.")
-    @Test
-    void testEquals(){
-        TreeStorage storage1 = new TreeStorage();
-        TreeStorage storage2 = new TreeStorage();
-        List<String> tokens1 = new ArrayList<String>();
-        List<String> tokens2 = new ArrayList<String>();
-        for(int i = 0; i < 1000; i++){
-            tokens1.add("Apples");
-            tokens2.add("Apples");
-        }
-        for(int i = 0; i < 2000; i++){
-            tokens1.add("taste");
-            tokens2.add("taste");
-        }
-        for(int i = 0; i < 3000; i++){
-            tokens1.add("good");
-            tokens2.add("good");
-        }
-        storage1.enterTokens(tokens1);
-        storage2.enterTokens(tokens2);
-        assertEquals(storage1, storage2);
-    }
-    @DisplayName("Testing the validity of the equals method with nulls TreeStorage.")
-    @Test
-    void testEqualsWithNulls(){
-        TreeStorage storage1 = new TreeStorage();
-        TreeStorage storage2 = null;
-        List<String> tokens1 = new ArrayList<String>();
-        for(int i = 0; i < 1000; i++){
-            tokens1.add("Apples");
-        }
-        for(int i = 0; i < 2000; i++){
-            tokens1.add("taste");
-        }
-        for(int i = 0; i < 3000; i++){
-            tokens1.add("good");
-        }
-        storage1.enterTokens(tokens1);
-        assertNotEquals(storage1, storage2);
-    }
-    @DisplayName("Testing the validity of the equals method with other Objects.")
-    @Test
-    void testEqualsWithOtherObjects(){
-        TreeStorage storage1 = new TreeStorage();
-        Object storage2= new Object();
-        List<String> tokens1 = new ArrayList<String>();
-        for(int i = 0; i < 1000; i++){
-            tokens1.add("Apples");
-        }
-        for(int i = 0; i < 2000; i++){
-            tokens1.add("taste");
-        }
-        for(int i = 0; i < 3000; i++){
-            tokens1.add("good");
-        }
-        storage1.enterTokens(tokens1);
-        assertNotEquals(storage1, storage2);
-    }
-    @DisplayName("Testing the validity of the hashCode method.")
-    @Test
-    void testHashCode(){
-        TreeStorage storage1 = new TreeStorage();
-        TreeStorage storage2 = new TreeStorage();
-        List<String> tokens1 = new ArrayList<String>();
-        List<String> tokens2 = new ArrayList<String>();
-        for(int i = 0; i < 1000; i++){
-            tokens1.add("Apples");
-            tokens2.add("Apples");
-        }
-        for(int i = 0; i < 2000; i++){
-            tokens1.add("taste");
-            tokens2.add("taste");
-        }
-        for(int i = 0; i < 3000; i++){
-            tokens1.add("good");
-            tokens2.add("good");
-        }
-        storage1.enterTokens(tokens1);
-        storage2.enterTokens(tokens2);
-        assertEquals(storage1.hashCode(), storage2.hashCode());
-    }
-    @DisplayName("Testing the validity of the hashCode method with null TreeStorage.")
-    @Test
-    void testHashCodeWithNulls(){
-        TreeStorage storage1 = new TreeStorage();
-        TreeStorage storage2 = new TreeStorage();
-        List<String> tokens1 = new ArrayList<String>();
-        List<String> tokens2 = new ArrayList<String>();
-        for(int i = 0; i < 1000; i++){
-            tokens1.add("Apples");
-            tokens2.add("Apples");
-        }
-        for(int i = 0; i < 2000; i++){
-            tokens1.add("taste");
-            tokens2.add("taste");
-        }
-        for(int i = 0; i < 3000; i++){
-            tokens1.add("good");
-            tokens2.add("good");
-        }
-        storage1.enterTokens(tokens1);
-        storage2.enterTokens(tokens2);
-        assertEquals(storage1.hashCode(), storage2.hashCode());
-    }
+
 }

@@ -22,8 +22,6 @@ class APIArticleTest {
                 "sectionName","webPublicationDate","webTitle",new URL("https://it.wikipedia.org"),
                 new URL("https://www.mediawiki.org/w/api.php"),true,"pillarId","pillarName",1);
         assertEquals(article,expected);
-        article.setHead("different");
-        assertNotEquals(article,expected);
     }
 
     @DisplayName("Testing if null is never equal to an object of APIArticle class")

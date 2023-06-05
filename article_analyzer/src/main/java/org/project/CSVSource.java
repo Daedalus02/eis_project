@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * This class represents a source of articles which are read from a CSV file.
  */
-public class CSVSource implements ArticleSource {
+public final class CSVSource implements ArticleSource {
     /** This parser is used to read the different values contained in the CSV file. */
     private CSVParser parser;
     /** This is used to keep track of the articles List to eventually return it when asked. */

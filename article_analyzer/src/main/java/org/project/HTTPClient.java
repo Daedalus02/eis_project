@@ -19,7 +19,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
  * NOTE: This class is a wrapper that contains the HTTP client from
  * the package org.apache.http.impl.client {@link org.apache.http.impl.client.CloseableHttpClient}.
  * */
-public class HTTPClient {
+public final class HTTPClient {
     /** This is the HTTP client. */
     private CloseableHttpClient client;
     /** This variable stores the configuration for the request. */

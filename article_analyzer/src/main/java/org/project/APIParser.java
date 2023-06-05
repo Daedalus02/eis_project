@@ -3,7 +3,10 @@ package org.project;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
+
+import javax.swing.text.html.HTML;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,7 @@ import java.util.List;
  * NOTE: only getters could be useful for this class because all the fields are part of a coherent
  * API response and should not be altered singularly.
  */
-public class APIParser {
+public final class APIParser {
     /** This is used to store the API endpoint response. */
     private String JSONString;
     /** This variable represents the status of the connection to the API endpoint. */
@@ -65,78 +68,74 @@ public class APIParser {
          */
         JSONArray arr = obj.getJSONObject("response").getJSONArray("results");
         articles = new ArrayList<APIArticle>();
-        APIArticle article;     // This is used to store each elaborated article from the API response.
+        // Declaring the HTML parser for head and body fields.
+        HTMLParser htmlParser = new HTMLParser();
+        /* Declaring all the variable to store articles fields. */
+        String body = "";
+        String head = "";
+        String id = "";
+        String type = "";
+        String sectionId = "";
+        String sectionName = "";
+        String webPublicationDate = "";
+        String webTitle = "";
+        URL webUrl = null;
+        URL apiUrl = null;
+        boolean isHosted = false;
+        String pillarId = "";
+        String pillarName = "";
+        int wordcount = 0;
         for (int i = 0; i < arr.length(); i++)
         {
-            article = new APIArticle();
             if(arr.getJSONObject(i).has("id")){
-                article.setId(arr.getJSONObject(i).getString("id"));
-            }else{
-                article.setId("");
+                id = arr.getJSONObject(i).getString("id");
             }
             if(arr.getJSONObject(i).has("type")){
-                article.setType(arr.getJSONObject(i).getString("type"));
-            }else{
-                article.setType("");
+                type = arr.getJSONObject(i).getString("type");
             }
             if(arr.getJSONObject(i).has("sectionName")){
-                article.setSectionName(arr.getJSONObject(i).getString("sectionName"));
-            }else{
-                article.setSectionName("");
+                sectionName =arr.getJSONObject(i).getString("sectionName");
             }
             if(arr.getJSONObject(i).has("sectionId")){
-                article.setSectionId(arr.getJSONObject(i).getString("sectionId"));
-            }else{
-                article.setSectionId("");
+                sectionId = arr.getJSONObject(i).getString("sectionId");
             }
             if(arr.getJSONObject(i).has("webTitle")){
-                article.setWebTitle(arr.getJSONObject(i).getString("webTitle"));
-            }else{
-                article.setWebTitle("");
+                webTitle = arr.getJSONObject(i).getString("webTitle");
             }
             if(arr.getJSONObject(i).has("webUrl")){
-                article.setWebUrl(arr.getJSONObject(i).getString("webUrl"));
-            }else{
-                article.setWebUrl("");
+                webUrl = new URL(arr.getJSONObject(i).getString("webUrl"));
             }
             if(arr.getJSONObject(i).has("webPublicationDate")){
-                article.setWebPublicationDate(arr.getJSONObject(i).getString("webPublicationDate"));
-            }else{
-                article.setWebPublicationDate("");
+                webPublicationDate = arr.getJSONObject(i).getString("webPublicationDate");
             }
             if(arr.getJSONObject(i).has("apiUrl")){
-                article.setApiUrl(arr.getJSONObject(i).getString("apiUrl"));
-            }else{
-                article.setApiUrl("");
+                apiUrl = new URL(arr.getJSONObject(i).getString("apiUrl"));
             }
             if(arr.getJSONObject(i).has("pillarId")){
-                article.setPillarId(arr.getJSONObject(i).getString("pillarId"));
-            }else{
-                article.setPillarId("");
+                pillarId = arr.getJSONObject(i).getString("pillarId");
             }
             if(arr.getJSONObject(i).has("pillarName")){
-                article.setPillarName(arr.getJSONObject(i).getString("pillarName"));
-            }else{
-                article.setPillarName("");
+                pillarName = arr.getJSONObject(i).getString("pillarName");
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("body")){
-                article.setBody(arr.getJSONObject(i).getJSONObject("fields").getString("body"));
+                body = arr.getJSONObject(i).getJSONObject("fields").getString("body");
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("headline")){
-                article.setHead(arr.getJSONObject(i).getJSONObject("fields").getString("headline"));
+                head = arr.getJSONObject(i).getJSONObject("fields").getString("headline");
             }
             if(arr.getJSONObject(i).getJSONObject("fields").has("wordcount")){
-                article.setWordcount(Integer.parseInt(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount")));
+                wordcount = Integer.parseInt(arr.getJSONObject(i).getJSONObject("fields").getString("wordcount"));
             }
+            // Parsing the content of each of the single new articles from HTML.
+            head = htmlParser.parse(head);
+            body = htmlParser.parse(body);
             // Adding the elaborated article to the List.
-            articles.add(article);
+            articles.add(new APIArticle(head,body,id,type,sectionId,sectionName,webPublicationDate,webTitle,webUrl,apiUrl,isHosted,pillarId,pillarName,wordcount));
         }
     }
 
 
     /*GETTERS*/
-
-
     /**
      * Gets JSON string{@link APIParser#JSONString}.
      *

@@ -1,31 +1,24 @@
 package org.project;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.Objects;
 
 /**
  * This class represents the fields that are used in the CSV source to represent an Article.
  */
-public class CSVArticle extends Article{
+public final class CSVArticle extends Article{
     /** This is used to identify the article.*/
-    private String identifier;
+    private final String identifier;
     /** This is the URL to the article online page.*/
-    private URL URL;
+    private final URL URL;
     /** This is the date of publication of the article. */
-    private String Date;
+    private final String Date;
     /** This is the group that published the article. */
-    private String sourceSet;
+    private final String sourceSet;
     /** This is used to store the article type (example: opinion, business, environment, ...).*/
-    private String source;
-
-    /**
-     * This is a dummy constructor needed by other classes to just initialise
-     * a new instance of this class.
-     */
-    public CSVArticle(){
-        super();
-    }
+    private final String source;
 
     /**
      * This constructor is used to set all the fields.
@@ -38,7 +31,9 @@ public class CSVArticle extends Article{
      * @param sourceSet  which is the group the published the article.
      * @param source     which is the article type.
      */
-    public CSVArticle(String head, String body, String identifier, URL URL, String Date, String sourceSet, String source) {
+    @JsonCreator
+    public CSVArticle(@JsonProperty("head") String head,@JsonProperty("body") String body,@JsonProperty("identifier") String identifier,
+                      @JsonProperty("URL") URL URL,@JsonProperty("Date") String Date,@JsonProperty("sourceSet") String sourceSet,@JsonProperty("source") String source) {
         super(head, body);
         this.identifier = identifier;
         this.URL = URL;
@@ -59,10 +54,6 @@ public class CSVArticle extends Article{
         int hash = super.hashCode();
         final int primeNumber = 31;
         hash = primeNumber * hash + (this.identifier != null ? this.identifier.hashCode() : 0);
-        hash = primeNumber * hash + (this.URL != null ? this.URL.hashCode() : 0);
-        hash = primeNumber * hash + (this.Date != null ? this.Date.hashCode() : 0);
-        hash = primeNumber * hash + (this.sourceSet != null ? this.sourceSet.hashCode() : 0);
-        hash = primeNumber * hash + (this.source != null ? this.source.hashCode() : 0);
         return hash;
     }
     /**
@@ -80,7 +71,7 @@ public class CSVArticle extends Article{
             for(Field field : fields){
                 try {
                     field.setAccessible(true);
-                    if(!field.get(this).equals(field.get(article))){
+                    if((field.get(this) == null && field.get(article) != null) | (field.get(this) != null && !field.get(this).equals(field.get(article)))){
                         return false;
                     }
                 } catch (IllegalAccessException e) {
@@ -91,66 +82,6 @@ public class CSVArticle extends Article{
         }
         return false;
     }
-
-    /* SETTERS */
-
-    /**
-     * Sets {@link CSVArticle#identifier}.
-     *
-     * @param identifier which is the article identifier.
-     */
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-    /**
-     * Sets {@link CSVArticle#URL}.
-     *
-     * @param URL which is the article web page URL.
-     */
-    public void setURL(URL URL) {
-        this.URL = URL;
-    }
-    /**
-     * Sets {@link CSVArticle#Date}.
-     *
-     * @param date which is the web publication date of the article.
-     */
-    public void setDate(String date) {
-        Date = date;
-    }
-    /**
-     * Sets {@link CSVArticle#sourceSet}.
-     *
-     * @param sourceSet which is the group the published the article.
-     */
-    public void setSourceSet(String sourceSet) {
-        this.sourceSet = sourceSet;
-    }
-    /**
-     * Sets {@link CSVArticle#source}.
-     *
-     * @param source which is the article type.
-     */
-    public void setSource(String source) {
-        this.source = source;
-    }
-    /**
-     * Sets the body field of the article.
-     *
-     * @param body which is the body field af an Article.
-     */
-    public void setBody(String body){
-        super.setBody(body);
-    }
-    /**
-     * Sets the head field of the article.
-     *
-     * @param head which is the head field of an article.
-     */
-    public void setHead(String head){
-        super.setHead(head);
-    }
-
 
     /* GETTERS */
     /**
