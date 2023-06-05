@@ -1,6 +1,7 @@
 package org.project;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
@@ -8,6 +9,7 @@ import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("API")
 class APIArticleTest {
 
     @DisplayName("Testing if subclass fields get tested for equality.")

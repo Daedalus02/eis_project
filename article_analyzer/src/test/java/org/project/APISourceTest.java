@@ -1,10 +1,7 @@
 package org.project;
 
 import org.json.JSONException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import javax.swing.text.BadLocationException;
 import java.io.File;
@@ -16,6 +13,7 @@ import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("API")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class APISourceTest {
 
@@ -23,7 +21,7 @@ class APISourceTest {
     @BeforeAll
     void instanceCreator() throws JSONException, IOException, ClassNotFoundException, BadLocationException {
         String apiKey;
-        FileInputStream fis = new FileInputStream("res" + File.separator + "private" + File.separator + "private.properties");
+        FileInputStream fis = new FileInputStream("resources" + File.separator + "private" + File.separator + "private.properties");
         Properties props = new Properties();
         props.load(fis);
         apiKey = props.getProperty("apiKey");

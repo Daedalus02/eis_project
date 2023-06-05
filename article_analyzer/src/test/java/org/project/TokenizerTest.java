@@ -2,15 +2,16 @@ package org.project;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Tag("Backlog")
+@Tag("CSV")
+@Tag("API")
 class TokenizerTest {
     private static final String RELATIVE_PATH = "test_resources" + File.separator + "articles" + File.separator;
     private static final String WORDS_PATH = "resources" + File.separator + "blacklist" + File.separator + "words.txt";
@@ -98,7 +99,6 @@ class TokenizerTest {
         tokenizer.tokenize(string1);
         tokenizer.tokenize(string2);
         tokenizer.tokenize(string3);
-        System.out.println(storage.getTokens());
         assertEquals(expected.entrySet(), storage.getOrderedTokens(83));
     }
 

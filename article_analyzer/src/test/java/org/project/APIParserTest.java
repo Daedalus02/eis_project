@@ -1,17 +1,15 @@
 package org.project;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 import org.json.JSONException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@Tag("API")
 class APIParserTest {
 
 
@@ -103,6 +101,6 @@ class APIParserTest {
         expected.add(APIArticle1);
         expected.add(APIArticle2);
         expected.add(APIArticle3);
-        assertThat(expected, samePropertyValuesAs(result));
+        assertEquals(expected, result);
     }
 }

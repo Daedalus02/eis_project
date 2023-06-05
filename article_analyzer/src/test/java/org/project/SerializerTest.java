@@ -1,12 +1,16 @@
 package org.project;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+@Tag("Backlog")
+@Tag("CSV")
+@Tag("API")
 class SerializerTest {
     private final String fileName = "test_resources" + File.separator + "articles" + File.separator + "TestSerializer.xml";
 

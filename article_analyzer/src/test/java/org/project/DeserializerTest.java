@@ -1,14 +1,17 @@
 package org.project;
 
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
+@Tag("Backlog")
+@Tag("CSV")
+@Tag("API")
 class DeserializerTest {
     private final String fileName = "test_resources" + File.separator + "backlog" + File.separator + "TestDeserializer.xml";
 
@@ -50,7 +53,7 @@ class DeserializerTest {
         serializer.serialize(expected,fileName);
         Article[] articles = (Article[]) (deserializer.deserialize(fileName));
         for(int i = 0; i < 3; i++ ) {
-            assertEquals(expected[i], (CSVArticle) articles[i]);
+            assertEquals(expected[i], (APIArticle) articles[i]);
         }
     }
     @Test
