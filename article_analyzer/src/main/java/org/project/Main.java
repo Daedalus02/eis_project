@@ -219,8 +219,6 @@ public class Main {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
                     }
                 }else{
                     // Printing error and stopping execution.
@@ -273,7 +271,7 @@ public class Main {
                 csvAnswer = console.nextLine().toLowerCase();
                 while (!(csvAnswer.equals("y") || csvAnswer.equals("n"))) {
                     System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
-                    csvAnswer = console.next().toLowerCase();
+                    csvAnswer = console.nextLine().toLowerCase();
                 }
                 if (csvAnswer.equals("y")) {
                     // Asking for the user to enter the CSV file name.
@@ -286,8 +284,6 @@ public class Main {
                     } catch (CsvValidationException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 } else {

@@ -1,5 +1,6 @@
 package org.project;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
@@ -26,37 +27,31 @@ import com.opencsv.exceptions.CsvValidationException;
  *  * -Source
  */
 public final class CSVParser {
-    /** This is used to keep track of the Article List to eventually return it when asked. */
-    private List<CSVArticle> articles;
     /** This is the actual CSV parser capable of reading the fields contained in a CSV formatted file. */
     private CSVReader reader;
 
     /**
      * This constructor takes the path of the files formatted in CSV. It also initializes the CSVReader {@link CSVParser#reader}
-     * and the List of Articles {@link CSVParser#articles} used to store the articles that will be read from the CSV file.
+     * will be used to read articles from the CSV file.
      *
      * @param filePath which is the complete address of the CSV file .
-     * @throws IOException if the filePath is not found or if the structure of the CSV file is not correct.
-     * @throws CsvValidationException if the filePath is a valid one but the content is not formatted as a CSV.
+     * @throws FileNotFoundException if the filePath is not correct.
      */
-    public CSVParser(String filePath) throws IOException, CsvValidationException {
+    public CSVParser(String filePath) throws FileNotFoundException {
         // Initializing the CSVReader.
        reader = new CSVReader(new FileReader(filePath));
-        // Initializing the Article List.
-        articles = new ArrayList<CSVArticle>();
-        // Reading the articles from the file.
-        readArticles();
     }
 
     /**
      * This method is internally used to read the articles from the CSV file.
      *
+     * @return Article List.
      * @throws CsvValidationException if the filePath is a valid one but the content is not formatted as a CSV.
      * @throws IOException if the structure of the file is not the expected one.
      */
 
-    private void readArticles() throws CsvValidationException, IOException {
-        CSVArticle article;
+    public List<CSVArticle> getArticles() throws CsvValidationException, IOException {
+        List<CSVArticle> articles = new ArrayList<CSVArticle>();        // This variable is used to store the articles read from the CSV
         String[] Record;        // This variable is used to store the fields in the CSV file records.
         // This skips reading the first line because it only contains structural information.
         reader.readNext();
@@ -67,14 +62,18 @@ public final class CSVParser {
             }
             articles.add(new CSVArticle(Record[2],Record[3],Record[0],new URL(Record[1]),Record[4],Record[5],Record[6]));
         }
+        return articles;
     }
 
     /**
-     * This method is used to return the elaborated List of Articles {@link CSVParser#articles}
+     * This method is used to change the CSV formatted file and setting the {@link CSVParser#reader}.
      *
-     * @return Article List.
+     * @param filePath the new CSV formatted file path(relative).
+     * @throws FileNotFoundException if the file path is not correct.
      */
-    public List<CSVArticle> getArticles(){
-        return articles;
+    public void changeFile(String filePath) throws FileNotFoundException {
+        // Reinitializing the CSVReader.
+        reader = new CSVReader(new FileReader(filePath));
     }
+
 }

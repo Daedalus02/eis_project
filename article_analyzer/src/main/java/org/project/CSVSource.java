@@ -21,7 +21,7 @@ public final class CSVSource implements ArticleSource {
      * @throws CsvValidationException if the file content is not formatted as a CSV.
      * @throws IOException if the filepath is not valid.
      */
-    public CSVSource(String filePath) throws CsvValidationException, IOException, ClassNotFoundException {
+    public CSVSource(String filePath) throws CsvValidationException, IOException {
         // Parsing the content of the CSV file.
         parser = new CSVParser(filePath);
         // Setting the Articles with the ones contained in the CSV file.

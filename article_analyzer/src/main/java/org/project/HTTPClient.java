@@ -62,7 +62,7 @@ public final class HTTPClient {
      * @throws IOException if the connection was not possible.
      * @throws IllegalStateException if the HTTP client {@link HTTPClient#client} is not connected.
      */
-    public String getHttpString() throws IOException, IllegalStateException{
+    public String getHttpString() throws IOException, IllegalStateException, ImpossibleConnection{
         // Checking to see if the HTTP client is still connected.
         if(!connected) throw new IllegalStateException("The HTTP client is not connected.");
 

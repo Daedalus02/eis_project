@@ -1,5 +1,7 @@
 package org.project;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -42,7 +44,7 @@ public final class APIArticle extends Article {
      *
      * @param head               the head.
      * @param body               the body.
-     * @param id                 the id {@link APIArticle#Id}.
+     * @param Id                 the id {@link APIArticle#Id}.
      * @param type               the type {@link APIArticle#type}.
      * @param sectionId          the section id {@link APIArticle#sectionId}.
      * @param sectionName        the section name {@link APIArticle#sectionName}.
@@ -56,12 +58,12 @@ public final class APIArticle extends Article {
      * @param wordcount          the word count {@link APIArticle#wordcount}.
      */
     @JsonCreator
-    public APIArticle(@JsonProperty("head") String head,@JsonProperty("body") String body,@JsonProperty("id") String id,@JsonProperty("type") String type,
+    public APIArticle(@JsonProperty("head") String head,@JsonProperty("body") String body,@JsonProperty("Id") String Id,@JsonProperty("type") String type,
                       @JsonProperty("sectionId") String sectionId,@JsonProperty("sectionName") String sectionName,@JsonProperty("Date") String webPublicationDate,
                       @JsonProperty("webTitle") String webTitle,@JsonProperty("webUrl") URL webUrl,@JsonProperty("apiUrl") URL apiUrl,@JsonProperty("isHosted") boolean isHosted,
                       @JsonProperty("pillarId") String pillarId,@JsonProperty("pillarName") String pillarName,@JsonProperty("wordcount") Integer wordcount)  {
         super(head, body);
-        Id = id;
+        this.Id = Id;
         this.type = type;
         this.sectionId = sectionId;
         this.sectionName = sectionName;
@@ -75,48 +77,7 @@ public final class APIArticle extends Article {
         this.wordcount = wordcount;
     }
 
-    /**
-     * Check if the parameter obj (which need to be an APIArticle) is a field by field copy of the class instance this method is invoked to.
-     *
-     * @param obj which should be an APIArticle object (checked).
-     * @return  true if the APIArticle obj has the same field values of the instance this method is invoked to, else it returns false.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if ((obj instanceof APIArticle) &&  (obj != null) && (super.equals(obj))){
-            APIArticle article = (APIArticle) obj;
-            Field[] fields = this.getClass().getDeclaredFields();
-            for(Field field : fields){
-                try {
-                    field.setAccessible(true);
-                    if((field.get(this) == null && field.get(article) != null) | (field.get(this) != null && !field.get(this).equals(field.get(article)))){
-                        return false;
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            return true;
-        }
-        return false;
-    }
 
-    /**
-     * This method return a hash code to eventually be able to enter APIArticles in a hash map.
-     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
-     *
-     * @return a hash code based one the private variables  ({@link APIArticle#Id}, {@link APIArticle#type},{@link APIArticle#sectionId},
-     *         {@link APIArticle#sectionName}, {@link APIArticle#webPublicationDate}, {@link APIArticle#webTitle}, {@link APIArticle#webUrl},
-     *         {@link APIArticle#apiUrl}, {@link APIArticle#isHosted}, {@link APIArticle#pillarId}, {@link APIArticle#pillarName}, {@link APIArticle#wordcount}).
-     */
-    @Override
-    public int hashCode() {
-        int hash = super.hashCode();
-        final int primeNumber = 31;
-        hash = primeNumber * hash + (this.Id != null ? this.Id.hashCode() : 0);
-        return hash;
-    }
 
     /* GETTERS */
 
@@ -246,4 +207,61 @@ public final class APIArticle extends Article {
         return wordcount;
     }
 
+    /**
+     * Check if the parameter obj (which need to be an APIArticle) is a field by field copy of the class instance this method is invoked to.
+     *
+     * @param obj which should be an APIArticle object (checked).
+     * @return  true if the APIArticle obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        APIArticle article = (APIArticle) obj;
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.append(getHead(), article.getHead());
+        equalsBuilder.append(getBody(), article.getBody());
+        equalsBuilder.append(isHosted, article.isHosted);
+        equalsBuilder.append(wordcount, article.wordcount);
+        equalsBuilder.append(Id, article.Id);
+        equalsBuilder.append(type, article.type);
+        equalsBuilder.append(sectionId, article.sectionId);
+        equalsBuilder.append(sectionName, article.sectionName);
+        equalsBuilder.append(webPublicationDate, article.webPublicationDate);
+        equalsBuilder.append(webTitle, article.webTitle);
+        equalsBuilder.append(webUrl, article.webUrl);
+        equalsBuilder.append(apiUrl, article.apiUrl);
+        equalsBuilder.append(pillarId, article.pillarId);
+        equalsBuilder.append(pillarName, article.pillarName);
+        return equalsBuilder.isEquals();
+    }
+
+    /**
+     * This method return a hash code to eventually be able to enter APIArticles in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @return a hash code based on the private variables  ({@link APIArticle#Id}, {@link APIArticle#type},{@link APIArticle#sectionId},
+     *         {@link APIArticle#sectionName}, {@link APIArticle#webPublicationDate}, {@link APIArticle#webTitle}, {@link APIArticle#webUrl},
+     *         {@link APIArticle#apiUrl}, {@link APIArticle#isHosted}, {@link APIArticle#pillarId}, {@link APIArticle#pillarName}, {@link APIArticle#wordcount}).
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(17,37);
+        hashCodeBuilder.append(getBody());
+        hashCodeBuilder.append(getHead());
+        hashCodeBuilder.append(Id);
+        hashCodeBuilder.append(type);
+        hashCodeBuilder.append(sectionId);
+        hashCodeBuilder.append(sectionName);
+        hashCodeBuilder.append(webPublicationDate);
+        hashCodeBuilder.append(webTitle);
+        hashCodeBuilder.append(webUrl);
+        hashCodeBuilder.append(apiUrl);
+        hashCodeBuilder.append(isHosted);
+        hashCodeBuilder.append(pillarId);
+        hashCodeBuilder.append(pillarName);
+        hashCodeBuilder.append(wordcount);
+        return hashCodeBuilder.toHashCode();
+    }
 }

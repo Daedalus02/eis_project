@@ -1,8 +1,6 @@
 package org.project;
 
 import me.tongfei.progressbar.ProgressBar;
-import me.tongfei.progressbar.ProgressBarBuilder;
-import me.tongfei.progressbar.ProgressBarStyle;
 import org.json.JSONException;
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
@@ -66,11 +64,6 @@ public final class APISource implements ArticleSource{
         int articleCount = 0;
         URL URL = null;
         String APIString = "";
-        /*final String lineBlock = "=";
-        final String marginLine = "|";
-        final String lineArrow = ">";
-        String line = "";
-        int blockNumber = 10;*/
         ProgressBar pb = new ProgressBar("Retrieving articles...",100);
         while (articleCount < maxArticle) {
             // Setting URL based on the fields required for the API request.
@@ -96,21 +89,6 @@ public final class APISource implements ArticleSource{
             }
             articleCount += PAGESIZE;
             pb.stepBy(PAGESIZE * 100 / maxArticle);
-            // Building and printing the loading line.
-            /*line = marginLine;
-            for(int i = 0 ; i < blockNumber; i++){
-                if(i < articleCount/100) {
-                    line += lineBlock;
-                }else{
-                    if(i == articleCount/100){
-                        line += lineArrow;
-                    }else {
-                        line += " ";
-                    }
-                }
-            }
-            line += marginLine;
-            System.out.print(line + "\r");*/
             }
 
         System.out.println("| Done retrieving articles from API endpoint response! |");

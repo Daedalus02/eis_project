@@ -33,46 +33,6 @@ public abstract class Article {
         this.head = head;
     }
 
-    /**
-     * This method return a hash code to be able to eventually enter Articles in a hash map.
-     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
-     *
-     * @return a hash code based one the private variables head and body ({@link Article#body}, {@link Article#head}).
-     */
-    @Override
-    public int hashCode() {
-        final int primeNumber = 31;
-        int hash = primeNumber;
-        hash = hash * primeNumber + (head != null ? head.hashCode() : 0 );
-        hash = hash * primeNumber + (body != null ? body.hashCode() : 0 );
-        return hash;
-    }
-    /**
-     * Check if the parameter obj (which need to be an Article) is a field by field copy of the class instance this method is invoked to.
-     *
-     * @param obj which should be an Article object (checked).
-     * @return  true if the Article obj has the same field values of the instance this method is invoked to, else it returns false.
-     */
-    @Override
-    public boolean equals(Object obj)  {
-        if (obj == this) return true;
-        if (obj.getClass() == getClass() && (obj != null)) {
-            Article article = (Article) obj;
-            Field[] fields = this.getClass().getSuperclass().getDeclaredFields();
-            for (Field field : fields) {
-                try {
-                    field.setAccessible(true);
-                    if ((field.get(this) == null && field.get(article) != null) | (field.get(this) != null && !field.get(this).equals(field.get(article)))) {
-                        return false;
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        return true;
-    }
-
     /* GETTERS */
     /**
      * Gets head {@link  Article#head}.

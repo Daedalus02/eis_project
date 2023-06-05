@@ -1,5 +1,7 @@
 package org.project;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 import java.lang.reflect.Field;
@@ -40,47 +42,6 @@ public final class CSVArticle extends Article{
         this.Date = Date;
         this.sourceSet = sourceSet;
         this.source = source;
-    }
-
-    /**
-     * This method return a hash code to eventually be able to enter CSVArticles in a hash map.
-     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
-     *
-     * @return a hash code based one the private variables  ({@link CSVArticle#identifier}, {@link CSVArticle#URL},{@link CSVArticle#Date},
-     *         {@link CSVArticle#sourceSet}, {@link CSVArticle#source}).
-     */
-    @Override
-    public int hashCode() {
-        int hash = super.hashCode();
-        final int primeNumber = 31;
-        hash = primeNumber * hash + (this.identifier != null ? this.identifier.hashCode() : 0);
-        return hash;
-    }
-    /**
-     * Check if the parameter obj (which need to be an CSVArticle) is a field by field copy of the class instance this method is invoked to.
-     *
-     * @param obj which should be an CSVArticle object (checked).
-     * @return  true if the CSVArticle obj has the same field values of the instance this method is invoked to, else it returns false.
-     */
-    @Override
-    public boolean equals(Object obj)  {
-        if (obj == this) return true;
-        if ((obj instanceof CSVArticle) &&  (obj != null) && (super.equals(obj))){
-            CSVArticle article = (CSVArticle) obj;
-            Field[] fields = this.getClass().getDeclaredFields();
-            for(Field field : fields){
-                try {
-                    field.setAccessible(true);
-                    if((field.get(this) == null && field.get(article) != null) | (field.get(this) != null && !field.get(this).equals(field.get(article)))){
-                        return false;
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            return true;
-        }
-        return false;
     }
 
     /* GETTERS */
@@ -139,5 +100,47 @@ public final class CSVArticle extends Article{
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Check if the parameter obj (which need to be an CSVArticle) is a field by field copy of the class instance this method is invoked to.
+     *
+     * @param obj which should be an CSVArticle object (checked).
+     * @return  true if the CSVArticle obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        CSVArticle article = (CSVArticle) obj;
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.append(getBody(), article.getBody());
+        equalsBuilder.append(getHead(), article.getHead());
+        equalsBuilder.append(identifier, article.identifier);
+        equalsBuilder.append(URL, article.URL);
+        equalsBuilder.append(Date, article.Date);
+        equalsBuilder.append(sourceSet, article.sourceSet);
+        equalsBuilder.append(source, article.source);
+        return equalsBuilder.isEquals();
+    }
+
+    /**
+     * This method return a hash code to eventually be able to enter CSVArticles in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @return a hash code based one the private variables  ({@link CSVArticle#identifier}, {@link CSVArticle#URL},{@link CSVArticle#Date},
+     *         {@link CSVArticle#sourceSet}, {@link CSVArticle#source}).
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(17, 37);
+        hashCodeBuilder.append(getBody());
+        hashCodeBuilder.append(getHead());
+        hashCodeBuilder.append(identifier);
+        hashCodeBuilder.append(URL);
+        hashCodeBuilder.append(Date);
+        hashCodeBuilder.append(sourceSet);
+        hashCodeBuilder.append(source);
+        return hashCodeBuilder.toHashCode();
     }
 }
