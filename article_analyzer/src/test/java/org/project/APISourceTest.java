@@ -34,7 +34,7 @@ class APISourceTest {
 
     /*
     * Note here we accept a margin in the response given basing on the presence of queries since we noticed the
-    * response of the "The guardian" endpoint is not precise. So we set a margin o 10%
+    * response of the "The guardian" endpoint is not precise. So we set a margin to 10%.
     * */
     @Test
     @DisplayName("Testing the frequency of queries words in articles returned by the APISource.")

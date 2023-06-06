@@ -1,14 +1,17 @@
 package org.project;
 
+import org.apiguardian.api.API;
 import org.json.JSONException;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /*
@@ -20,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Tag("API")
 class APIParserTest {
 
-
+    /* Testing the correct functioning of the API parser with valid JSON formatted string. */
     @Test
     @DisplayName("Test if the API endpoint response parser is correctly capable of parsing a JSON containing an article array.")
     void getArticles() throws MalformedURLException, JSONException {
@@ -118,6 +121,12 @@ class APIParserTest {
         assertEquals(expected, result);
 
     }
+
+
+
+    /* Testing the API parser exception with valid and invalid formatted string*/
+
+    /* Testing the necessity of the API parser to have a JSON array format to correctly work*/
     @DisplayName("Testing if the JSON exception is thrown when the JSON formatted string is in invalid format.")
     @Test
     void testJSONException(){
@@ -196,5 +205,77 @@ class APIParserTest {
                 () ->new APIParser(invalidJSON),
                 "Expected APIParser to throw JSONException but didn't."
         );
+    }
+
+    /*
+    * Note: in this test we associate a position in the String array to each field af an article JSON description in the response.
+    * Then we remove each one of them and test the APIParser functioning after their removal.
+    *
+    * Note: element related to JSON response and structural element(0-11 + 20 + 24 + 28-31) must be present while
+    * article fields(12-19 + 21-23) would be filled with standard value if absent in the response.
+    * */
+    @DisplayName("Testing the removal of each fields in the API response.")
+    @ParameterizedTest
+    @ValueSource(ints = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31})
+    void testFieldsRemoval(int positionField) throws MalformedURLException, JSONException {
+        // Possible API response with three articles(described by all the possible fields) and a response description
+        // in the beginning.
+        String[] JSONResponse = new String[]{
+                "{",    //0
+                "   \"response\":{",                    //1
+                "      \"status\":\"ok\"," ,            //2
+                "      \"userTier\":\"developer\"," ,   //3
+                "      \"total\":100," ,                //4
+                "      \"startIndex\":1," ,             //5
+                "      \"pageSize\":100," ,             //6
+                "      \"currentPage\":1," ,            //7
+                "      \"pages\":1," ,                  //8
+                "      \"orderBy\":\"newest\"," ,       //9
+                "      \"results\":[" ,                 //10
+                "         {" ,                          //11
+                "            \"id\":\"id1\"," ,                                              //12
+                "            \"type\":\"type1\"," ,                                          //13
+                "            \"sectionId\":\"sectionId1\"," ,                                //14
+                "            \"sectionName\":\"sectionName1\"," ,                            //15
+                "            \"webPublicationDate\":\"webPublicationDate1\"," ,              //16
+                "            \"webTitle\":\"webTitle1\"," ,                                  //17
+                "            \"webUrl\":\"https://it.wikipedia.org\",\n" ,                   //18
+                "            \"apiUrl\":\"https://www.mediawiki.org/w/api.php\",\n" ,        //19
+                "            \"fields\":{\n" ,                      //20
+                "               \"headline\":\"head1\",\n" ,        //21
+                "               \"body\":\"body1\"," ,              //22
+                "               \"wordcount\":1" ,                  //23
+                "            },\n" ,                              //24
+                "            \"isHosted\":true," ,                //25
+                "            \"pillarId\":\"pillarId1\"," ,       //26
+                "            \"pillarName\":\"pillarName1\"" ,    //27
+                "         }" ,                                    //28
+                "]" ,//29
+                "}" ,//30
+                "}"  //31
+        };
+
+        // Creating the JSON response string removing one of the line per time.
+        String JSONSTring = "";
+        for(int i = 0; i < JSONResponse.length; i++ ){
+            if(i != positionField){
+                JSONSTring += JSONResponse[i];
+            }
+        }
+
+        // Here we consider cases where the removal is not relevant and the article is still created.
+        if(positionField >11 && positionField <20 | positionField > 20 && positionField < 24 | positionField >24 && positionField < 28){
+            String finalJSONString = JSONSTring;
+            assertDoesNotThrow(
+                    () -> new APIParser(finalJSONString)
+            );
+        }else{      // Here we consider the cases when the JSONString has some structural removal.
+            String finalJSONString1 = JSONSTring;
+            assertThrows(
+                    JSONException.class,
+                    () -> new APIParser(finalJSONString1),
+                    "Expected to throw JSONException but didn't."
+            );
+        }
     }
 }

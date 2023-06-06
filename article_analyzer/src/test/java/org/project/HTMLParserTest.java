@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/* This class contains method used to check the correct functioning of the HTMLParser class.*/
 @Tag("API")
 class HTMLParserTest {
 
+    /* This method checks the functioning of the HTML parser with a correctly formatted HTML String. */
     @DisplayName("Testing if the HTML parser correctly parses HTML formatted string")
     @Test
     void testParse() {
@@ -25,7 +27,9 @@ class HTMLParserTest {
         String expected = "head body";
         assertEquals(expected,parser.parse(HTMLString));
     }
-    @DisplayName("Testing if the HTML parser return the correct string if the argument is not in HTML format")
+
+    /* This method checks the functioning of the HTML parser with a normal String. */
+    @DisplayName("Testing if the HTML parser return the correct string if the argument is not in HTML format.")
     @Test
     void testParseWithNormalString() {
         HTMLParser parser = new HTMLParser();
@@ -35,7 +39,8 @@ class HTMLParserTest {
         assertEquals(expected, parser.parse(normalString));
     }
 
-    @DisplayName("testing an incorreclty HTML formatted string")
+    /* This method checks the functioning of the HTML parser with incorrectly HTML formatted String. */
+    @DisplayName("testing an incorrectly HTML formatted string.")
     @Test
     void testInvalidHTMLString(){
         HTMLParser parser = new HTMLParser();
