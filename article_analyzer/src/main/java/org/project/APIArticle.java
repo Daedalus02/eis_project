@@ -181,24 +181,6 @@ public final class APIArticle extends Article {
     }
 
     /**
-     * Gets head.
-     *
-     * @return head from the super class.
-     */
-    public String getHead() {
-        return super.getHead();
-    }
-
-    /**
-     * Gets body.
-     *
-     * @return body from the superclass.
-     */
-    public String getBody() {
-        return super.getBody();
-    }
-
-    /**
      * Gets word count {@link APIArticle#wordcount}.
      *
      * @return word count in the articles .

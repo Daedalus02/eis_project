@@ -13,11 +13,6 @@ import java.util.stream.Collectors;
  * and common words, eventually returning a lexically/frequency ordered version to iterate through.
  */
 public final class Tokenizer {
-    /** String that initially contains the entire text to process using this class.*/
-    private String str = "";
-    /** Wrapper built around an annotation representing a document.*/
-    private CoreDocument document = null;
-
     /** Pipeline which divides the text processing into phases (here only one is used). */
     private StanfordCoreNLP pipeline = null;
     /** Enables class methods to take punctuation and current words into account.*/
@@ -36,21 +31,15 @@ public final class Tokenizer {
      * This constructor is used to set:
      *  whether to do checks on the tokens or not ({@link Tokenizer#checks});
      *  common word ({@link Tokenizer#commonWords});
-     *  the string to initialize the pipeline with ({@link Tokenizer#str});
      *  the pipeline ({@link Tokenizer#pipeline});
-     *  the document containing tokens ({@link Tokenizer#document});
      *  the storage class {@link Tokenizer#storage}.
-     *
-     * @param str is a text containing the initial pool of tokens.
+
      * @param checks checks if there are common words or punctuation in the tokens.
      * @param storage a structure capable of storing tokens or returning them in an ordered set.
      */
-    public Tokenizer(String str, boolean checks, TokensStorage storage) {
+    public Tokenizer(boolean checks, TokensStorage storage) {
         // Configures the internal tokenizer core NLP so that it won't print warning messages.
         RedwoodConfiguration.current().clear().apply();
-
-        // Setting the text string
-        this.str = str;
 
         // Setting the tokens storage
         this.storage = storage;
@@ -72,9 +61,6 @@ public final class Tokenizer {
         // This initializes the pipeline.
         pipeline = new StanfordCoreNLP(properties);
 
-        // This processes the string containing tokens.
-        document = pipeline.processToCoreDocument(str);
-
         // This sets the possibility to do checks on the processed document.
         this.checks = checks;
 
@@ -94,9 +80,6 @@ public final class Tokenizer {
                 this.checks = false;
             }
         }
-
-        //Insert tokens inside the storage.
-        tokenize(this.str);
     }
 
     /**
@@ -133,12 +116,12 @@ public final class Tokenizer {
      * This method is used by this class to insert tokens in the {@link Tokenizer#storage}.
      *
      * @param str which is the string containing text to add to the class variable to obtain a bigger set of tokens.
+     * @param searched which is a list of all the queries not to check on when check is activated.
      */
-    public void tokenize(String str){
-        //save string tokens in a list (without duplicates)
-        document = pipeline.processToCoreDocument(str);
-        //update the content of the text containing tokens
-        this.str += str;
+    public void tokenize(String str, List<String> searched){
+        // Save string tokens in a list (without duplicates).
+        // CoreDocument: Wrapper built around an annotation representing a document.
+        CoreDocument document = pipeline.processToCoreDocument(str);
 
         /*
         * The following lines combine multiple operations:
@@ -162,7 +145,7 @@ public final class Tokenizer {
             String elem;
             while (iter.hasNext()) {
                 elem = iter.next();
-                if ((elem.length() < 3 | Pattern.matches(REGEX, elem) | elem.equals("") | commonWords.contains(elem) )) {
+                if ((elem.length() < 3 | Pattern.matches(REGEX, elem) | elem.equals("") | commonWords.contains(elem) ) & !searched.contains(elem)) {
                     iter.remove();
                 }
             }

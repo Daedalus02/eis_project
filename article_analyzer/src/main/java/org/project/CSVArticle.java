@@ -54,28 +54,12 @@ public final class CSVArticle extends Article{
         return sourceSet;
     }
     /**
-     * Gets the body field of the article.
-     *
-     * @return body field of the article.
-     */
-    public String getBody(){
-        return super.getBody();
-    }
-    /**
      * Gets {@link CSVArticle#URL}.
      *
      * @return the article web page URL.
      */
     public URL getURL() {
         return URL;
-    }
-    /**
-     * Gets the head field of the article.
-     *
-     * @return the head field of the article.
-     */
-    public String getHead(){
-        return super.getHead();
     }
     /**
      * Gets {@link CSVArticle#source}.

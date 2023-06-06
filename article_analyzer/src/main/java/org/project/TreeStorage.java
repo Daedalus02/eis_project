@@ -1,6 +1,5 @@
 package org.project;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,27 +20,13 @@ public final class TreeStorage implements TokensStorage{
     }
 
     /**
-     * Allows to print all the tokens with their "frequency".
-     */
-    public void printTokens(){
-        Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
-        while(iter.hasNext()){
-            Map.Entry<String,Integer> pair = iter.next();
-            System.out.println(pair.getKey()+" "+pair.getValue());
-        }
-    }
-
-    /**
-     * Print the frequency of the given string (0 if not contained).
-     *
+     * Returns the frequency of the given string considered as a token (0 if not contained).
+     * @return the frequency of the given string
      * @param str string searched inside the map.
      */
-    public void printFrequency(String str) {
-        int frequency = 0;
-        frequency = tokens.getOrDefault(str,0);
-        System.out.println(frequency);
+    public int getFrequency(String str) {
+        return tokens.getOrDefault(str,0);
     }
-
 
     /**
      * Removes the tokens.
@@ -150,7 +135,11 @@ public final class TreeStorage implements TokensStorage{
      * @return the size of tokens storage(so the number of tokens present);
      */
     public int size(){
-        return tokens.entrySet().size();
+        int size = 0;
+        for(int key : tokens.values()){
+            size += key;
+        }
+        return size;
     }
 
     /**

@@ -24,8 +24,6 @@ public class Main {
     private static final String CSV_EXSTENSION = ".csv";
     /** Complete file address where the default API key can be found. */
     private static final String API_FILE = "resources" + File.separator + "private" + File.separator + "private.properties";
-    /** Base url of the API guardian endpoint. */
-    private static final String BASE_URL = "https://content.guardianapis.com";
 
     public static void main(String Args[]) {
 
@@ -34,7 +32,7 @@ public class Main {
         List<Article> articles = new ArrayList<Article>();      // Store the Articles read from different possible sources.
         String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name (only used when not specified).
         TokensStorage storage = new TreeStorage();      // Holds the tokens and is capable of returning them in an ordered set.
-        Tokenizer tokenizer = new Tokenizer("", true,storage);      //Used to tokenize articles in their different tokens checking them.
+        Tokenizer tokenizer = new Tokenizer(true,storage);      //Used to tokenize articles in their different tokens checking them.
         Deserializer deserializer = new Deserializer();     // Used to deserialize Articles from the file they were previously serialized in.
         String pageText = "";       //Text contained in both the head and the body fields of an Article.
         String downloadAnswer = "n";        // y(yes) if the user decides to visualize the 50 more frequent tokens.
@@ -193,15 +191,11 @@ public class Main {
                 }
                 // Trying to add the read articles from API endpoint response to the abstract article List.
                 try {
-                    source = new APISource(BASE_URL, apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                    source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
                     articles.addAll(source.getArticles());
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (BadLocationException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             } else if(line.hasOption(CSVOption)){       // Checking to see if the user chose the CSV formatted file as articles source.
@@ -376,15 +370,11 @@ public class Main {
 
                         // Elaborating Articles from The Guardian API response content.
                         try{
-                            source = new APISource(BASE_URL, apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                            source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
                             articles.addAll(source.getArticles());
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (BadLocationException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                         }
 
@@ -435,7 +425,7 @@ public class Main {
                 // Inserts the Articles textual fields inside of Tokenizer.
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
-                    tokenizer.tokenize(pageText);
+                    tokenizer.tokenize(pageText,queries);
                 }
 
                 // PRINTING PHASE

@@ -11,22 +11,21 @@ public final class URLSetter {
     /** Representation of a URL that is built in this class.*/
     private URL URL;
     /** Value of the API key of the media Group API endpoint.*/
-    private String APIKey;
+    private final String APIKey;
     /** Queries used to search among the set of elements in the response.*/
-    private String[] queries;
+    private final String[] queries;
     /** Fields used to determine the specific set of element given in the response.*/
-    private String[] tags;
+    private final String[] tags;
     /** Base URL without any specification.*/
-    private String baseURL;
+    private final String baseURL = "https://content.guardianapis.com/search?";
     /** Current page, a generic group of elements in the response.*/
     private int page;
     /** Number of articles that should be included in the API response.*/
-    private int pageSize;
+    private final int pageSize;
 
     /**
      * Takes all the information needed to create a valid URL based on the passed parameters .
      *
-     * @param baseURL sets {@link URLSetter#baseURL}
      * @param pageSize sets {@link URLSetter#pageSize}
      * @param APIKey sets {@link URLSetter#APIKey}
      * @param page sets {@link URLSetter#page}
@@ -34,8 +33,7 @@ public final class URLSetter {
      * @param tags sets {@link URLSetter#tags}
      * @throws IllegalArgumentException if there is no coherence in pageSize and page variables.
      */
-    public URLSetter(String baseURL, String APIKey, int page, int pageSize, String[] queries , String[] tags) throws IllegalArgumentException, MalformedURLException{
-        this.baseURL = baseURL;
+    public URLSetter( String APIKey, int page, int pageSize, String[] queries , String[] tags) throws IllegalArgumentException, MalformedURLException{
         this.APIKey = APIKey;
         this.tags = tags;
         this.page = page;
@@ -47,10 +45,7 @@ public final class URLSetter {
     private void buildUrl() throws MalformedURLException{
         // Setting a base URL.
         String URLString = baseURL;
-
-        //Setting the request type as a search.
-        URLString += "/search?";
-
+        // Setting the parameters.
         // Setting the page and checking for coherence.
         if(page > pageSize){
             throw new IllegalArgumentException();

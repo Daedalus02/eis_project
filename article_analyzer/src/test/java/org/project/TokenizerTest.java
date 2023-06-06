@@ -95,10 +95,10 @@ class TokenizerTest {
         expected.put(2,list2);
         expected.put(3,list3);
         TreeStorage storage = new TreeStorage();
-        Tokenizer tokenizer = new Tokenizer("",false,storage);
-        tokenizer.tokenize(string1);
-        tokenizer.tokenize(string2);
-        tokenizer.tokenize(string3);
+        Tokenizer tokenizer = new Tokenizer(false,storage);
+        tokenizer.tokenize(string1, new ArrayList<String>()) ;
+        tokenizer.tokenize(string2, new ArrayList<String>());
+        tokenizer.tokenize(string3, new ArrayList<String>());
         assertEquals(expected.entrySet(), storage.getOrderedTokens(83));
     }
 
@@ -115,10 +115,10 @@ class TokenizerTest {
     void test2Tokenize() {
         TreeStorage storage = new TreeStorage();
         // NOTE: the tokenizer was set to not check punctuation, but it still split composite words(example: "it's" is treated like "it" and "s").
-        Tokenizer tokenizer = new Tokenizer("",false,storage);
-        tokenizer.tokenize(article1);
-        tokenizer.tokenize(article2);
-        tokenizer.tokenize(article3);
+        Tokenizer tokenizer = new Tokenizer(false,storage);
+        tokenizer.tokenize(article1, new ArrayList<String>());
+        tokenizer.tokenize(article2, new ArrayList<String>());
+        tokenizer.tokenize(article3, new ArrayList<String>());
         //assertEquals(expected.entrySet(), storage.getOrderedTokens(50));
     }
     @Test
@@ -126,10 +126,10 @@ class TokenizerTest {
     void test3Tokenize() {
         TreeStorage storage = new TreeStorage();
         // NOTE: the tokenizer was set to not check punctuation, but it still split composite words(example: "it's" is treated like "it" and "s").
-        Tokenizer tokenizer = new Tokenizer("",false,storage);
-        tokenizer.tokenize(article1);
-        tokenizer.tokenize(article2);
-        tokenizer.tokenize(article3);
+        Tokenizer tokenizer = new Tokenizer(false,storage);
+        tokenizer.tokenize(article1, new ArrayList<String>());
+        tokenizer.tokenize(article2, new ArrayList<String>());
+        tokenizer.tokenize(article3, new ArrayList<String>());
         List<String> list3 = Arrays.stream(new String[]{"will","which","way","was","very","up","to","this","they","the","that","such",
                 "source","say","s","power","plants","out","one","on","of","nuclear","now","not","need","it","is","industry","in","have",
                 "has","fukushima","from","fossil","for","first","energy","down","does","by","but","been","be","at","as","are","and","a",""}).collect(Collectors.toList());;
@@ -145,10 +145,10 @@ class TokenizerTest {
     void tokenizeWithoutChecks1(){
         TreeStorage storage = new TreeStorage();
         // NOTE: the tokenizer was set to not check punctuation, but it still split composite words(example: "it's" is treated like "it" and "s").
-        Tokenizer tokenizer = new Tokenizer("",true,storage);
-        tokenizer.tokenize(article1);
-        tokenizer.tokenize(article2);
-        tokenizer.tokenize(article3);
+        Tokenizer tokenizer = new Tokenizer(true,storage);
+        tokenizer.tokenize(article1, new ArrayList<String>());
+        tokenizer.tokenize(article2, new ArrayList<String>());
+        tokenizer.tokenize(article3, new ArrayList<String>());
         List<String> list3 = Arrays.stream(new String[]{"source","power","plants","nuclear","industry","fukushima","fossil","energy"}).collect(Collectors.toList());;
         List<String> list2 = Arrays.stream(new String[]{"safety","running","risk","remains","radioactive","questions","question","provide",
                 "promise","prevent","potential","plant","north","mile","making","long","life","island","increasing","incidents","important","hope",

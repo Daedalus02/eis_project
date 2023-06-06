@@ -37,16 +37,15 @@ public final class APISource implements ArticleSource{
      * @param APIKey which needs to be a valid API key of the "The Guardian" API page.
      * @param tags which are used to specify a set of articles related to the strings passed.
      * @param queries which are used to search a specific set of words inside all possible articles.
-     * @param maxArticle which is the max number of article to return (so the actual number could be lower)
-     * @throws IOException
-     * @throws JSONException
-     * @throws BadLocationException
+     * @param maxArticle which is the max number of article to return (so the actual number could be lowed)
+     * @throws IOException if the connection went wrong and the HTTP client was not able to connect to the endpoint.
+     * @throws JSONException if the API response does not have the expected fields.
      */
-    public APISource(String baseURL, String APIKey, String[] tags, String[] queries, int maxArticle) throws IOException, JSONException, BadLocationException, ClassNotFoundException {
+    public APISource(String APIKey, String[] tags, String[] queries, int maxArticle) throws IOException, JSONException {
         // Setting the max number of articles to read (could be less or more).
         this.maxArticle = maxArticle;
         // Setting URL based on the fields required for the API request.
-        urlSetter = new URLSetter(baseURL, APIKey, INITIALCOUNT, PAGESIZE, queries, tags);
+        urlSetter = new URLSetter(APIKey, INITIALCOUNT, PAGESIZE, queries, tags);
         // Initializing the articles variable.
         articles = new ArrayList<APIArticle>();
         // This reads all the articles from the JSON response of the API endpoint.
@@ -85,7 +84,6 @@ public final class APISource implements ArticleSource{
                 // Setting the max number of Articles to analyze, based on the number of available ones.
                 if (jsonParser.getTotal() < maxArticle) {
                     maxArticle = jsonParser.getPages();
-                    //blockNumber = maxArticle / 100;
                     //System.out.println("Limited to " + maxArticle + " pages...");
                 }
                 articleCount += PAGESIZE;
@@ -94,13 +92,11 @@ public final class APISource implements ArticleSource{
             // Ending printing the process bar.
             long remaining = pb.getMax() - pb.getCurrent();
             pb.stepBy(remaining);
-
         }
 
         // Reducing the size of Articles to the actual number of Articles read.
         articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }
-
     /**
      * This method is used to simply return the elaborated List of Articles {@link APISource#articles}
      *

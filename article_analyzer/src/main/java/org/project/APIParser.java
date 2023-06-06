@@ -117,6 +117,9 @@ public final class APIParser {
             if(arr.getJSONObject(i).has("pillarName")){
                 pillarName = arr.getJSONObject(i).getString("pillarName");
             }
+            if(arr.getJSONObject(i).has("isHosted")){
+                isHosted = Boolean.parseBoolean(arr.getJSONObject(i).getString("isHosted"));
+            }
             if(arr.getJSONObject(i).getJSONObject("fields").has("body")){
                 body = arr.getJSONObject(i).getJSONObject("fields").getString("body");
             }
