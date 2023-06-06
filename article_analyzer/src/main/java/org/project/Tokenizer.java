@@ -82,35 +82,6 @@ public final class Tokenizer {
         }
     }
 
-    /**
-     * This method enables punctuation and common words check for the future entered tokens by setting the check variable {@link Tokenizer#checks}.
-     */
-    public void enableCheck(){
-        if(!checks){
-            // This initializes the commonWords String List.
-            commonWords = new ArrayList<String>();
-            try{
-                // Reading the common words from the file at FILENAME address.
-                BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
-                String word = "";
-                while((word = reader.readLine()) != null){
-                    commonWords.add(word);
-                }
-            }catch(IOException e){
-                System.out.println("Wordlist not found(check documentation for more information), not doing checks!");
-                checks = false;
-                return; // Setting the tokenizer to not do checks(since no wordlist was found) and returning.
-            }
-            checks = true;
-        }
-    }
-
-    /**
-     * This method disables punctuation and common words checks for the future entered tokens by setting the check variable {@link Tokenizer#checks}.
-     */
-    public void disableCheck(){
-        checks = false;
-    }
 
     /**
      * This method is used by this class to insert tokens in the {@link Tokenizer#storage}.

@@ -1,20 +1,28 @@
 package org.project;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/* This class contains the tests to check the correct working of the deserialize method
+ * in Deserializer class. */
 @Tag("Backlog")
 @Tag("CSV")
 @Tag("API")
 class DeserializerTest {
+    // This variable contains the relative file path of the file used as a backlog by the Deserializer class.
     private final String fileName = "test_resources" + File.separator + "backlog" + File.separator + "TestDeserializer.xml";
 
+    /*
+    * This method test the correct working of the Deserializer when deserializing CSV Articles
+    * from a JSON formatted file.
+    * */
     @Test
     @DisplayName("Testing if the Deserializer read CSVArticle from file correctly.")
     void testDeserializerCSVArticle() throws IOException {
@@ -35,6 +43,10 @@ class DeserializerTest {
 
     }
 
+    /*
+     * This method test the correct working of the Deserializer when deserializing API Articles
+     * from a JSON formatted file .
+     * */
     @Test
     @DisplayName("Testing if Deserializer read APIArticle from the file correctly.")
     void testSerializeAPIArticle() throws IOException {
@@ -56,6 +68,8 @@ class DeserializerTest {
             assertEquals(expected[i], (APIArticle) articles[i]);
         }
     }
+
+    /* This method tests if the IOException is thrown when the file required(by the user) is missing. */
     @Test
     @DisplayName("Testing the exception if the filename is not valid.")
     void IOExcptionThrown(){

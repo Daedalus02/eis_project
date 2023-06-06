@@ -14,8 +14,6 @@ import java.util.List;
 public final class APISource implements ArticleSource{
     /** This is used to actually connect to the API endpoint.*/
     private HTTPClient client;
-    /** This is used to parse the content of the articles body and head fields.*/
-    private HTMLParser htmlParser;
     /** This is used to facilitate setting and storing the URL.*/
     private URLSetter urlSetter;
     /** This is used to parse the field of an article in the response of the API endpoint which is formatted in JSON.*/
@@ -32,7 +30,7 @@ public final class APISource implements ArticleSource{
 
     /**
      * This constructor sets the url and the max number of article to return, initialize the URL setter {@link URLSetter} with first value
-     * and the articles.
+     * and the articles and the {@link APISource#client}.
      *
      * @param APIKey which needs to be a valid API key of the "The Guardian" API page.
      * @param tags which are used to specify a set of articles related to the strings passed.
@@ -48,6 +46,8 @@ public final class APISource implements ArticleSource{
         urlSetter = new URLSetter(APIKey, INITIALCOUNT, PAGESIZE, queries, tags);
         // Initializing the articles variable.
         articles = new ArrayList<APIArticle>();
+        // Initializing the HTTP client for the connection.
+        client = new HTTPClient();
         // This reads all the articles from the JSON response of the API endpoint.
         readArticle();
     }
@@ -63,6 +63,7 @@ public final class APISource implements ArticleSource{
         int articleCount = 0;
         URL URL = null;
         String APIString = "";
+
         // This is the process bar printed on screen to show the evolution of the articles retrieving process.
         try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
             while (articleCount < maxArticle) {
@@ -73,7 +74,7 @@ public final class APISource implements ArticleSource{
                 //System.out.println("from " + URL + " :");
 
                 // Getting the response from the API endpoint.
-                client = new HTTPClient(new URL(URL.toString()));
+                client.connect(URL);
                 APIString = client.getHttpString();
 
                 // Parsing the response from JSON format.
@@ -86,14 +87,17 @@ public final class APISource implements ArticleSource{
                     maxArticle = jsonParser.getPages();
                     //System.out.println("Limited to " + maxArticle + " pages...");
                 }
+
+                // Incrementing the article count since we request 100 articles per time.
                 articleCount += PAGESIZE;
+                // Adding progress to progress bar.
                 pb.stepBy(PAGESIZE * 100 / maxArticle);
             }
             // Ending printing the process bar.
             long remaining = pb.getMax() - pb.getCurrent();
             pb.stepBy(remaining);
         }
-
+        client.closeConnection();
         // Reducing the size of Articles to the actual number of Articles read.
         articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }

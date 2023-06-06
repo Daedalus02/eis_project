@@ -37,8 +37,7 @@ public final class CSVParser {
      * @param filePath which is the complete address of the CSV file .
      * @throws FileNotFoundException if the filePath is not correct.
      */
-    public CSVParser(String filePath) throws FileNotFoundException {
-        // Initializing the CSVReader.
+    public CSVParser(String filePath) throws FileNotFoundException {// Initializing the CSVReader.
        reader = new CSVReader(new FileReader(filePath));
     }
 
@@ -49,7 +48,6 @@ public final class CSVParser {
      * @throws CsvValidationException if the filePath is a valid one but the content is not formatted as a CSV.
      * @throws IOException if the structure of the file is not the expected one.
      */
-
     public List<CSVArticle> getArticles() throws CsvValidationException, IOException {
         List<CSVArticle> articles = new ArrayList<CSVArticle>();        // This variable is used to store the articles read from the CSV
         String[] Record;        // This variable is used to store the fields in the CSV file records.
@@ -65,15 +63,5 @@ public final class CSVParser {
         return articles;
     }
 
-    /**
-     * This method is used to change the CSV formatted file and setting the {@link CSVParser#reader}.
-     *
-     * @param filePath the new CSV formatted file path(relative).
-     * @throws FileNotFoundException if the file path is not correct.
-     */
-    public void changeFile(String filePath) throws FileNotFoundException {
-        // Reinitializing the CSVReader.
-        reader = new CSVReader(new FileReader(filePath));
-    }
 
 }

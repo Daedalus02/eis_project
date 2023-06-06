@@ -8,6 +8,7 @@ import javax.swing.text.html.HTML;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.IllegalFormatFlagsException;
 import java.util.List;
 
 /**
@@ -50,7 +51,6 @@ public final class APIParser {
         JSONString = str;
         // Initializing the JsonObject with given string.
         JSONObject obj = new JSONObject(str);
-
         /* Parsing the string to see if it contains attributes of a "The Guardian" API response.
          * NOTE: the response is assumed to be in the correct format
          * */

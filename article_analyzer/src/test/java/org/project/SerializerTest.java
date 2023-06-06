@@ -1,19 +1,27 @@
 package org.project;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+/* This class contains the tests to check the correct working of the serialize method
+ * in Serializer class. */
 @Tag("Backlog")
 @Tag("CSV")
 @Tag("API")
 class SerializerTest {
+    // This variable contains the relative file path of the file used as a backlog by the Serializer class.
     private final String fileName = "test_resources" + File.separator + "articles" + File.separator + "TestSerializer.xml";
 
+    /*
+     * This method test the correct working of the Serializer when serializing CSV Articles
+     * to a backlog file.
+     * */
     @Test
     @DisplayName("Testing if Serializer store CSVArticle in the file correctly.")
     void testSerializeCSVArticle() throws IOException {
@@ -33,6 +41,10 @@ class SerializerTest {
         }
     }
 
+    /*
+     * This method test the correct working of the Deserializer when serializing API Articles
+     * to a backlog file.
+     * */
     @Test
     @DisplayName("Testing if Serializer store APIArticle in the file correctly.")
     void testSerializeAPIArticle() throws IOException {
@@ -55,6 +67,7 @@ class SerializerTest {
         }
     }
 
+    /* This method tests if the IOException is thrown when the file path indicated (by the user) is not valid for file creation. */
     @Test
     @DisplayName("Testing the exception if the filename is not valid.")
     void IOExcptionThrown() throws IOException {
