@@ -98,8 +98,7 @@ public final class APISource implements ArticleSource{
                 pb.stepBy(pageSize * 100 / maxArticle);
             }
             // Ending printing the process bar.
-            long remaining = pb.getMax() - pb.getCurrent();
-            pb.stepBy(remaining);
+            pb.stepTo(100);
         }
         client.closeConnection();
         // Reducing the size of Articles to the actual number of Articles read.
