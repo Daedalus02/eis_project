@@ -12,19 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("Backlog")
 @Tag("CSV")
 @Tag("API")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TokenizerTest {
     // This variable store the general path for the articles.
-    private static final String RELATIVE_PATH = "test_resources" + File.separator + "articles" + File.separator;
+    private final String RELATIVE_PATH = "test_resources" + File.separator + "articles" + File.separator;
     // This variable is used to store the value of article 1.
-    private static String article1;
+    private String article1;
     // This variable is used to store the value of article 2.
-    private static String article2;
+    private String article2;
     // This variable is used to store the value of article 3.
-    private static String article3;
+    private String article3;
 
     // Reading the content of the Articles used in some tests.
     @BeforeAll
-    static void readArticles() throws IOException {
+    void readArticles() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(RELATIVE_PATH + "Article1.txt"));
         StringBuffer buffer = new StringBuffer();
         String line = "";
