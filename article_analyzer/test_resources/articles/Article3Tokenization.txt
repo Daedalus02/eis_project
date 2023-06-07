@@ -1,0 +1,172 @@
+ARTICLE 3 (BEFORE FORMATTING)
+
+Jeremy hunt wants nuclear power classed as sustainable: is it?
+Uk chancellor has launched consultation to classify nuclear as environmentally sustainable
+jeremy hunt has kickstarted a fresh push into nuclear power, which he hopes will provide a quarter of britains electricity by 2050. In his budget speech,
+the chancellor announced a competition to co-fund small nuclear plants and hopes a new delivery body, great british nuclear, will ease the creation of
+nuclear projects. He also launched a consultation to classify nuclear as environmentally sustainable. But is it?
+Does britain need nuclear power?
+Hunt follows in the footsteps of the former prime minister boris johnson in making bold statements on the importance of nuclear. Britains nuclear power
+stations date back to the 1950s and are now ageing, with just one, sizewell b, still scheduled to be running after 2028. Last week, frances edf which
+operates the stations said it had extended the life of two other plants.
+Proponents argue that nuclear provides a baseload of power that can be relied on, whereas renewable energy such as wind and solar is dependent on weather
+conditions, meaning it cannot always help match supply with demand. There are also high hopes for nuclear fusion as an energy source, but this has not
+been commercialised.
+Why is nuclear being reclassified?
+To attract private investment. The consultation is on the taxonomy or financial classification system of energy. This is important as there have been
+a proliferation of funds dedicated to environmental, social and governance (esg) investments springing up in global financial markets in recent years.
+These funds promise their investors that their cash is going towards social good, such as tackling the climate crisis. Hunt was also under pressure to
+respond to the inflation reduction act, joe bidens $369bn climate subsidy package.
+Is britain the first country to do this?
+No. The european commission decided last year to label nuclear as a green investment. The eus parliament said the taxonomy change aimed to boost green
+investments and prevent greenwashing. However, the decision has faced legal challenges by groups including greenpeace.
+Will it make a difference?
+Nuclear projects cost tens of billions of pounds to develop and build, so smoothing the path to secure investment is seen as crucial. In the uk, the government
+has tasked bankers with finding funders for sizewell c, in partnership with edf, after easing china general nuclear out of the project over security fears.
+The government has committed 700m to the suffolk plant, which could cost more than 30bn to build. Its sister site, hinkley point c in somerset, has been
+beset with delays and cost overruns. Senior industry sources said the taxonomy change would help in the hunt for sizewell cs funders.
+The backers of small modular reactors, including a programme developed by rolls-royce, will also hope to receive significant investment. Rolls-royces
+aim is to create a fleet of smaller, factory-built nuclear plants across britain.
+Is nuclear energy renewable?
+Uranium, the element used in nuclear power, is a finite resource, which is mined from the ground and not considered renewable. However, it can be argued
+that, as nuclear power stations use a very small amount of fuel to generate the same amount of electricity, they are preferable to gas-fired power stations,
+which are expected to be around for many years.
+Is it really green?
+Advocates of nuclear claim it should be seen as a green energy source as it does not release harmful emissions into the air. National grid says that the
+lifecycle emissions emissions resulting from every stage of the production process are also significantly lower than in fossil fuel-based generation.
+Hunt said on wednesday that increasing nuclear capacity is vital to meet our net zero obligations. However, there are questions over how useful nuclear
+will realistically be in this mission. As projects take years to build sizewell c could be finished by the mid-2030s at a push it can be argued that pursuing
+the project could prove a drain on government and financial resources, which could be better spent on rapidly scaling up britains wind and solar capacity
+and improving electricity networks and storage. An effective ban on onshore wind developments remains in place.
+Nuclear detractors also say nuclear cannot be seen as sustainable given the concerns over the potential environmental hazards in the long term. Shutting
+down sites such as sellafield, in north-west england, will take generations and involves a painstaking process of carefully managing ageing buildings
+to ensure radioactive waste is not mishandled. In finland, a huge effort is under way to bury waste in concrete deep underground.
+It has also been argued that as nuclear plants need water for cooling so are often built near the coast rising sea levels could make some projects obsolete
+before building work is completed.
+That is not the only concern, is it?
+No. The history of the nuclear industry has shown an oscillating interest from governments and investors, influenced by a series of devastating incidents
+including three mile island in 1979, chornobyl in 1986 and fukushima in 2011. Russias attack on zaporizhzhia, europes biggest nuclear plant, in ukraine,
+has again raised concerns over a nuclear incident.
+
+TO LOWER CASE
+jeremy hunt wants nuclear power classed as sustainable: is it?
+uk chancellor has launched consultation to classify nuclear as environmentally sustainable
+jeremy hunt has kickstarted a fresh push into nuclear power, which he hopes will provide a quarter of britains electricity by 2050. in his budget speech,
+the chancellor announced a competition to co-fund small nuclear plants and hopes a new delivery body, great british nuclear, will ease the creation of
+nuclear projects. he also launched a consultation to classify nuclear as environmentally sustainable. but is it?
+does britain need nuclear power?
+hunt follows in the footsteps of the former prime minister boris johnson in making bold statements on the importance of nuclear. britains nuclear power
+stations date back to the 1950s and are now ageing, with just one, sizewell b, still scheduled to be running after 2028. last week, frances edf which
+operates the stations said it had extended the life of two other plants.
+proponents argue that nuclear provides a baseload of power that can be relied on, whereas renewable energy such as wind and solar is dependent on weather
+conditions, meaning it cannot always help match supply with demand. there are also high hopes for nuclear fusion as an energy source, but this has not
+been commercialised.
+why is nuclear being reclassified?
+to attract private investment. the consultation is on the taxonomy or financial classification system of energy. this is important as there have been
+a proliferation of funds dedicated to environmental, social and governance (esg) investments springing up in global financial markets in recent years.
+these funds promise their investors that their cash is going towards social good, such as tackling the climate crisis. hunt was also under pressure to
+respond to the inflation reduction act, joe bidens $369bn climate subsidy package.
+is britain the first country to do this?
+no. the european commission decided last year to label nuclear as a green investment. the eus parliament said the taxonomy change aimed to boost green
+investments and prevent greenwashing. however, the decision has faced legal challenges by groups including greenpeace.
+will it make a difference?
+nuclear projects cost tens of billions of pounds to develop and build, so smoothing the path to secure investment is seen as crucial. in the uk, the government
+has tasked bankers with finding funders for sizewell c, in partnership with edf, after easing china general nuclear out of the project over security fears.
+the government has committed 700m to the suffolk plant, which could cost more than 30bn to build. its sister site, hinkley point c in somerset, has been
+beset with delays and cost overruns. senior industry sources said the taxonomy change would help in the hunt for sizewell cs funders.
+the backers of small modular reactors, including a programme developed by rolls-royce, will also hope to receive significant investment. rolls-royces
+aim is to create a fleet of smaller, factory-built nuclear plants across britain.
+is nuclear energy renewable?
+uranium, the element used in nuclear power, is a finite resource, which is mined from the ground and not considered renewable. however, it can be argued
+that, as nuclear power stations use a very small amount of fuel to generate the same amount of electricity, they are preferable to gas-fired power stations,
+which are expected to be around for many years.
+is it really green?
+advocates of nuclear claim it should be seen as a green energy source as it does not release harmful emissions into the air. national grid says that the
+lifecycle emissions emissions resulting from every stage of the production process are also significantly lower than in fossil fuel-based generation.
+hunt said on wednesday that increasing nuclear capacity is vital to meet our net zero obligations. however, there are questions over how useful nuclear
+will realistically be in this mission. as projects take years to build sizewell c could be finished by the mid-2030s at a push it can be argued that pursuing
+the project could prove a drain on government and financial resources, which could be better spent on rapidly scaling up britains wind and solar capacity
+and improving electricity networks and storage. an effective ban on onshore wind developments remains in place.
+nuclear detractors also say nuclear cannot be seen as sustainable given the concerns over the potential environmental hazards in the long term. shutting
+down sites such as sellafield, in north-west england, will take generations and involves a painstaking process of carefully managing ageing buildings
+to ensure radioactive waste is not mishandled. in finland, a huge effort is under way to bury waste in concrete deep underground.
+it has also been argued that as nuclear plants need water for cooling so are often built near the coast rising sea levels could make some projects obsolete
+before building work is completed.
+that is not the only concern, is it?
+no. the history of the nuclear industry has shown an oscillating interest from governments and investors, influenced by a series of devastating incidents
+including three mile island in 1979, chornobyl in 1986 and fukushima in 2011. russias attack on zaporizhzhia, europes biggest nuclear plant, in ukraine,
+has again raised concerns over a nuclear incident.
+
+TOKENIZED
+jeremy hunt wants nuclear power classed as sustainable  is it
+uk chancellor has launched consultation to classify nuclear as environmentally sustainable
+jeremy hunt has kickstarted a fresh push into nuclear power  which he hopes will provide a quarter of britains electricity by       in his budget speech
+the chancellor announced a competition to co fund small nuclear plants and hopes a new delivery body  great british nuclear  will ease the creation of
+nuclear projects  he also launched a consultation to classify nuclear as environmentally sustainable  but is it
+does britain need nuclear power
+hunt follows in the footsteps of the former prime minister boris johnson in making bold statements on the importance of nuclear  britains nuclear power
+stations date back to the     s and are now ageing  with just one  sizewell b  still scheduled to be running after       last week  frances edf which
+operates the stations said it had extended the life of two other plants
+proponents argue that nuclear provides a baseload of power that can be relied on  whereas renewable energy such as wind and solar is dependent on weather
+conditions  meaning it cannot always help match supply with demand  there are also high hopes for nuclear fusion as an energy source  but this has not
+been commercialised
+why is nuclear being reclassified
+to attract private investment  the consultation is on the taxonomy or financial classification system of energy  this is important as there have been
+a proliferation of funds dedicated to environmental  social and governance  esg  investments springing up in global financial markets in recent years
+these funds promise their investors that their cash is going towards social good  such as tackling the climate crisis  hunt was also under pressure to
+respond to the inflation reduction act  joe bidens     bn climate subsidy package
+is britain the first country to do this
+no  the european commission decided last year to label nuclear as a green investment  the eus parliament said the taxonomy change aimed to boost green
+investments and prevent greenwashing  however  the decision has faced legal challenges by groups including greenpeace
+will it make a difference
+nuclear projects cost tens of billions of pounds to develop and build  so smoothing the path to secure investment is seen as crucial  in the uk  the government
+has tasked bankers with finding funders for sizewell c  in partnership with edf  after easing china general nuclear out of the project over security fears
+the government has committed    m to the suffolk plant  which could cost more than   bn to build  its sister site  hinkley point c in somerset  has been
+beset with delays and cost overruns  senior industry sources said the taxonomy change would help in the hunt for sizewell cs funders
+the backers of small modular reactors  including a programme developed by rolls royce  will also hope to receive significant investment  rolls royces
+aim is to create a fleet of smaller  factory built nuclear plants across britain
+is nuclear energy renewable
+uranium  the element used in nuclear power  is a finite resource  which is mined from the ground and not considered renewable  however  it can be argued
+that  as nuclear power stations use a very small amount of fuel to generate the same amount of electricity  they are preferable to gas fired power stations
+which are expected to be around for many years
+is it really green
+advocates of nuclear claim it should be seen as a green energy source as it does not release harmful emissions into the air  national grid says that the
+lifecycle emissions emissions resulting from every stage of the production process are also significantly lower than in fossil fuel based generation
+hunt said on wednesday that increasing nuclear capacity is vital to meet our net zero obligations  however  there are questions over how useful nuclear
+will realistically be in this mission  as projects take years to build sizewell c could be finished by the mid     s at a push it can be argued that pursuing
+the project could prove a drain on government and financial resources  which could be better spent on rapidly scaling up britains wind and solar capacity
+and improving electricity networks and storage  an effective ban on onshore wind developments remains in place
+nuclear detractors also say nuclear cannot be seen as sustainable given the concerns over the potential environmental hazards in the long term  shutting
+down sites such as sellafield  in north west england  will take generations and involves a painstaking process of carefully managing ageing buildings
+to ensure radioactive waste is not mishandled  in finland  a huge effort is under way to bury waste in concrete deep underground
+it has also been argued that as nuclear plants need water for cooling so are often built near the coast rising sea levels could make some projects obsolete
+before building work is completed
+that is not the only concern  is it
+no  the history of the nuclear industry has shown an oscillating interest from governments and investors  influenced by a series of devastating incidents
+including three mile island in       chornobyl in      and fukushima in       russias attack on zaporizhzhia  europes biggest nuclear plant  in ukraine
+has again raised concerns over a nuclear incident
+
+REMOVED DUPPLICATES
+jeremy  hunt  wants  nuclear  power  classed  as  sustainable  is  it  uk  chancellor  has  launched  consultation  to  classify  environmentally  kickstarted
+ a  fresh  push  into  which  he  hopes  will  provide  quarter  of  britains  electricity  by  in  his  budget  speech  the  announced  competition
+co  fund  small  plants  and  new  delivery  body  great  british  ease  creation  projects  also  but  does  britain  need  follows  footsteps  former
+ prime  minister  boris  johnson  making  bold  statements  on  importance  stations  date  back  s  are  now  ageing  with  just  one  sizewell  b  still
+ scheduled  be  running  after  last  week  frances  edf  operates  said  had  extended  life  two  other  proponents  argue  that  provides  baseload
+ can  relied  whereas  renewable  energy  such  wind  solar  dependent  weather  conditions  meaning  cannot  always  help  match  supply  demand  there
+ high  for  fusion  an  source  this  not  been  commercialised  why  being  reclassified  attract  private  investment  taxonomy  or  financial  classification
+ system  important  have  proliferation  funds  dedicated  environmental  social  governance  esg  investments  springing  up  global  markets  recent
+ years  these  promise  their  investors  cash  going  towards  good  tackling  climate  crisis  was  under  pressure  respond  inflation  reduction
+act  joe  bidens  bn  subsidy  package  first  country  do  no  european  commission  decided  year  label  green  eus  parliament  change  aimed  boost
+ prevent  greenwashing  however  decision  faced  legal  challenges  groups  including  greenpeace  make  difference  cost  tens  billions  pounds  develop
+ build  so  smoothing  path  secure  seen  crucial  government  tasked  bankers  finding  funders  c  partnership  easing  china  general  out  project
+ over  security  fears  committed  m  suffolk  plant  could  more  than  its  sister  site  hinkley  point  somerset  beset  delays  overruns  senior
+ industry  sources  would  cs  backers  modular  reactors  programme  developed  rolls  royce  hope  receive  significant  royces  aim  create  fleet
+ smaller  factory  built  across  uranium  element  used  finite  resource  mined  from  ground  considered  argued  use  very  amount  fuel  generate
+ same  they  preferable  gas  fired  expected  around  many  really  advocates  claim  should  release  harmful  emissions  air  national  grid  says
+ lifecycle  resulting  every  stage  production  process  significantly  lower  fossil  based  generation  wednesday  increasing  capacity  vital  meet
+ our  net  zero  obligations  questions  how  useful  realistically  mission  take  finished  mid  at  pursuing  prove  drain  resources  better  spent
+ rapidly  scaling  improving  networks  storage  effective  ban  onshore  developments  remains  place  detractors  say  given  concerns  potential  hazards
+ long  term  shutting  down  sites  sellafield  north  west  england  generations  involves  painstaking  carefully  managing  buildings  ensure  radioactive
+ waste  mishandled  finland  huge  effort  way  bury  concrete  deep  underground  water  cooling  often  near  coast  rising  sea  levels  some  obsolete
+ before  building  work  completed  only  concern  history  shown  oscillating  interest  governments  influenced  series  devastating  incidents  three
+ mile  island  chornobyl  fukushima  russias  attack  zaporizhzhia  europes  biggest  ukraine  again  raised  incident

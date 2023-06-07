@@ -1,6 +1,9 @@
 package org.project;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
+
 
 /**
  * This abstract class is the general representation of an Article. It only contains the body and head fields of its
@@ -11,15 +14,10 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public abstract class Article {
     /** This is the content of the article page head field in its HTML. */
-    private String head = "";
+    private final String head;
     /** This is the content of the article page body field in its HTML. */
-    private String body = "";
+    private final String body;
 
-    /**
-     * This constructor is just a dummy constructor needed by other classes.
-     */
-    public Article(){
-    }
     /**
      * This constructor takes as argument the values of the head and body using them to set the Article.
      * It also checks if the article type is a valid article.
@@ -27,14 +25,13 @@ public abstract class Article {
      * @param head        which is the value of the variable {@link Article#head}.
      * @param body        which is the value of the variable {@link Article#body}.
      */
-    public Article(String head, String body){
+    @JsonCreator
+    public Article(@JsonProperty("head") String head,@JsonProperty("body") String body){
         this.body = body;
         this.head = head;
     }
 
     /* GETTERS */
-
-
     /**
      * Gets head {@link  Article#head}.
      *
@@ -51,24 +48,4 @@ public abstract class Article {
     public String getBody() {
         return body;
     }
-
-    /* SETTERS */
-
-    /**
-     * Sets {@link Article#head}.
-     *
-     * @param head which is the head field of an article.
-     */
-    public void setHead(String head) {
-        this.head = head;
-    }
-    /**
-     * Sets {@link Article#body}.
-     *
-     * @param body which is the body field af an article.
-     */
-    public void setBody(String body) {
-        this.body = body;
-    }
-
 }

@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
  * This class is used to deserialize an object previously serialized in a JSON format file.
  * NOTE: it is a wrapper that contains another deserializer ObjectMapper.
  */
-public class Deserializer {
+public final class Deserializer {
     /**
      * This variable is the actual deserializer from the org.codehaus.jackson.map package.
      * */

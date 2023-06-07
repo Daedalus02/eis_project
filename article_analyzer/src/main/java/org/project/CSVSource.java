@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * This class represents a source of articles which are read from a CSV file.
  */
-public class CSVSource implements ArticleSource {
+public final class CSVSource implements ArticleSource {
     /** This parser is used to read the different values contained in the CSV file. */
     private CSVParser parser;
     /** This is used to keep track of the articles List to eventually return it when asked. */
@@ -21,9 +21,10 @@ public class CSVSource implements ArticleSource {
      * @throws CsvValidationException if the file content is not formatted as a CSV.
      * @throws IOException if the filepath is not valid.
      */
-    public CSVSource(String filePath) throws CsvValidationException, IOException, ClassNotFoundException {
+    public CSVSource(String filePath) throws CsvValidationException, IOException {
         // Parsing the content of the CSV file.
-        parser = new CSVParser(filePath);
+        parser = new CSVParser();
+        parser.parse(filePath);
         // Setting the Articles with the ones contained in the CSV file.
         articles = parser.getArticles();
     }

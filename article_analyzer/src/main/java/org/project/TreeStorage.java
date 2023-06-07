@@ -8,10 +8,9 @@ import java.util.stream.Collectors;
  * It inserts tokens and orders them based on their frequencies. It has few more features
  * such as removing all tokens, printing them, printing a given token frequency.
  */
-public class TreeStorage implements TokensStorage{
+public final class TreeStorage implements TokensStorage{
     /** Map is used to store the tokens using them as indexes and using the associated values to store their frequency.*/
-    private HashMap<String, Integer> tokens = null;
-
+    private HashMap<String, Integer> tokens;
     /**
      * Initializes an empty hash map {@link TreeStorage#tokens}.
      */
@@ -21,25 +20,12 @@ public class TreeStorage implements TokensStorage{
     }
 
     /**
-     * Allows to print all the tokens with their "frequency".
-     */
-    public void printTokens(){
-        Iterator<Map.Entry<String,Integer>> iter = tokens.entrySet().iterator();
-        while(iter.hasNext()){
-            Map.Entry<String,Integer> pair = iter.next();
-            System.out.println(pair.getKey()+" "+pair.getValue());
-        }
-    }
-
-    /**
-     * Print the frequency of the given string (0 if not contained).
-     *
+     * Returns the frequency of the given string considered as a token (0 if not contained).
+     * @return the frequency of the given string
      * @param str string searched inside the map.
      */
-    public void printFrequency(String str) {
-        int frequency = 0;
-        frequency = tokens.getOrDefault(str,0);
-        System.out.println(frequency);
+    public int getFrequency(String str) {
+        return tokens.getOrDefault(str,0);
     }
 
     /**
@@ -100,7 +86,6 @@ public class TreeStorage implements TokensStorage{
                 reverseMap.get(pair.getValue()).add(pair.getKey());
             }
         }
-
         /* Reducing the token size to maxSize or smaller than the number of tokens entered within the reverse map. */
 
         // Used to keep track of the number of tokens encountered.
@@ -121,7 +106,7 @@ public class TreeStorage implements TokensStorage{
                     // Removing eventual exceeding tokens from the List.
                     while (index > 0) {
                         index--;
-                        listPair.getValue().remove(index);
+                        listPair.getValue().remove(index);       // Removing from the head of the list.
                     }
                     max = true;
                     counter = maxSize;
@@ -131,7 +116,6 @@ public class TreeStorage implements TokensStorage{
                 listIter.remove();
             }
         }
-
         // Returning the set of ordered entries.
         return reverseMap.entrySet();
     }
@@ -151,7 +135,11 @@ public class TreeStorage implements TokensStorage{
      * @return the size of tokens storage(so the number of tokens present);
      */
     public int size(){
-        return tokens.entrySet().size();
+        int size = 0;
+        for(int key : tokens.values()){
+            size += key;
+        }
+        return size;
     }
 
     /**

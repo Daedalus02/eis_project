@@ -4,9 +4,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
- * This class is used to parse the head and body fields in the article from HTML format.
+ * This class is used to parse text content from HTML format.
  */
-public class HTMLParser {
+public final class HTMLParser {
 
     /**
      * Initialize instance of this class.
@@ -14,21 +14,16 @@ public class HTMLParser {
     public HTMLParser(){}
 
     /**
-     * This method parses the content of the head and body fields of the given Article
-     * and then stores it in the same article object.
+     * This method parses the content the string passed by argument, from HTML format
+     * to a string containing the extracted text.
      *
-     * @param article which is the Article containing the unparsed body and head fields.
+     * @param HTMLString which is the String containing HTML formatted text.
      */
-    public void parse(APIArticle article) {
-        // This allows to format the HTML article content, saving its head and body in 2 variables.
-        Document doc =Jsoup.parse(article.getHead());
+    public String parse(String HTMLString) {
+        // This stores the HTML content in a Document class.
+        Document doc =Jsoup.parse(HTMLString);
+        // This allows to extract the HTML textual content.
         String head = doc.text();
-        doc = Jsoup.parse(article.getBody());
-        String body = doc.text();
-
-        // Sets body and head fields in the given Article object.
-        article.setBody(body);
-        article.setHead(head);
-
+        return head;
     }
 }

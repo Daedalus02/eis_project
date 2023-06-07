@@ -1,36 +1,39 @@
 package org.project;
 
-import java.net.MalformedURLException;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
 import java.net.URL;
 
 /**
  * This class is used to represent an article with all properties af an article of the "The Guardian" media group.
  */
-public class APIArticle extends Article {
+public final class APIArticle extends Article {
     /** This is the article identifier.*/
-    private String Id;
+    private final String Id;
     /** This is the article type. */
-    private String type;
+    private final String type;
     /** This is the article section identifier. */
-    private String sectionId;
+    private final String sectionId;
     /** This is the article section name. */
-    private String sectionName;
+    private final String sectionName;
     /** This is the date of publication of the article. */
-    private String webPublicationDate;
+    private final String webPublicationDate;
     /** This is the name of the article. */
-    private String webTitle;
+    private final String webTitle;
     /** This is the url of the article. */
-    private URL webUrl = null;
+    private final URL webUrl;
     /** This is the url of the API of the article. */
-    private URL apiUrl = null;
+    private final URL apiUrl;
     /** This tells whether the article is hosted or not (always set to true if not specified). */
-    private boolean isHosted = true;
+    private final boolean isHosted;
     /** This is the column identifier. */
-    private String pillarId;
+    private final String pillarId;
     /** This is the name od the column the article is located at. */
-    private String pillarName;
+    private final String pillarName;
     /** This is the number of words contained in the article. */
-    private int wordcount;
+    private final int wordcount;
 
 
     /**
@@ -38,7 +41,7 @@ public class APIArticle extends Article {
      *
      * @param head               the head.
      * @param body               the body.
-     * @param id                 the id {@link APIArticle#Id}.
+     * @param Id                 the id {@link APIArticle#Id}.
      * @param type               the type {@link APIArticle#type}.
      * @param sectionId          the section id {@link APIArticle#sectionId}.
      * @param sectionName        the section name {@link APIArticle#sectionName}.
@@ -51,9 +54,13 @@ public class APIArticle extends Article {
      * @param pillarName         the pillar name {@link APIArticle#pillarName}.
      * @param wordcount          the word count {@link APIArticle#wordcount}.
      */
-    public APIArticle(String head, String body, String id, String type, String sectionId, String sectionName, String webPublicationDate, String webTitle, URL webUrl, URL apiUrl, boolean isHosted, String pillarId, String pillarName, Integer wordcount)  {
+    @JsonCreator
+    public APIArticle(@JsonProperty("head") String head,@JsonProperty("body") String body,@JsonProperty("Id") String Id,@JsonProperty("type") String type,
+                      @JsonProperty("sectionId") String sectionId,@JsonProperty("sectionName") String sectionName,@JsonProperty("Date") String webPublicationDate,
+                      @JsonProperty("webTitle") String webTitle,@JsonProperty("webUrl") URL webUrl,@JsonProperty("apiUrl") URL apiUrl,@JsonProperty("isHosted") boolean isHosted,
+                      @JsonProperty("pillarId") String pillarId,@JsonProperty("pillarName") String pillarName,@JsonProperty("wordcount") Integer wordcount)  {
         super(head, body);
-        Id = id;
+        this.Id = Id;
         this.type = type;
         this.sectionId = sectionId;
         this.sectionName = sectionName;
@@ -67,143 +74,7 @@ public class APIArticle extends Article {
         this.wordcount = wordcount;
     }
 
-    /**
-     * This is just a dummy constructor needed by other classes.
-     */
-    public APIArticle() {
-        // Calling the superclass Article dummy constructor.
-        super();
-    }
 
-    /* SETTERS */
-
-    /**
-     * Sets id{@link APIArticle#Id}.
-     *
-     * @param Id which is the article identifier.
-     */
-    public void setId(String Id) {
-        this.Id = Id;
-    }
-
-    /**
-     * Sets type {@link APIArticle#type}.
-     *
-     * @param type which is the article type.
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
-     * Sets section id {@link APIArticle#sectionId}.
-     *
-     * @param sectionId which is the article section id.
-     */
-    public void setSectionId(String sectionId) {
-        this.sectionId = sectionId;
-    }
-
-    /**
-     * Sets section name{@link APIArticle#sectionName}.
-     *
-     * @param sectionName which is the article section name.
-     */
-    public void setSectionName(String sectionName) {
-        this.sectionName = sectionName;
-    }
-
-    /**
-     * Sets web publication date{@link APIArticle#webPublicationDate}.
-     *
-     * @param webPublicationDate which is the article web publication date.
-     */
-    public void setWebPublicationDate(String webPublicationDate) {
-        this.webPublicationDate = webPublicationDate;
-    }
-
-    /**
-     * Sets web title{@link APIArticle#webTitle}.
-     *
-     * @param webTitle which is the article title.
-     */
-    public void setWebTitle(String webTitle) {
-        this.webTitle = webTitle;
-    }
-
-    /**
-     * Sets web URL{@link APIArticle#webUrl}.
-     *
-     * @param webUrl which is the URL of the article web page.
-     * @throws MalformedURLException if webUrl is not a valid URL.
-     */
-    public void setWebUrl(String webUrl) throws MalformedURLException {
-        this.webUrl = new URL(webUrl);
-    }
-
-    /**
-     * Sets API URL{@link APIArticle#apiUrl}.
-     *
-     * @param apiUrl which is the url of the article API endpoint.
-     * @throws MalformedURLException if apiUrl is not a valid URL.
-     */
-    public void setApiUrl(String apiUrl) throws MalformedURLException {
-        this.apiUrl = new URL(apiUrl);
-    }
-
-    /**
-     * Sets isHosted{@link APIArticle#isHosted}.
-     *
-     * @param hosted which tells whether the site is hosted or not.
-     */
-    public void setHosted(boolean hosted) {
-        isHosted = hosted;
-    }
-
-    /**
-     * Sets pillar id {@link APIArticle#pillarId}.
-     *
-     * @param pillarId which is the article column identifier.
-     */
-    public void setPillarId(String pillarId) {
-        this.pillarId = pillarId;
-    }
-
-    /**
-     * Sets pillar name{@link APIArticle#pillarName}.
-     *
-     * @param pillarName which is the article column name.
-     */
-    public void setPillarName(String pillarName) {
-        this.pillarName = pillarName;
-    }
-
-    /**
-     * Sets head.
-     *
-     * @param head the head of the super abstract class.
-     */
-    public void setHead(String head) {
-        super.setHead(head);
-    }
-
-    /**
-     * Sets body.
-     *
-     * @param body the body of the super abstract class.
-     */
-    public void setBody(String body) {
-        super.setBody(body);
-    }
-
-    /**
-     * Sets word count {@link APIArticle#wordcount}.
-     *
-     * @param wordcount which is the word in contained in the article.
-     */
-    public void setWordcount(int wordcount) {
-        this.wordcount = wordcount;
-    }
 
     /* GETTERS */
 
@@ -307,29 +178,69 @@ public class APIArticle extends Article {
     }
 
     /**
-     * Gets head.
-     *
-     * @return head from the super class.
-     */
-    public String getHead() {
-        return super.getHead();
-    }
-
-    /**
-     * Gets body.
-     *
-     * @return body from the superclass.
-     */
-    public String getBody() {
-        return super.getBody();
-    }
-
-    /**
      * Gets word count {@link APIArticle#wordcount}.
      *
      * @return word count in the articles .
      */
     public int getWordcount() {
         return wordcount;
+    }
+
+    /**
+     * Check if the parameter obj (which need to be an APIArticle) is a field by field copy of the class instance this method is invoked to.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @param obj which should be an APIArticle object (checked).
+     * @return true if the APIArticle obj has the same field values of the instance this method is invoked to, else it returns false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        APIArticle article = (APIArticle) obj;
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.append(getHead(), article.getHead());
+        equalsBuilder.append(getBody(), article.getBody());
+        equalsBuilder.append(isHosted, article.isHosted);
+        equalsBuilder.append(wordcount, article.wordcount);
+        equalsBuilder.append(Id, article.Id);
+        equalsBuilder.append(type, article.type);
+        equalsBuilder.append(sectionId, article.sectionId);
+        equalsBuilder.append(sectionName, article.sectionName);
+        equalsBuilder.append(webPublicationDate, article.webPublicationDate);
+        equalsBuilder.append(webTitle, article.webTitle);
+        equalsBuilder.append(webUrl, article.webUrl);
+        equalsBuilder.append(apiUrl, article.apiUrl);
+        equalsBuilder.append(pillarId, article.pillarId);
+        equalsBuilder.append(pillarName, article.pillarName);
+        return equalsBuilder.isEquals();
+    }
+
+    /**
+     * This method return a hash code to eventually be able to enter APIArticles in a hash map.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
+     *
+     * @return a hash code based on the private variables  ({@link APIArticle#Id}, {@link APIArticle#type},{@link APIArticle#sectionId},
+     *         {@link APIArticle#sectionName}, {@link APIArticle#webPublicationDate}, {@link APIArticle#webTitle}, {@link APIArticle#webUrl},
+     *         {@link APIArticle#apiUrl}, {@link APIArticle#isHosted}, {@link APIArticle#pillarId}, {@link APIArticle#pillarName}, {@link APIArticle#wordcount}).
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(17,37);
+        hashCodeBuilder.append(getBody());
+        hashCodeBuilder.append(getHead());
+        hashCodeBuilder.append(Id);
+        hashCodeBuilder.append(type);
+        hashCodeBuilder.append(sectionId);
+        hashCodeBuilder.append(sectionName);
+        hashCodeBuilder.append(webPublicationDate);
+        hashCodeBuilder.append(webTitle);
+        hashCodeBuilder.append(webUrl);
+        hashCodeBuilder.append(apiUrl);
+        hashCodeBuilder.append(isHosted);
+        hashCodeBuilder.append(pillarId);
+        hashCodeBuilder.append(pillarName);
+        hashCodeBuilder.append(wordcount);
+        return hashCodeBuilder.toHashCode();
     }
 }

@@ -4,10 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>the_four_knights</groupId>
+    <groupId>eis_project_group</groupId>
     <artifactId>article_analyzer</artifactId>
     <version>1.0</version>
 
+    <!-- This property set the jdk compiler version to java 8. -->
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -16,6 +17,7 @@
 
     <build>
         <plugins>
+            <!-- This dependency is used to set the correct way to produce the jar file from source. -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5.3</version>
@@ -41,11 +43,13 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- This plugin is used by maven in the test phase. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
             </plugin>
+            <!-- This plugin is used by  maven to compile sources in the project. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -57,47 +61,116 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
+        <!-- This dependency is used to serialize and deserialize articles in a backlog file. -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.15.1</version>
         </dependency>
+        <!-- This dependency is used to allow the user to set this system by command line. -->
         <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.5.0</version>
         </dependency>
+        <!-- This dependency is used to show the progress while retrieving articles from the API endpoint. -->
+        <dependency>
+            <groupId>me.tongfei</groupId>
+            <artifactId>progressbar</artifactId>
+            <version>0.9.4</version>
+        </dependency>
+        <!-- This dependency is used to create an HTTP client to interact with the endpoint. -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.14</version>
         </dependency>
+        <!-- This dependency is used to tokenize the articles. -->
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
             <version>4.4.0</version>
         </dependency>
+        <!-- This dependency is used to parse the API endpoint response from JSON format. -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20090211</version>
         </dependency>
+        <!-- This dependency is used to parse the head and body field of the article website HTML format. -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.15.4</version>
         </dependency>
+        <!-- These dependencies are used to correctly set the environment to support Junit-5 unit testing tool(allowing the creation of suites,
+         providing the correct engine and launcher). -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.9.2</version>
+            <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-engine</artifactId>
+            <version>1.9.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+            <version>1.9.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.9.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>5.9.2</version>
+        <scope>test</scope>
+        </dependency>
+        <!-- The mockito dependencies are used to create components for testing with a specified behavior. -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.7.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>2.17.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- This dependency is used to correctly verify whether the equals and hashCode methods are correctly implemented-->
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>3.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- This dependency is used to parse the content of a CSV formatted file. -->
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>5.2</version>
         </dependency>
+        <!-- These two dependencies are used to provide a simple general logging facade(to then be specified at runtime)
+             for other dependency package(example: nlp) -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -113,17 +186,6 @@
             <artifactId>jackson-xml-databind</artifactId>
             <version>0.6.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-        </dependency>
-
     </dependencies>
 
 

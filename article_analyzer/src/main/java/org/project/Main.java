@@ -3,28 +3,25 @@ package org.project;
 import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.cli.*;
 import org.json.JSONException;
-import javax.swing.text.BadLocationException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
     /** Relative path of the old serialized research. */
-    private static final String FILE_PATH = "res" + File.separator + "pages" + File.separator;
+    private static final String FILE_PATH = "resources" + File.separator + "backlog" + File.separator;
     /** Extension of the serialized file. */
     private static final String FILE_EXTENSION = ".json";
     /** Relative path to where the CSV files are stored. */
-    private static final String CSV_PATH = "res" + File.separator + "csv" + File.separator;
+    private static final String CSV_PATH = "resources" + File.separator + "CSV_sources" + File.separator;
     /** Extension of CSV formatted file. */
     private static final String CSV_EXSTENSION = ".csv";
     /** Complete file address where the default API key can be found. */
-    private static final String API_FILE = "res" + File.separator + "private" + File.separator + "private.properties";
-    /** Base url of the API guardian endpoint. */
-    private static final String BASE_URL = "https://content.guardianapis.com";
+    private static final String API_FILE = "resources" + File.separator + "private" + File.separator + "private.properties";
 
     public static void main(String Args[]) {
 
@@ -33,7 +30,7 @@ public class Main {
         List<Article> articles = new ArrayList<Article>();      // Store the Articles read from different possible sources.
         String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name (only used when not specified).
         TokensStorage storage = new TreeStorage();      // Holds the tokens and is capable of returning them in an ordered set.
-        Tokenizer tokenizer = new Tokenizer("", true,storage);      //Used to tokenize articles in their different tokens checking them.
+        Tokenizer tokenizer = new Tokenizer(true,storage);      //Used to tokenize articles in their different tokens checking them.
         Deserializer deserializer = new Deserializer();     // Used to deserialize Articles from the file they were previously serialized in.
         String pageText = "";       //Text contained in both the head and the body fields of an Article.
         String downloadAnswer = "n";        // y(yes) if the user decides to visualize the 50 more frequent tokens.
@@ -94,7 +91,7 @@ public class Main {
             Option showOption = new Option("show","show",false,"Print the 50(or less) most frequent words in the read articles.");
             Option nameOption = new Option("name","csv-file-name",true,"The name of the CSV file.");
             Option jsonOption = new Option("json","json-file-name",true,"The name of the file where previously stored a research.");
-
+            Option defaultOption = new Option("default","set-default",false,"This set the entered apikey as the default.");
             // Adding the parameters options to the possible set of options.
             options.addOptionGroup(actions);
             options.addOption(maxOption);
@@ -149,17 +146,32 @@ public class Main {
                 }
                 if(line.hasOption(keyOption)) {
                     apiKey = line.getOptionValue(keyOption);
+                    if(line.hasOption(defaultOption)){
+                        try{
+                            FileOutputStream fos = new FileOutputStream(API_FILE);
+                            Properties props = new Properties();
+                            props.setProperty("apiKey",apiKey);
+                            props.store(fos,null);
+                        } catch (FileNotFoundException e) {
+                            System.err.println("The system is not correctly configured, please check the documentation.");
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            System.err.println("The system was not able to read properties in properties file, ending.");
+                            e.printStackTrace();
+                        }
+                    }
                 }else{
                     // Reading the API key from a properties file.
-                    FileInputStream fis;
                     try {
-                        fis = new FileInputStream(API_FILE);
+                        FileInputStream fis = new FileInputStream(API_FILE);
                         Properties props = new Properties();
                         props.load(fis);
                         apiKey = props.getProperty("apiKey");
                     } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e){
+                        System.err.println("The system is not correctly configured, please check the documentation.");
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        System.err.println("The system was not able to read properties in properties file, ending.");
                         e.printStackTrace();
                     }
                     if(apiKey.equals("your_api_key")){      // Standard value when not set.
@@ -177,15 +189,11 @@ public class Main {
                 }
                 // Trying to add the read articles from API endpoint response to the abstract article List.
                 try {
-                    source = new APISource(BASE_URL, apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                    source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
                     articles.addAll(source.getArticles());
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (BadLocationException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             } else if(line.hasOption(CSVOption)){       // Checking to see if the user chose the CSV formatted file as articles source.
@@ -202,8 +210,6 @@ public class Main {
                     } catch (CsvValidationException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 }else{
@@ -257,7 +263,7 @@ public class Main {
                 csvAnswer = console.nextLine().toLowerCase();
                 while (!(csvAnswer.equals("y") || csvAnswer.equals("n"))) {
                     System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
-                    csvAnswer = console.next().toLowerCase();
+                    csvAnswer = console.nextLine().toLowerCase();
                 }
                 if (csvAnswer.equals("y")) {
                     // Asking for the user to enter the CSV file name.
@@ -271,20 +277,18 @@ public class Main {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
                     }
                 } else {
                         // At this point the "The Guardian" API endpoint response is the only possible article source.
                         // Setting API key.
-                        System.out.println("Do you want to use the default apiKey? (y/n) ");
+                        System.out.println("Do you want to use/set the default apiKey? (y/n) ");
                         String defaultAnswer = console.nextLine().toLowerCase();
                         while (!(defaultAnswer.equals("y") || defaultAnswer.equals("n"))) {
                             System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
                             defaultAnswer = console.nextLine().toLowerCase();
                         }
                         if (defaultAnswer.equals("n")) {
-                            System.out.println("Enter your API Key to access the \"the Guardian\" articles: ");
+                            System.out.println("Enter your API Key to access the \"The Guardian\" articles: ");
                             apiKey = console.nextLine();
                         } else {
                             // Reading API key from properties file.
@@ -294,9 +298,27 @@ public class Main {
                                 props.load(fis);
                                 apiKey = props.getProperty("apiKey");
                             } catch (FileNotFoundException e) {
+                                System.err.println("The system is not correctly configured, please check the documentation.");
                                 e.printStackTrace();
                             } catch (IOException e) {
+                                System.err.println("The system was not able to read properties in properties file, ending.");
                                 e.printStackTrace();
+                            }
+                            if(apiKey.equals("your_api_key")) {
+                                System.out.println("Default value is not set for API key, enter your default API Key for the \"The Guardian\" endpoint: ");
+                                apiKey = console.nextLine();
+                                try{
+                                    FileOutputStream fos = new FileOutputStream(API_FILE);
+                                    Properties props = new Properties();
+                                    props.setProperty("apiKey",apiKey);
+                                    props.store(fos,null);
+                                } catch (FileNotFoundException e) {
+                                    System.err.println("The system is not correctly configured, please check the documentation.");
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    System.err.println("The system was not able to read properties in properties file, ending.");
+                                    e.printStackTrace();
+                                }
                             }
                         }
 
@@ -313,7 +335,7 @@ public class Main {
                         }
                         for (int i = 0; i < queriesSize; i++) {
                             System.out.println("Enter the topic you want to investigate: ");
-                            queries.add(console.next());
+                            queries.add(console.nextLine());
                         }
 
                         // Setting tags if needed.
@@ -329,7 +351,7 @@ public class Main {
                         }
                         for (int i = 0; i < tagNumber; i++) {
                             System.out.println("Enter the tag: ");
-                            tags.add(console.next());
+                            tags.add(console.nextLine());
                         }
 
                         // Setting max articles number.
@@ -346,15 +368,11 @@ public class Main {
 
                         // Elaborating Articles from The Guardian API response content.
                         try{
-                            source = new APISource(BASE_URL, apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                            source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
                             articles.addAll(source.getArticles());
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (BadLocationException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                         }
 
@@ -396,7 +414,7 @@ public class Main {
 
                 // Printing the detected article Source.
                 if(articles.size() != 0){
-                    System.out.println(articles.get(0).getClass().getSimpleName() + " article source detected");
+                    System.out.println(articles.get(0).getClass().getSimpleName() + " source detected, calculating frequent tokens:");
                 }else{
                     System.out.println("No articles were found.");
                     System.exit(0);
@@ -405,7 +423,7 @@ public class Main {
                 // Inserts the Articles textual fields inside of Tokenizer.
                 for (Article article : articles) {
                     pageText = article.getHead() + article.getBody();
-                    tokenizer.tokenize(pageText);
+                    tokenizer.tokenize(pageText,queries);
                 }
 
                 // PRINTING PHASE

@@ -12,9 +12,9 @@ import java.io.IOException;
  * This class allows to store the information, representing them in a JSON format file.
  * NOTE: it is a wrapper that contains another serializer ObjectMapper.
  */
-public class Serializer
+public final class Serializer
 {
-    /* This variable is the serializer from the jackson.xml package. */
+    /** This variable is the serializer from the jackson.xml package. */
     private ObjectMapper JSONMapper;
 
     /**
