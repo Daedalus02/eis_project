@@ -3,9 +3,9 @@ package org.project;
 import java.net.MalformedURLException;
 import java.net.URL;
 /**
- * This class allows to set the url with some given parameters (tags, query, page, page size, api key, base url )
- * for the api request.
- * It should be used to keep track of the parameters and to get a new url.
+ * This class allows to set the url for a "The Guardian" API endpoint with some given parameters
+ * (tags, query, page, page size, api key, base url ) for the API request.
+ * It is used to keep track of the parameters and to get a new URL.
  */
 public final class URLSetter {
     /** Representation of a URL that is built in this class.*/
@@ -17,7 +17,7 @@ public final class URLSetter {
     /** Fields used to determine the specific set of element given in the response.*/
     private final String[] tags;
     /** Base URL without any specification.*/
-    private final String baseURL = "https://content.guardianapis.com/search?";
+    private final String BASE_URL = "https://content.guardianapis.com/search?";
     /** Current page, a generic group of elements in the response.*/
     private int page;
     /** Number of articles that should be included in the API response.*/
@@ -44,7 +44,7 @@ public final class URLSetter {
     /** Used by the URLSetter to build and store the final {@link URLSetter#URL}.  */
     private void buildUrl() throws MalformedURLException{
         // Setting a base URL.
-        String URLString = baseURL;
+        String URLString = BASE_URL;
         // Setting the parameters.
         // Setting the page and checking for coherence.
         if(page > pageSize){
@@ -71,7 +71,7 @@ public final class URLSetter {
                 if (i == (queries.length - 1)) {
                     URLString += queries[i];
                 } else {
-                    URLString += queries[i] + "%20AND%20";
+                    URLString += queries[i] + "%20AND%20";      //This is used to specify that all queries need to be present.
                 }
             }
         }

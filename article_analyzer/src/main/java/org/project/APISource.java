@@ -2,7 +2,6 @@ package org.project;
 
 import me.tongfei.progressbar.ProgressBar;
 import org.json.JSONException;
-import javax.swing.text.BadLocationException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,6 +47,8 @@ public final class APISource implements ArticleSource{
         articles = new ArrayList<APIArticle>();
         // Initializing the HTTP client for the connection.
         client = new HTTPClient();
+        // Initializing the API parser.
+        jsonParser = new APIParser();
         // This reads all the articles from the JSON response of the API endpoint.
         readArticle();
     }
@@ -78,7 +79,7 @@ public final class APISource implements ArticleSource{
                 APIString = client.getHttpString();
 
                 // Parsing the response from JSON format.
-                jsonParser = new APIParser(APIString);
+                jsonParser.parse(APIString);
                 // Adding the Articles read in the new Article page.
                 articles.addAll(jsonParser.getArticles());
 

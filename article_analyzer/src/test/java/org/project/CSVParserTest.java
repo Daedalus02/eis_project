@@ -56,8 +56,9 @@ class CSVParserTest {
         expected.add(new CSVArticle("title2","body2","identifier2",new URL("https://stackoverflow.com"),"date2","source_set2","source2"));
         expected.add(new CSVArticle("title3","body3","identifier3",new URL("https://ieee.org"),"date3","source_set3","source3"));
 
-        // Initialing the CSV parser.
-        CSVParser parser = new CSVParser(FILE_PATH);
+        // Initialing the CSV parser and parsing articles at FILE_PATH.
+        CSVParser parser = new CSVParser();
+        parser.parse(FILE_PATH);
 
         // Checking if result is equals to expected article list
         assertEquals(expected,parser.getArticles());
@@ -68,7 +69,7 @@ class CSVParserTest {
      * invalid format for CSVArticles. */
     @DisplayName("Testing if an invalid formatted CSV create an exception.")
     @Test
-    void testInvalidPropertiesFormatException() throws  IOException {
+    void testInvalidPropertiesFormatException() throws IOException, CsvValidationException {
         // Creating the Article fields records.
         String[] format = new String[]{"identifier","url","title","body","date","source_set","source"};
         // Note: here we have an additional invalid field.
@@ -86,13 +87,12 @@ class CSVParserTest {
         writer.newLine();
         writer.close();
 
-        // Parsing Articles from test file.
-        CSVParser parser = new CSVParser(FILE_PATH);
-
+        // Initialing the CSV parser and parsing articles at FILE_PATH.
+        CSVParser parser = new CSVParser();
         // Checking if result is equals to expected articles list.
         assertThrows(
                 InvalidPropertiesFormatException.class,
-                () -> parser.getArticles(),
+                () -> parser.parse(FILE_PATH),
                 "Expected serializer to throw IOException but didn't."
         );
     }

@@ -1,10 +1,8 @@
 package org.project;
 
 import com.opencsv.exceptions.CsvValidationException;
-import me.tongfei.progressbar.ProgressBar;
 import org.apache.commons.cli.*;
 import org.json.JSONException;
-import javax.swing.text.BadLocationException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

@@ -98,8 +98,10 @@ class APIParserTest {
                 "}" +
                 "}";
         // Initializing the parser with the valid response.
-        APIParser parser = new APIParser(validJSON);
-        // Calculating the output articles of the response.
+        APIParser parser = new APIParser();
+        parser.parse(validJSON);
+        // Calculating the output articles of the
+        // response.
         List<APIArticle> result = parser.getArticles();
 
         // Creating the expected articles list  with same fields values.
@@ -124,15 +126,15 @@ class APIParserTest {
 
 
 
-    /* Testing the API parser exception with valid and invalid formatted string*/
+    /* Testing the API parser exception with valid and invalid formatted string. */
 
-    /* Testing the necessity of the API parser to have a JSON array format to correctly work*/
+    /* Testing the necessity of the API parser to have a JSON array format to correctly work. */
     @DisplayName("Testing if the JSON exception is thrown when the JSON formatted string is in invalid format.")
     @Test
     void testJSONException(){
         // Here we remove the JSONArray format to test the necessity of its presence the API
         // endpoint response of the "The Guardian".
-        String invalidJSON= "{" +
+        String invalidJSON = "{" +
                 "   \"response\":{" +
                 "      \"status\":\"ok\"," +
                 "      \"userTier\":\"developer\"," +
@@ -200,9 +202,10 @@ class APIParserTest {
                 "}";
         // Testing the fact that the parser in this given condition (invalidity od the JSON formatted string argument) will throw
         // a JSONException.
+        APIParser parser = new APIParser();
         assertThrows(
                 JSONException.class,
-                () ->new APIParser(invalidJSON),
+                () ->parser.parse(invalidJSON),
                 "Expected APIParser to throw JSONException but didn't."
         );
     }
@@ -262,18 +265,19 @@ class APIParserTest {
                 JSONSTring += JSONResponse[i];
             }
         }
-
+        APIParser parser = new APIParser();
         // Here we consider cases where the removal is not relevant and the article is still created.
         if(positionField >11 && positionField <20 | positionField > 20 && positionField < 24 | positionField >24 && positionField < 28){
             String finalJSONString = JSONSTring;
+
             assertDoesNotThrow(
-                    () -> new APIParser(finalJSONString)
+                    () -> parser.parse(finalJSONString)
             );
         }else{      // Here we consider the cases when the JSONString has some structural removal.
             String finalJSONString1 = JSONSTring;
             assertThrows(
                     JSONException.class,
-                    () -> new APIParser(finalJSONString1),
+                    () -> parser.parse(finalJSONString1),
                     "Expected to throw JSONException but didn't."
             );
         }

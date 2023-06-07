@@ -1,11 +1,11 @@
 package org.project;
 
 import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /* This class contains test for the Tokenizer class method tokenize, setting the presence of checks(common words)
  * and the dimension of the String to tokenize.  */
@@ -114,7 +114,7 @@ class TokenizerTest {
     }
     /*
     * Note this test also needs to consider the presence of common words (present in the blacklist
-    * or with small dimension(under 2))
+    * or with small dimension(under 3))
     * */
     @Test
     @DisplayName("Testing small string with checks.")
@@ -188,7 +188,7 @@ class TokenizerTest {
         assertEquals(expected.entrySet(), storage.getOrderedTokens(50));
     }
     /*
-     * Note this test needs to consider the presence of common words (present in the blacklist or with small dimension(under 2))
+     * Note this test needs to consider the presence of common words (present in the blacklist or with small dimension(under 3))
      * */
     @Test
     @DisplayName("Tokenize big strings with checks.")

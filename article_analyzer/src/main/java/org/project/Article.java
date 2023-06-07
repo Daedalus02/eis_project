@@ -3,8 +3,6 @@ package org.project;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
-import java.lang.reflect.Field;
-import java.util.Objects;
 
 
 /**

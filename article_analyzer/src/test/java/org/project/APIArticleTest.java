@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 @Tag("API")
 class APIArticleTest {
     /*
-    * This test verify symmetry, transitivity, class mutability(for hashMap), if nullPointer exception is thrown,
-    * if all significant fields are considered, subclass-superclass equality, if a class is equals to itself and
-    * if class passed as argument need to be of the same type.
+    * This test verify symmetry, transitivity, mutability(for hashMap) and the subclass-superclass equality of the class.
+    * Also checks if NullPointerException is thrown, if all significant fields are considered, if a class is equals to itself and
+    * if the class passed as argument need to be of the same type.
     * */
     @DisplayName("Testing equals and hashCode.")
     @Test

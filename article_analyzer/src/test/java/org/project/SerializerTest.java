@@ -70,7 +70,7 @@ class SerializerTest {
     /* This method tests if the IOException is thrown when the file path indicated (by the user) is not valid for file creation. */
     @Test
     @DisplayName("Testing the exception if the filename is not valid.")
-    void IOExcptionThrown() throws IOException {
+    void IOExceptionThrown() throws IOException {
         Serializer serializer = new Serializer();
         String invalidFileName = "invalid" + File.separator + " invalid.json";
         assertThrows(
