@@ -22,7 +22,7 @@ public final class APISource implements ArticleSource{
     /** This is used to start the research in the response from the API endpoint starting by the first group of articles.*/
     public final int INITIALCOUNT = 1;
     /** This is used to set a max number of articles present in the response of the API endpoint.*/
-    private final int PAGESIZE = 100;
+    private int pageSize = 100;
     /** This is used to keep track of the article List to eventually return it when asked. */
     private List<APIArticle> articles;
 
@@ -41,8 +41,11 @@ public final class APISource implements ArticleSource{
     public APISource(String APIKey, String[] tags, String[] queries, int maxArticle) throws IOException, JSONException {
         // Setting the max number of articles to read (could be less or more).
         this.maxArticle = maxArticle;
+        if(maxArticle < pageSize){
+            pageSize = maxArticle;
+        }
         // Setting URL based on the fields required for the API request.
-        urlSetter = new URLSetter(APIKey, INITIALCOUNT, PAGESIZE, queries, tags);
+        urlSetter = new URLSetter(APIKey, INITIALCOUNT, pageSize, queries, tags);
         // Initializing the articles variable.
         articles = new ArrayList<APIArticle>();
         // Initializing the HTTP client for the connection.
@@ -90,9 +93,9 @@ public final class APISource implements ArticleSource{
                 }
 
                 // Incrementing the article count since we request 100 articles per time.
-                articleCount += PAGESIZE;
+                articleCount += pageSize;
                 // Adding progress to progress bar.
-                pb.stepBy(PAGESIZE * 100 / maxArticle);
+                pb.stepBy(pageSize * 100 / maxArticle);
             }
             // Ending printing the process bar.
             pb.stepTo(100);

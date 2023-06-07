@@ -12,19 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("Backlog")
 @Tag("CSV")
 @Tag("API")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TokenizerTest {
     // This variable store the general path for the articles.
-    private static final String RELATIVE_PATH = "test_resources" + File.separator + "articles" + File.separator;
+    private final String RELATIVE_PATH = "test_resources" + File.separator + "articles" + File.separator;
     // This variable is used to store the value of article 1.
-    private static String article1;
+    private String article1;
     // This variable is used to store the value of article 2.
-    private static String article2;
+    private String article2;
     // This variable is used to store the value of article 3.
-    private static String article3;
+    private String article3;
 
     // Reading the content of the Articles used in some tests.
     @BeforeAll
-    static void readArticles() throws IOException {
+    void readArticles() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(RELATIVE_PATH + "Article1.txt"));
         StringBuffer buffer = new StringBuffer();
         String line = "";
@@ -60,7 +61,7 @@ class TokenizerTest {
     @Test
     @DisplayName("Tokenize small string without any checks.")
     void testTokenizeWithSmallStringsWithoutChecks(){
-        String string1 = "“We don’t know for sure if” side-effects from the leaks “will happen or when anything will" +
+        String string1 = "We don’t know for sure if side-effects from the leaks will happen or when anything will" +
                 " happen but just the lack of transparency is very concerning said Jammes, a 36-year-old mother of four.";
         // Tokens : A-E {a,anything,but,concerning,do,effects,
         //          F-P  for,four,from,happen, if,is,jammes,just,know,lack,leaks,mother,n,of,old,or,
@@ -119,7 +120,7 @@ class TokenizerTest {
     @Test
     @DisplayName("Testing small string with checks.")
     void testTokenizeWithSmallStringsWithChecks()  {
-        String string1 = "“We don’t know for sure if” side-effects from the leaks “will happen or when anything will" +
+        String string1 = "'We don't know for sure if' side-effects from the leaks “will happen or when anything will" +
                          " happen but just the lack of transparency is very concerning said Jammes, a 36-year-old mother of four.";
         String string2 = "In his budget speech, the chancellor announced a competition to co-fund small nuclear plants and hopes a new delivery body, " +
                          "great british nuclear, will ease the creation of nuclear projects.";
