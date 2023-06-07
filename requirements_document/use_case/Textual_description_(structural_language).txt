@@ -1,7 +1,0 @@
-La preparazione di un consulto consente a due o più dottori che
-lavorano in uffici differenti, di vedere contemporaneamente la cartella
-di uno stesso paziente. Un dottore inizia un consulto scegliendo le
-persone coinvolte da un menu di dottori che sono online. La cartella
-del paziente viene quindi visualizzata sui loro schermi, ma soltanto il
-dottore che ha avviato il consulto può modificare la cartella. In
-aggiunta viene creata una finestra di chat.
