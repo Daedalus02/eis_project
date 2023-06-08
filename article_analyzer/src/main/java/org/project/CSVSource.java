@@ -23,7 +23,8 @@ public final class CSVSource implements ArticleSource {
      */
     public CSVSource(String filePath) throws CsvValidationException, IOException {
         // Parsing the content of the CSV file.
-        parser = new CSVParser(filePath);
+        parser = new CSVParser();
+        parser.parse(filePath);
         // Setting the Articles with the ones contained in the CSV file.
         articles = parser.getArticles();
     }

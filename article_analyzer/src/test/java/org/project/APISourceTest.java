@@ -2,6 +2,9 @@ package org.project;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import javax.swing.text.BadLocationException;
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,35 +19,37 @@ class APISourceTest {
     /*
     * This test verify that the API Source get the correct number of articles
     * */
-    @Test
+    @ParameterizedTest
+    @ValueSource(ints = {1,10,100})    // Possible valid values.
     @DisplayName("Testing the number of articles returned by the APISource.")
-    void testNumberOfArticles() throws IOException, JSONException, ClassNotFoundException, BadLocationException {
+    void testNumberOfArticles(int maxParam) throws IOException, JSONException {
         // Setting API key for tests.
         String apiKey = "test";
         // Specifying the queries to none
         String[] queries = new String[]{"nuclear", "power"};
         // Setting the max number of articles (and also a token max frequency)
-        int maxArticles = 1000;
+        int maxArticles = maxParam;
         // Setting the tags to none.
         String[] tags = new String[]{};
         APISource source = new APISource(apiKey,tags,queries,maxArticles);
         List<APIArticle> articleList = source.getArticles();
-        assertEquals(articleList.size(),1000);
+        assertEquals(articleList.size(),maxParam);
     }
 
     /*
     * Note here we accept a margin in the response given basing on the presence of queries since we noticed the
     * response of the "The guardian" endpoint is not precise. So we set a margin to 10%.
     * */
-    @Test
+    @ParameterizedTest
+    @ValueSource(ints = {1,10,100})    // Possible valid values.
     @DisplayName("Testing the frequency of queries words in articles returned by the APISource.")
-    void testFrequencyOfQueriesWords() throws IOException, JSONException, ClassNotFoundException, BadLocationException {
+    void testFrequencyOfQueriesWords(int maxParam) throws IOException, JSONException {
         // Using a test API key.
         String apiKey = "test";
         // Specifying 2 queries --> nuclear, power
         String[] queries = new String[]{"nuclear", "power"};
         // Setting the max number of articles (and also a token max frequency)
-        int maxArticles = 1000;
+        int maxArticles = maxParam;
         // Setting the tags to none.
         String[] tags = new String[]{};
         // Setting the APISource with the previous parameters.

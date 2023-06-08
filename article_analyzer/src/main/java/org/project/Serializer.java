@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public final class Serializer
 {
-    /* This variable is the serializer from the jackson.xml package. */
+    /** This variable is the serializer from the jackson.xml package. */
     private ObjectMapper JSONMapper;
 
     /**

@@ -4,7 +4,6 @@ import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -78,7 +77,7 @@ class CSVSourceTest {
         // Creating the Article fields records.
         String[] format = new String[]{"identifier","url","title","body","date","source_set","source"};
         // Note: here we have an additional invalid field.
-        String[] record1 = new String[]{"identifier","https://it.wikipedia.org","title","body","date","source_set","source","error"};
+        String[] record1 = new String[]{"identifier","https://it.wikipedia.org","title","body","date","source_set","source","ERROR"};
 
         // Formatting invalid article fields, and structural information in CSV format.
         String CSV1 = Stream.of(format).collect(Collectors.joining(","));

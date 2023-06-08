@@ -4,9 +4,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -191,11 +188,11 @@ public final class APIArticle extends Article {
 
     /**
      * Check if the parameter obj (which need to be an APIArticle) is a field by field copy of the class instance this method is invoked to.
+     * NOTE: Since performance is not critical for this feature in this case a standard implementation is used.
      *
      * @param obj which should be an APIArticle object (checked).
-     * @return  true if the APIArticle obj has the same field values of the instance this method is invoked to, else it returns false.
+     * @return true if the APIArticle obj has the same field values of the instance this method is invoked to, else it returns false.
      */
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

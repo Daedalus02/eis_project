@@ -3,12 +3,9 @@ package org.project;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
-import javax.swing.text.html.HTML;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.IllegalFormatFlagsException;
 import java.util.List;
 
 /**
@@ -19,8 +16,6 @@ import java.util.List;
  * API response and should not be altered singularly.
  */
 public final class APIParser {
-    /** This is used to store the API endpoint response. */
-    private String JSONString;
     /** This variable represents the status of the connection to the API endpoint. */
     private String status;
     /** This is the description of the user level in the "The Guardian".  */
@@ -41,16 +36,21 @@ public final class APIParser {
     private List<APIArticle> articles;
 
     /**
-     * This constructor is used to set the JSON formatted string{@link APIParser#JSONString}
+     * This constructor is a default constructor used to initialize an APIParser instance.
+     */
+    public APIParser() {}
+
+    /**
+     * This method is used to parse a string formatted in JSON which contains fields to describe a "The Guardian" API endpoint
+     * response and the articles.
      *
-     * @param str which is a JSON formatted string.
+     * @param JSONString which is a JSON formatted string.
      * @throws JSONException         if the string parameter is not in a valid JSON format.
      * @throws MalformedURLException if the URLs contained in the articles fields are not correct.
      */
-    public APIParser(String str) throws JSONException, MalformedURLException {
-        JSONString = str;
+    public void parse(String JSONString)throws JSONException, MalformedURLException {
         // Initializing the JsonObject with given string.
-        JSONObject obj = new JSONObject(str);
+        JSONObject obj = new JSONObject(JSONString);
         /* Parsing the string to see if it contains attributes of a "The Guardian" API response.
          * NOTE: the response is assumed to be in the correct format
          * */
@@ -137,17 +137,7 @@ public final class APIParser {
         }
     }
 
-
     /*GETTERS*/
-    /**
-     * Gets JSON string{@link APIParser#JSONString}.
-     *
-     * @return JSON formatted string
-     */
-    public String getJSONString() {
-        return JSONString;
-    }
-
     /**
      * Gets status {@link APIParser#status}.
      *

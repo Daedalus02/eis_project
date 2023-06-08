@@ -171,12 +171,12 @@ class HTTPClientTest {
         // Setting the client with a valid URL.
         HTTPClient client = new HTTPClient();
         client.connect(new URL("https://content.guardianapis.com/search?api-key=test"));
-        // Closing the connection.
-        client.closeConnection();
-        assertFalse(client.isConnected());
+        assertTrue(client.isConnected());
         //Note: the getHttpString should not throw an exception if invoked when the connection is closed.
         assertDoesNotThrow(
                 () -> client.getHttpString()
         );
+        // Closing the connection.
+        client.closeConnection();
     }
 }

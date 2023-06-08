@@ -2,7 +2,6 @@ package org.project;
 
 import me.tongfei.progressbar.ProgressBar;
 import org.json.JSONException;
-import javax.swing.text.BadLocationException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public final class APISource implements ArticleSource{
     /** This is used to start the research in the response from the API endpoint starting by the first group of articles.*/
     public final int INITIALCOUNT = 1;
     /** This is used to set a max number of articles present in the response of the API endpoint.*/
-    private final int PAGESIZE = 100;
+    private int pageSize = 100;
     /** This is used to keep track of the article List to eventually return it when asked. */
     private List<APIArticle> articles;
 
@@ -42,12 +41,17 @@ public final class APISource implements ArticleSource{
     public APISource(String APIKey, String[] tags, String[] queries, int maxArticle) throws IOException, JSONException {
         // Setting the max number of articles to read (could be less or more).
         this.maxArticle = maxArticle;
+        if(maxArticle < pageSize){
+            pageSize = maxArticle;
+        }
         // Setting URL based on the fields required for the API request.
-        urlSetter = new URLSetter(APIKey, INITIALCOUNT, PAGESIZE, queries, tags);
+        urlSetter = new URLSetter(APIKey, INITIALCOUNT, pageSize, queries, tags);
         // Initializing the articles variable.
         articles = new ArrayList<APIArticle>();
         // Initializing the HTTP client for the connection.
         client = new HTTPClient();
+        // Initializing the API parser.
+        jsonParser = new APIParser();
         // This reads all the articles from the JSON response of the API endpoint.
         readArticle();
     }
@@ -67,10 +71,12 @@ public final class APISource implements ArticleSource{
         // This is the process bar printed on screen to show the evolution of the articles retrieving process.
         try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
             while (articleCount < maxArticle) {
+                // Incrementing the Article page in the response for the current cycle if not first.
+                if(articleCount > 0){
+                    urlSetter.incrementPage();
+                }
                 // Setting URL based on the fields required for the API request.
                 URL = urlSetter.getURL();
-                // Incrementing the Article page in the response for the next cycle.
-                urlSetter.incrementPage();
                 //System.out.println("from " + URL + " :");
 
                 // Getting the response from the API endpoint.
@@ -78,7 +84,7 @@ public final class APISource implements ArticleSource{
                 APIString = client.getHttpString();
 
                 // Parsing the response from JSON format.
-                jsonParser = new APIParser(APIString);
+                jsonParser.parse(APIString);
                 // Adding the Articles read in the new Article page.
                 articles.addAll(jsonParser.getArticles());
 
@@ -89,13 +95,12 @@ public final class APISource implements ArticleSource{
                 }
 
                 // Incrementing the article count since we request 100 articles per time.
-                articleCount += PAGESIZE;
+                articleCount += pageSize;
                 // Adding progress to progress bar.
-                pb.stepBy(PAGESIZE * 100 / maxArticle);
+                pb.stepBy(pageSize * 100 / maxArticle);
             }
             // Ending printing the process bar.
-            long remaining = pb.getMax() - pb.getCurrent();
-            pb.stepBy(remaining);
+            pb.stepTo(100);
         }
         client.closeConnection();
         // Reducing the size of Articles to the actual number of Articles read.
