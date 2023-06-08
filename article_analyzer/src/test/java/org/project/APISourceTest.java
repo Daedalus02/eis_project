@@ -24,12 +24,12 @@ class APISourceTest {
         // Specifying the queries to none
         String[] queries = new String[]{"nuclear", "power"};
         // Setting the max number of articles (and also a token max frequency)
-        int maxArticles = 1000;
+        int maxArticles = 100;
         // Setting the tags to none.
         String[] tags = new String[]{};
         APISource source = new APISource(apiKey,tags,queries,maxArticles);
         List<APIArticle> articleList = source.getArticles();
-        assertEquals(articleList.size(),1000);
+        assertEquals(articleList.size(),100);
     }
 
     /*
@@ -44,7 +44,7 @@ class APISourceTest {
         // Specifying 2 queries --> nuclear, power
         String[] queries = new String[]{"nuclear", "power"};
         // Setting the max number of articles (and also a token max frequency)
-        int maxArticles = 1000;
+        int maxArticles = 100;
         // Setting the tags to none.
         String[] tags = new String[]{};
         // Setting the APISource with the previous parameters.

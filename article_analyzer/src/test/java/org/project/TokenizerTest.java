@@ -1,6 +1,8 @@
 package org.project;
 
 import org.junit.jupiter.api.*;
+
+import javax.annotation.concurrent.NotThreadSafe;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -114,40 +116,40 @@ class TokenizerTest {
         assertEquals(expected.entrySet(), storage.getOrderedTokens(83));
     }
     /*
-    * Note this test also needs to consider the presence of common words (present in the blacklist
-    * or with small dimension(under 3))
-    * */
+     * Note this test also needs to consider the presence of common words (present in the blacklist
+     * or with small dimension(under 3))
+     * */
     @Test
     @DisplayName("Testing small string with checks.")
     void testTokenizeWithSmallStringsWithChecks()  {
         String string1 = "'We don't know for sure if' side-effects from the leaks “will happen or when anything will" +
-                         " happen but just the lack of transparency is very concerning said Jammes, a 36-year-old mother of four.";
+                " happen but just the lack of transparency is very concerning said Jammes, a 36-year-old mother of four.";
         String string2 = "In his budget speech, the chancellor announced a competition to co-fund small nuclear plants and hopes a new delivery body, " +
-                         "great british nuclear, will ease the creation of nuclear projects.";
+                "great british nuclear, will ease the creation of nuclear projects.";
         String string3 = "At any rate, here again is the argument: nuclear energy provides the clean, climate-friendly energy we need." +
-                         "Renewables such as wind and solar are important but progress on them is desperately slow and time is running out.";
+                "Renewables such as wind and solar are important but progress on them is desperately slow and time is running out.";
         /* Note that analyzing the Strings we get first the same result as before:
-        *
-        *  1 : {year,wind,when,very,transparency,to,time,them,t,sure,such,speech,solar,small,slow,side,said,running,renewables,rate,
-        *       provides,projects,progress,plants,out,or,on,old,new,need,n,mother,leaks,lack,know,just,jammes,in,important,if,hopes,
-        *       his,here,happen,great,fund,from,friendly,four,for,energy,effects,ease,do,desperately,delivery,creation,concerning,competition,
-        *       co,climate,clean,chancellor,budget,british,body,at,as,argument,are,anything,any,announced,again}
-        *  2 : {will, we, nuclear, but, and, a}
-        *  3 : {the}
-        *
-        * Then confronting with the blacklist we get the following result
-        * 1 : {year, wind, transparency, time, speech, solar, small, slow, side, running, renewables, rate, projects, progress, plants,
-        *      mother, leaks, lack, jammes, important, hopes, happen, great, fund, friendly, energy, effects, ease, desperately, delivery,
-        *      creation, competition, climate, clean, chancellor, budget, british, body, argument, announced}
-        * 2 : {nuclear}
-        * 3 : {}
-        *
-        * Indeed these words are all present in the blacklist:
-        *  {when, to, them, sure such, said, provides, out, or, on, old, new, need, n, know, just, in, important, if, his, here, from, four,
-        *   for, do, concerning, co, at, as, are, anything any, again }
-        *  {will, we, but, and, a}
-        *  {the}
-        */
+         *
+         *  1 : {year,wind,when,very,transparency,to,time,them,t,sure,such,speech,solar,small,slow,side,said,running,renewables,rate,
+         *       provides,projects,progress,plants,out,or,on,old,new,need,n,mother,leaks,lack,know,just,jammes,in,important,if,hopes,
+         *       his,here,happen,great,fund,from,friendly,four,for,energy,effects,ease,do,desperately,delivery,creation,concerning,competition,
+         *       co,climate,clean,chancellor,budget,british,body,at,as,argument,are,anything,any,announced,again}
+         *  2 : {will, we, nuclear, but, and, a}
+         *  3 : {the}
+         *
+         * Then confronting with the blacklist we get the following result
+         * 1 : {year, wind, transparency, time, speech, solar, small, slow, side, running, renewables, rate, projects, progress, plants,
+         *      mother, leaks, lack, jammes, important, hopes, happen, great, fund, friendly, energy, effects, ease, desperately, delivery,
+         *      creation, competition, climate, clean, chancellor, budget, british, body, argument, announced}
+         * 2 : {nuclear}
+         * 3 : {}
+         *
+         * Indeed these words are all present in the blacklist:
+         *  {when, to, them, sure such, said, provides, out, or, on, old, new, need, n, know, just, in, important, if, his, here, from, four,
+         *   for, do, concerning, co, at, as, are, anything any, again }
+         *  {will, we, but, and, a}
+         *  {the}
+         */
         List<String> list1 = Arrays.stream(new String[]{"year","wind","transparency","time","speech","solar","small","slow","side","running",
                 "renewables","rate","projects","progress","plants","mother","leaks","lack","jammes","important","hopes","happen","great","fund",
                 "friendly","energy","effects","ease","desperately","delivery","creation","competition","climate","clean","chancellor","budget",
@@ -166,10 +168,10 @@ class TokenizerTest {
 
 
     /* Testing tokenizer with big string (with and without checks).
-    * To understand the full process of extraction of the frequent tokens from the 3 articles
-    * see the files at "test_resources/articles/matches","test_resources/articles/Article1Tokenization.txt",
-    * "test_resources/articles/Article2Tokenization.txt", "test_resources/articles/Article3Tokenization.txt"
-    * */
+     * To understand the full process of extraction of the frequent tokens from the 3 articles
+     * see the files at "test_resources/articles/matches","test_resources/articles/Article1Tokenization.txt",
+     * "test_resources/articles/Article2Tokenization.txt", "test_resources/articles/Article3Tokenization.txt"
+     * */
     @Test
     @DisplayName("Tokenize big String without doing any checks.")
     void testTokenizeWithBigStringsWithoutChecks(){

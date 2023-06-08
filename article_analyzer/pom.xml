@@ -54,7 +54,6 @@
                     <forkCount>1</forkCount>
                     <enableAssertions>false</enableAssertions>
                     <parallel>classes</parallel>
-                    <threadCount>10</threadCount>
                 </configuration>
             </plugin>
             <!-- This plugin is used by  maven to compile sources in the project. -->
@@ -209,6 +208,12 @@
             <groupId>com.fasterxml</groupId>
             <artifactId>jackson-xml-databind</artifactId>
             <version>0.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -2,10 +2,13 @@ package org.project;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 /**
  * This class allows to set the url for a "The Guardian" API endpoint with some given parameters
  * (tags, query, page, page size, api key, base url ) for the API request.
  * It is used to keep track of the parameters and to get a new URL.
+ *
+ * Note: this class also do some coherence checks on the given parameters.
  */
 public final class URLSetter {
     /** Representation of a URL that is built in this class.*/
@@ -34,28 +37,47 @@ public final class URLSetter {
      * @throws IllegalArgumentException if there is no coherence in pageSize and page variables.
      */
     public URLSetter( String APIKey, int page, int pageSize, String[] queries , String[] tags) throws IllegalArgumentException, MalformedURLException{
-        this.APIKey = APIKey;
+        // Note: API key cannot be empty string
+        if(!APIKey.equals("")){
+            this.APIKey = APIKey;
+        }else{
+            throw new IllegalArgumentException();
+        }
         this.tags = tags;
-        this.page = page;
+        // Note: page number must be less or equals to page size number.
+        if(page > pageSize){
+            throw new IllegalArgumentException("Page number must be lower the page size!");
+        }
+        // Note: page size and page numbers must be positive.
+        if(page > 0) {
+            this.page = page;
+        }else{
+            throw new IllegalArgumentException("Page number must be positive!");
+        }
+        if(pageSize > 0) {
+            this.pageSize = pageSize;
+        }else{
+            throw new IllegalArgumentException("Page size number must be positive!");
+        }
         this.queries = queries;
-        this.pageSize = pageSize;
+        // Trying to build the URL.
         buildUrl();
     }
     /** Used by the URLSetter to build and store the final {@link URLSetter#URL}.  */
     private void buildUrl() throws MalformedURLException{
         // Setting a base URL.
         String URLString = BASE_URL;
-        // Setting the parameters.
-        // Setting the page and checking for coherence.
+
+        /* Setting the parameters. */
+        // Setting the page and checking for coherence with page size(max possible value of page).
         if(page > pageSize){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Page number must be lower the page size!");
         }
         URLString += "page-size=" + pageSize;
         if(page != 0) {
             URLString += "&page=" + page;
         }
         URLString += "&show-fields=body,headline,wordcount";
-
         // Setting tags and queries.
         if(tags.length != 0) {
             URLString += "&tag=";
@@ -75,11 +97,7 @@ public final class URLSetter {
                 }
             }
         }
-
         // Setting APIKey.
-        if(APIKey == ""){
-            throw new IllegalArgumentException();
-        }
         URLString += "&api-key=" + APIKey;
         URL = new URL(URLString);
     }
