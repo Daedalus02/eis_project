@@ -63,20 +63,17 @@ public final class URLSetter {
         // Trying to build the URL.
         buildUrl();
     }
+
     /** Used by the URLSetter to build and store the final {@link URLSetter#URL}.  */
     private void buildUrl() throws MalformedURLException{
+        /* Setting the parameters. */
         // Setting a base URL.
         String URLString = BASE_URL;
-
-        /* Setting the parameters. */
-        // Setting the page and checking for coherence with page size(max possible value of page).
-        if(page > pageSize){
-            throw new IllegalArgumentException("Page number must be lower the page size!");
-        }
+        // Setting page size value.
         URLString += "page-size=" + pageSize;
-        if(page != 0) {
-            URLString += "&page=" + page;
-        }
+        // Setting page value.
+        URLString += "&page=" + page;
+        // Setting relevant fields in URL.
         URLString += "&show-fields=body,headline,wordcount";
         // Setting tags and queries.
         if(tags.length != 0) {
@@ -105,7 +102,11 @@ public final class URLSetter {
     /**
      * Increment page number to show the next elements keeping the same parameter.
      */
-    public void incrementPage() throws MalformedURLException{
+    public void incrementPage() throws MalformedURLException,IllegalArgumentException{
+        // Checking for coherence with page size(max possible value of page).
+        if((page+1) > pageSize){
+            throw new IllegalArgumentException("Page number must be less then the page size!");
+        }
         page++;
         buildUrl();
     }

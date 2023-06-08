@@ -29,13 +29,6 @@ public final class TreeStorage implements TokensStorage{
     }
 
     /**
-     * Removes the tokens.
-     */
-    public void removeTokens(){
-        tokens = new HashMap<String, Integer>();
-    }
-
-    /**
      * Inserts a new list of tokens in the hashmap.
      *
      * @param list list of tokens to insert in the storage.
@@ -55,6 +48,23 @@ public final class TreeStorage implements TokensStorage{
             tokens.put(c, value + 1);
         }
     }
+
+    /**
+     * Removes the tokens.
+     */
+    public void removeTokens(){
+        tokens = new HashMap<String, Integer>();
+    }
+
+    /**
+     * This method is used to get all the tokens entered in storage.
+     *
+     * @return the set containing all tokens entered in  storage.
+     */
+    public List<String> getTokens(){
+        return tokens.keySet().stream().collect(Collectors.toList());
+    }
+
 
     /**
      * Returns a Set of Ordered entries of Integers and String Lists.
@@ -118,15 +128,6 @@ public final class TreeStorage implements TokensStorage{
         }
         // Returning the set of ordered entries.
         return reverseMap.entrySet();
-    }
-
-    /**
-     * This method is used to get all the tokens entered in storage.
-     *
-     * @return the set containing all tokens entered in  storage.
-     */
-    public List<String> getTokens(){
-        return tokens.keySet().stream().collect(Collectors.toList());
     }
 
     /**

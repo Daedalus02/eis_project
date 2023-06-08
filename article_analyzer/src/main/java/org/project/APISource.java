@@ -71,10 +71,12 @@ public final class APISource implements ArticleSource{
         // This is the process bar printed on screen to show the evolution of the articles retrieving process.
         try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
             while (articleCount < maxArticle) {
+                // Incrementing the Article page in the response for the current cycle if not first.
+                if(articleCount > 0){
+                    urlSetter.incrementPage();
+                }
                 // Setting URL based on the fields required for the API request.
                 URL = urlSetter.getURL();
-                // Incrementing the Article page in the response for the next cycle.
-                urlSetter.incrementPage();
                 //System.out.println("from " + URL + " :");
 
                 // Getting the response from the API endpoint.
