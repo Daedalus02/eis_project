@@ -446,10 +446,10 @@ public class Main {
                 int index = pair.getValue().size();
                 while (index > 0) {
                     index--;
-                    line = ( (wordCounter + 1) + ": " + pair.getValue().get(index) + " " + pair.getKey());
+                    line = ( pair.getValue().get(index) + " " + pair.getKey());
                     // Printing tokens on screen.
                     if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")){
-                        System.out.println("          " + line);
+                        System.out.println("          " + (wordCounter + 1) + ": " + line);
                     }
                     // Storing tokens with frequencies in buffer.
                     buffer.append(line);

@@ -1,50 +1,50 @@
-1: nuclear 1000
-2: power 1000
-3: plant 784
-4: energy 718
-5: plants 707
-6: reactors 566
-7: years 502
-8: reactor 498
-9: electricity 497
-10: safety 481
-11: united 474
-12: industry 464
-13: states 447
-14: year 433
-15: government 432
-16: company 431
-17: country 430
-18: time 424
-19: percent 395
-20: public 395
-21: state 378
-22: accident 372
-23: fuel 368
-24: long 365
-25: officials 360
-26: agency 354
-27: commission 348
-28: regulatory 339
-29: president 336
-30: world 336
-31: atomic 318
-32: made 307
-33: operating 304
-34: make 303
-35: electric 302
-36: people 300
-37: cost 297
-38: part 297
-39: build 295
-40: construction 287
-41: today 282
-42: gas 279
-43: including 278
-44: billion 268
-45: building 266
-46: called 262
-47: group 262
-48: director 261
-49: international 261
-50: built 251
+year 636
+time 598
+people 575
+years 550
+related 515
+made 441
+make 427
+back 419
+including 410
+world 407
+day 380
+guardian 376
+long 376
+told 372
+work 366
+part 351
+photograph 345
+end 319
+high 317
+government 314
+week 312
+home 302
+life 301
+public 301
+place 299
+found 296
+left 290
+good 284
+called 276
+support 275
+national 274
+country 271
+news 269
+put 261
+times 261
+set 257
+june 255
+case 252
+months 252
+days 250
+past 246
+making 245
+month 245
+point 241
+state 238
+group 237
+big 233
+family 231
+recent 230
+morning 229
