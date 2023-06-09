@@ -3,17 +3,18 @@ package org.project;
 import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.cli.*;
 import org.json.JSONException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
-    /** Relative path of the old serialized research. */
+    /** Relative path of the old serialized researches. */
     private static final String FILE_PATH = "resources" + File.separator + "backlog" + File.separator;
+    /** Relative path of the old txt results of researches. */
+    private static final String TXT_PATH = "resources" + File.separator + "results" + File.separator;
+    /** Extension of txt file with frequent tokens. */
+    private static final String TXT_EXTENSION = ".txt";
     /** Extension of the serialized file. */
     private static final String FILE_EXTENSION = ".json";
     /** Relative path to where the CSV files are stored. */
@@ -29,6 +30,7 @@ public class Main {
         Scanner console = new Scanner(System.in);
         List<Article> articles = new ArrayList<Article>();      // Store the Articles read from different possible sources.
         String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name (only used when not specified).
+        String txtName = TXT_PATH + "test" + TXT_EXTENSION;     // Standard txt name (only used when not specified).
         TokensStorage storage = new TreeStorage();      // Holds the tokens and is capable of returning them in an ordered set.
         Tokenizer tokenizer = new Tokenizer(true,storage);      //Used to tokenize articles in their different tokens checking them.
         Deserializer deserializer = new Deserializer();     // Used to deserialize Articles from the file they were previously serialized in.
@@ -186,6 +188,7 @@ public class Main {
                 }
                 if(line.hasOption(storeOption)){
                     fileName = FILE_PATH + line.getOptionValue(storeOption) + FILE_EXTENSION;
+                    txtName = TXT_PATH + line.getOptionValue(storeOption) + TXT_EXTENSION;
                 }
                 // Trying to add the read articles from API endpoint response to the abstract article List.
                 try {
@@ -220,6 +223,7 @@ public class Main {
                 }
                 if(line.hasOption(storeOption)){        // Checking to see if the user chose some old research file for tokens analysis.
                     fileName = FILE_PATH + line.getOptionValue(storeOption) + FILE_EXTENSION;
+                    txtName = TXT_PATH + line.getOptionValue(storeOption) + TXT_EXTENSION;
                 }
             } else if(line.hasOption(fileOption)){
                 /* Checking the presence of coherent parameters and setting their value if present (some of
@@ -227,6 +231,7 @@ public class Main {
                  * */
                 if(line.hasOption(jsonOption)){
                     fileName = FILE_PATH + line.getOptionValue(jsonOption) + FILE_EXTENSION;
+                    txtName = TXT_PATH + line.getOptionValue(jsonOption) + TXT_EXTENSION;
                     dataAnswer = "y";
                     System.out.println(fileName);
                 }else{
@@ -256,7 +261,9 @@ public class Main {
             } else {
                 // Asking the user to set the name of the file where the research will be stored.
                 System.out.println("Enter the name of the file where you want to save your research (enter \"test\" if not important): ");
-                fileName = FILE_PATH + console.nextLine() + FILE_EXTENSION;
+                String researchName = console.nextLine();
+                fileName = FILE_PATH + researchName + FILE_EXTENSION;
+                txtName = TXT_PATH + researchName + TXT_EXTENSION;
 
                 // Asking if the user wants to read articles from the CSV file source.
                 System.out.println("Do you want to load data from CSV file? (y/n) ");
@@ -402,48 +409,66 @@ public class Main {
                 }
             }
 
+            // Inserts the Articles textual fields inside of Tokenizer.
+            for (Article article : articles) {
+                pageText = article.getHead() + article.getBody();
+                tokenizer.tokenize(pageText,queries);
+            }
             // Checking to see if deserialization is needed.
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
-
                 // DESERIALIZING PHASE
                 try {
-                    articles = Arrays.stream( deserializer.deserialize(fileName)).collect(Collectors.toList());
+                    articles = Arrays.stream(deserializer.deserialize(fileName)).collect(Collectors.toList());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 // Printing the detected article Source.
-                if(articles.size() != 0){
+                if (articles.size() != 0) {
                     System.out.println(articles.get(0).getClass().getSimpleName() + " source detected, calculating frequent tokens:");
-                }else{
+                } else {
                     System.out.println("No articles were found.");
                     System.exit(0);
                 }
-
-                // Inserts the Articles textual fields inside of Tokenizer.
-                for (Article article : articles) {
-                    pageText = article.getHead() + article.getBody();
-                    tokenizer.tokenize(pageText,queries);
-                }
-
-                // PRINTING PHASE
+                // Printing the screen message for frequent words.
                 System.out.println("The 50(or less) most frequent words in the analyzed articles are: ");
-                // This variable stores the entry with tokens list as values indexed with their frequency.
-                Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
-                int wordCounter = 0;
-                Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();       // This variable is used to iterate through the set of ordered tokens Lists.
-                Map.Entry<Integer, List<String>> pair;
-                while (iter.hasNext()) {
-                    pair = iter.next();
-                    int index = pair.getValue().size();
-                    while (index > 0) {
-                        index--;
-                        System.out.println("          " + (wordCounter + 1) + ": " + pair.getValue().get(index) + " " + pair.getKey());
-                        wordCounter++;
-                    }
-                }
             }
 
+            // Declaring variables to store in txt file.
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+            int wordCounter = 0;
+            // This variable stores the entry with tokens list as values indexed with their frequency.
+            Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
+            Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();   // This variable is used to iterate through the set of ordered tokens Lists.
+            Map.Entry<Integer, List<String>> pair;
+            while (iter.hasNext()) {
+                pair = iter.next();
+                int index = pair.getValue().size();
+                while (index > 0) {
+                    index--;
+                    line = ( (wordCounter + 1) + ": " + pair.getValue().get(index) + " " + pair.getKey());
+                    // Printing tokens on screen.
+                    if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")){
+                        System.out.println("          " + line);
+                    }
+                    // Storing tokens with frequencies in buffer.
+                    buffer.append(line);
+                    buffer.append("\n");
+                    wordCounter++;
+                }
+            }
+            // WRITING 50 MOST FREQUENT TOKENS TO TXT FILE
+            try {
+                // Initializing tool to store tokens in txt file.
+                FileWriter fileWriter = new FileWriter(txtName);
+                BufferedWriter writer = new BufferedWriter(fileWriter);
+                // Writing tokens in file.
+                writer.write(buffer.toString());
+                // Closing the file writer resource.
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
     }
 }
