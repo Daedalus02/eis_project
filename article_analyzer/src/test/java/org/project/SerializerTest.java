@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("API")
 class SerializerTest {
     // This variable contains the relative file path of the file used as a backlog by the Serializer class.
-    private final String fileName = "test_resources" + File.separator + "articles" + File.separator + "TestSerializer.xml";
+    private final String fileName = "test_resources" + File.separator + "backlog" + File.separator + "TestSerializer.xml";
 
     /*
      * This method test the correct working of the Serializer when serializing CSV Articles

@@ -183,7 +183,7 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.0.3</version>
+            <version>3.14.1</version>
             <scope>test</scope>
         </dependency>
         <!-- This dependency is used to parse the content of a CSV formatted file. -->
