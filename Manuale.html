@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manuale</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="analizzatore-di-articoli">Analizzatore di articoli</h1>
+<h2 id="descrizione">Descrizione</h2>
+<p>Questo programma è in grado di elaborare degli <strong>articoli</strong> di giornale per calcolare il <strong>peso</strong> delle parole che in essi appaiono e farne una classifica. Il peso è inteso come numero di singoli articoli in cui le parole appaiono; pertanto molteplici apparizioni di una stessa parola nello stesso articolo non ne aumentano il peso. Il linguaggio di programmazione utilizzato è Java (versione 8).</p>
+<h2 id="funzionalità">Funzionalità</h2>
+<ul>
+<li>Sono disponibili due modalità di <strong>input</strong>: argomento e CLI.</li>
+<li>Sono supportate nativamente due <strong>sorgenti</strong> di articoli: file in formato <code>CSV</code> e l’utilizzo delle <strong>API del TheGuardian</strong> per l’acquisizione di articoli dall’archivio online del quotidiano.</li>
+<li>Gli articoli elaborati con le sorgenti vengono archiviati in un file in formato <code>JSON</code> e possono essere direttamente rielaborati dal programma</li>
+<li>Il programma è in grado di filtrare i risultati tramite una <strong>blacklist</strong> contenuta nel file <code>words.txt</code> di default o fornito dall’utente. Nel caso essa non sia presente non verrà filtrato nessun termine</li>
+<li>Per espandere il codice ed aggiungere nuove sorgenti esse devono implementare l’interfaccia <code>ArticleSource</code></li>
+<li>Per utilizzare altre strutture per la memorizzazione dei termini esse devono implementare l’interfaccia <code>TokensStorage</code></li>
+</ul>
+<h2 id="requisiti-per-il-funzionamento">Requisiti per il funzionamento</h2>
+<ul>
+<li>Per l’esecuzione del programma deve essere presente il <code>jre8</code></li>
+<li>Per la compilazione del programma deve essere presente il <code>jdk8</code> e <code>maven</code></li>
+</ul>
+<h2 id="utilizzo">Utilizzo</h2>
+<ol>
+<li>Estrarre l’archivio <code>article-analyzer-1.0.zip</code></li>
+<li>Entrare nella cartella <code>article_analyzer</code></li>
+<li>Aprire un terminale ed eseguire <code>java -jar article_analyzer-1.0.jar</code>, con eventuali argomenti</li>
+</ol>
+<h3 id="parametri-passati-per-argomento">Parametri passati per argomento</h3>
+<p>È disponibile l’argomento <code>-h</code> che fornisce una guida rapida all’uso degli argomenti. Gli argomenti funzionali sono :</p>
+<ul>
+<li><code>-file,--read-file</code> Per leggere gli articoli da un’altra ricerca.</li>
+<li><code>-json,--json-file-name &lt; arg &gt;</code> Il nome del file della ricerca da cui leggere.</li>
+<li><code>-api,--read-api</code> Per leggere gli articoli utilizzando le API del  TheGuardian.</li>
+<li><code>-apikey,--api-key &lt; arg &gt;</code> Il valore della API key per autenticarsi con le API del TheGuardian.</li>
+</ul>
+<blockquote>
+<p><strong>NOTA:</strong> se non specificato verrà letta quella di default</p>
+</blockquote>
+<ul>
+<li><code>-csv,--read-csv</code> Per leggere gli articoli da file CSV.</li>
+<li><code>-name,--csv-file-name &lt; arg &gt;</code> Il nome del file CSV.</li>
+<li><code>-max,--max-articles &lt; arg &gt;</code> Il numero massimo di articoli da elaborare.</li>
+</ul>
+<h5 id="argomenti-opzionali">Argomenti opzionali</h5>
+<ul>
+<li><code>-queries,--queries &lt; args &gt;</code> I termini con cui fare la ricerca.</li>
+<li><code>-tags,--tags &lt; args &gt;</code> I tag con cui condizionare la ricerca.</li>
+<li><code>-show,--show</code> Per stampare la classifica dei 50 termini.</li>
+<li><code>-store,--store &lt; arg &gt;</code> Il nome del file in cui la ricerca verrà salvata.</li>
+</ul>
+<blockquote>
+<p><strong>NOTA:</strong> se non specificato il default è “test”</p>
+</blockquote>
+<h3 id="cli">CLI</h3>
+<p>Se il programma viene eseguito senza argomenti si avvierà l’interfaccia da riga di comando che con una serie di domande configurerà si preparerà all’elaborazione dei dati.</p>
+<h3 id="struttura-di-file-e-cartelle">Struttura di file e cartelle</h3>
+<p>Nella release, oltre al file eseguibile, è presente una cartella <code>resorces</code> che presenta la seguente struttura:</p>
+<pre><code>/resources
+    /backlog
+	    test.json
+    /blacklist
+	    words.txt
+    /CSV_sources
+	    file.csv
+    /private
+	    private.properties
+</code></pre>
+<ul>
+<li><code>backlog</code> contiene i file dove sono state salvate le ricerche precedenti.</li>
+<li><code>blacklist</code> contiene il file <code>words.txt</code> che serve per filtrare i termini</li>
+<li><code>CSV_sources</code> contiene i file CSV da utilizzare come sorgenti</li>
+<li><code>private</code> contiene il file <code>private.properties</code> dove è contenuta la API key di default</li>
+</ul>
+<blockquote>
+<p><strong>NOTA:</strong> il nome della proprietà della API key è <code>apiKey</code></p>
+</blockquote>
+<h2 id="compilazione">Compilazione</h2>
+<p>Usare il comando <code>mvn package</code> nella cartella <code>PLACEHOLDER</code> e il file .jar sarà disponibile nella cartella <code>target</code> con il nome <code>article_analyzer-1.0-jar-with-dependencies.jar</code></p>
+<h1 id="todo">TODO</h1>
+<p>Librerie utilizzate</p>
+</div>
+</body>
+
+</html>
