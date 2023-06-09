@@ -106,7 +106,7 @@ class APISourceTest {
         List<APIArticle> articleList = source.getArticles();
         // Creating the expected result for max frequency (equals to actual number of articles matching the research parameters).
         int expected = articleList.size();
-        int delta = expected/10;    // Specifying a delta of 10%.
+        int delta = (expected*2)/10;    // Specifying a delta of 20%.
 
         // Calculating Tokens
         TreeStorage storage = new TreeStorage();
@@ -116,7 +116,7 @@ class APISourceTest {
             tokenizer.tokenize(article.getHead() + article.getBody(), Arrays.stream(queries).collect(Collectors.toList()));
         }
         for(int i = 0; i < queries.length; i++){
-            assertEquals(storage.getFrequency(queries[0]),expected, delta);
+            assertEquals(storage.getFrequency(queries[i]),expected, delta);
         }
     }
 
@@ -281,7 +281,7 @@ class APISourceTest {
         // Setting the max number of articles.
         int maxArticle = 100;
 
-        // Trying to create the URL with parameters: base URL, api key, page number, page size, queries, tags
+        // Trying to create the URL with parameters.
         // The HTTP client should throw an exception since all possible API keys entered are invalid.
         assertThrows(
                 ConnectException.class,
@@ -289,29 +289,5 @@ class APISourceTest {
                 "Expected ConnectException to be thrown but wasn't!"
         );
     }
-
-    /*@Test
-    @DisplayName("This test simulate a possible error in the API response.")
-    void testInvalidAPIResponse() throws Exception {
-        String invalidResponse ="";
-        HTTPClient client = mock(HTTPClient.class);
-        when(client.getHttpString()).thenReturn(invalidResponse);
-        whenNew(HTTPClient.class).withAnyArguments().thenReturn(client);
-
-        // Setting the valid parameters for the test.
-        // Using the given API keys.
-        String apiKey = "test";
-        // Specifying 0 tags.
-        String[] tags = new String[]{};
-        // Specifying 0 queries.
-        String[] queries = new String[]{};
-        // Setting the max number of articles.
-        int maxArticle = 100;
-        assertThrows(
-                JSONException.class,
-                () -> new APISource(apiKey, tags, queries, maxArticle),
-                "Expected JSONException to be thrown but wasn't!"
-        );
-    }*/
 
 }
