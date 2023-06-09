@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * This class is used to represent an article with all properties af an article of the "The Guardian" media group.
@@ -74,7 +76,9 @@ public final class APIArticle extends Article {
         this.wordcount = wordcount;
     }
 
-
+    private void dateValidation(String publicationDate) throws ParseException {
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(publicationDate);
+    }
 
     /* GETTERS */
 

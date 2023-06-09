@@ -1,13 +1,12 @@
 package org.project;
 
-import org.apiguardian.api.API;
 import org.json.JSONException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ class APIParserTest {
     /* Testing the correct functioning of the API parser with valid JSON formatted string. */
     @Test
     @DisplayName("Test if the API endpoint response parser is correctly capable of parsing a JSON containing an article array.")
-    void getArticles() throws MalformedURLException, JSONException {
+    void getArticles() throws MalformedURLException, JSONException, ParseException {
         // Possible API response with three articles(described by all the possible fields) and a response description
         // in the beginning.
         String validJSON= "{" +

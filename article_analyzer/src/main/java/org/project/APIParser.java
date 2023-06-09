@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public final class APIParser {
      * @throws JSONException         if the string parameter is not in a valid JSON format.
      * @throws MalformedURLException if the URLs contained in the articles fields are not correct.
      */
-    public void parse(String JSONString)throws JSONException, MalformedURLException {
+    public void parse(String JSONString) throws JSONException, MalformedURLException {
         // Initializing the JsonObject with given string.
         JSONObject obj = new JSONObject(JSONString);
         /* Parsing the string to see if it contains attributes of a "The Guardian" API response.

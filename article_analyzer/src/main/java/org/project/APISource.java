@@ -4,6 +4,7 @@ import me.tongfei.progressbar.ProgressBar;
 import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +92,9 @@ public final class APISource implements ArticleSource{
                 // Setting the max number of Articles to analyze, based on the number of available ones.
                 if (jsonParser.getTotal() < maxArticle) {
                     maxArticle = jsonParser.getPages();
+                    if(maxArticle == 0){
+                        break;
+                    }
                     //System.out.println("Limited to " + maxArticle + " pages...");
                 }
 

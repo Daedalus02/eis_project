@@ -246,7 +246,7 @@ class URLSetterTest {
         }
     }
 
-    /* Parametrized Test that take as argument multiple possible queries Strings arrays to test the correct functioning of the URL Setter.*/
+    /* Parametrized Test that take as argument multiple possible API key Strings to test the correct functioning of the URL Setter.*/
     @ParameterizedTest
     @ValueSource(strings = {"short", "varylongAPIkey", "mixedCASEAPIkey","","APIKEY"})
     @DisplayName("Testing if the URLSetter class correctly create the URL with various possible API key values.")
