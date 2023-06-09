@@ -93,6 +93,8 @@ public final class APISource implements ArticleSource{
                 if (jsonParser.getTotal() < maxArticle) {
                     maxArticle = jsonParser.getPages();
                     if(maxArticle == 0){
+                        // Ending printing the process bar.
+                        pb.stepTo(100);
                         break;
                     }
                     //System.out.println("Limited to " + maxArticle + " pages...");
