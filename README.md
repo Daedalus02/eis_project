@@ -49,8 +49,8 @@ Nella release, oltre al file eseguibile, è presente una cartella `resorces` che
 		    file.csv
 	    /private
 		    private.properties
-		/results
-			result.txt
+	    /results
+		    result.txt
 - `backlog` contiene i file dove sono state salvate le ricerche precedenti. 
 - `blacklist` contiene il file `words.txt` che serve per filtrare i termini
 - `CSV_sources` contiene i file CSV da utilizzare come sorgenti
