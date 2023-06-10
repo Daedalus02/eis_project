@@ -3,7 +3,13 @@ package org.project;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -213,5 +219,58 @@ class TreeStorageTest {
         String token = "Apples";    // Note: this token is not entered.
         assertEquals(expected, storage.getFrequency(token));
     }
-    /**/
+
+
+    /* Testing the lexicographical order in Tokens with same frequency.*/
+    @ParameterizedTest
+    @DisplayName(" Testing the lexicographical order in Tokens with same frequency.")
+    @ValueSource(ints = {1,10,100,1000})
+    void testTokensOrder(int frequencyParam){
+        List<String> tokens =  new ArrayList<String>();
+        TreeStorage storage = new TreeStorage();
+        int frequency = frequencyParam;
+        for(int i = 0; i < frequency; i++){
+;
+            tokens.add("post");
+            tokens.add("zero");
+            tokens.add("eric");
+            tokens.add("fukushima");
+            tokens.add("gallons");
+            tokens.add("helicopter");
+            tokens.add("imagination");
+            tokens.add("joke");
+            tokens.add("key");
+            tokens.add("stop");
+            tokens.add("test");
+            tokens.add("ultra");
+            tokens.add("velocity");
+            tokens.add("query");
+            tokens.add("rust");
+            tokens.add("let");
+            tokens.add("my");
+            tokens.add("dash");
+            tokens.add("oblivion");
+            tokens.add("word");
+            tokens.add("you");
+            tokens.add("xenon");
+            tokens.add("at");
+            tokens.add("best");
+            tokens.add("call");
+            tokens.add("neat");
+        }
+
+        String[] expected = new String[]{"zero","you", "xenon", "word", "velocity", "ultra", "test", "stop", "rust", "query", "post","oblivion", "neat",
+                                         "my",  "let", "key", "joke", "imagination", "helicopter", "gallons", "fukushima", "eric", "dash", "call", "best",
+                                         "at"};
+        storage.enterTokens(tokens);
+        /*
+        * Here we get a String list of tokens with the same frequency(the one of  entered tokens) by first converting the return set of entries into a stream,
+        * then reduced to the entries associated with the given frequency, then reconverted into the associated strings.
+        * */
+        List<String> tokensList = storage.getOrderedTokens(50).stream().filter(e -> e.getKey().equals(frequency)).map(Map.Entry::getValue).collect(Collectors.toList())
+                                                                  .stream().flatMap(List::stream).collect(Collectors.toList());
+        String[] result = tokensList.toArray(new String[]{});
+        assertArrayEquals(expected, result);
+        }
+
 }
