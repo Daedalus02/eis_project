@@ -13,7 +13,7 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 - Per la compilazione del programma deve essere presente il `jdk8` e `maven`
 ## Utilizzo
 1. Estrarre l'archivio `article-analyzer-1.0.zip`
-2. Entrare nella cartella `article_analyzer`
+2. Entrare nella cartella `article_analyzer_1.0`
 3. Aprire un terminale ed eseguire `java -jar article_analyzer-1.0.jar`, con eventuali argomenti
 ### Parametri passati per argomento
 È disponibile l'argomento `-h` che fornisce una guida rapida all'uso degli argomenti. Gli argomenti funzionali sono :
@@ -21,7 +21,8 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 - `-json,--json-file-name < arg >` Il nome del file della ricerca da cui leggere.
 - `-api,--read-api` Per leggere gli articoli utilizzando le API del  TheGuardian.
 - `-apikey,--api-key < arg >` Il valore della API key per autenticarsi con le API del TheGuardian.
-> **NOTA:** se non specificato verrà letta quella di default
+> **NOTA:** se non specificato viene usata quella di default
+- `-default,--set-default` Per far sì che la chiave specificata venga impostata come default
 - `-csv,--read-csv` Per leggere gli articoli da file CSV.
 - `-name,--csv-file-name < arg >` Il nome del file CSV.
 - `-max,--max-articles < arg >` Il numero massimo di articoli da elaborare.
@@ -31,7 +32,8 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 - `-show,--show` Per stampare la classifica dei 50 termini.
 - `-store,--store < arg >` Il nome del file in cui la ricerca verrà salvata. 
 >  **NOTA:** se non specificato il default è "test"
-
+- `-result,--result < arg>` Il nome del file dove viene salvato l'esito dell'elaborazione
+>  **NOTA:** se non specificato il default è "result"
 ### CLI
 Se il programma viene eseguito senza argomenti si avvierà l'interfaccia da riga di comando che con una serie di domande configurerà si preparerà all'elaborazione dei dati.
 ### Struttura di file e cartelle
@@ -47,14 +49,33 @@ Nella release, oltre al file eseguibile, è presente una cartella `resorces` che
 		    file.csv
 	    /private
 		    private.properties
+		/results
+			result.txt
 - `backlog` contiene i file dove sono state salvate le ricerche precedenti. 
 - `blacklist` contiene il file `words.txt` che serve per filtrare i termini
 - `CSV_sources` contiene i file CSV da utilizzare come sorgenti
 - `private` contiene il file `private.properties` dove è contenuta la API key di default
 > **NOTA:** il nome della proprietà della API key è `apiKey`
+- `results` contiene i file su cui vengono scritti i risultati dell'elaborazione
 ## Compilazione
-Usare il comando `mvn package` nella cartella `PLACEHOLDER` e il file .jar sarà disponibile nella cartella `target` con il nome `article_analyzer-1.0-jar-with-dependencies.jar`
-# TODO
-Librerie utilizzate
- 
+Usare il comando `mvn package` all'interno della cartella `article_analyzer` (dove si trova il file `pom.xml`) e il file `.jar` sarà disponibile nella cartella `target` con il nome `article_analyzer-1.0-jar-with-dependencies.jar`
+## Librerie esterne
+- `maven-assembly-plugin v2.5.3` per compilare il file eseguibile `.jar`.
+- `org.apache.maven.plugins maven-surefire-plugin v2.22.0` plugin utilizzato da maven per fare i test.
+- `org.apache.maven.plugins maven-compiler-plugin v3.3` per la compilazione del progetto (Java 8).
+- `org.apache.maven.plugins maven-site-plugin v3.7.1` per generare della documentazione inerente al progetto.
+- `org.apache.maven.plugins maven-project-info-reports-plugin v3.7.1` genera i report dei test.
+- `com.fasterxml.jackson.core jackson-databind v2.15.1` per la serializzazione e deserializzazione degli articoli in e da il file di backlog (formato `JSON`).
+- `commons-cli v1.5.0` utility per la creazione e configurazione degli argomenti.
+- `me.tongfei progressbar v0.9.4` utility per creare una barra di progresso delle operazioni.
+- `org.apache.httpcomponents httpclient v4.5.14` client HTTP per stabilire una connessione con il webserver.
+- `org.json v20090211` per il parsing di documenti in formato `JSON`.
+- `org.jsoup v1.15.4` per il parsing di documenti in formato `JSON`.
+- `edu.stanford.nlp v4.4.0` per la tokenizzazione degli articoli.
+- `org.junit.jupiter v5.9.2` per il testing con Junit-5.
+- `org.mockito mockito-core v2.7.5` per simulare delle classi in fase di test.
+- `org.mockito mockito-junit-jupiter v2.17.0` per simulare delle classi in fase di test.
+- `nl.jqno.equalsverifier v3.0.3` per verificare la correttezza dell'implementazione dei metodi *equals()* e *hashCode()*.
+- `com.opencsv v5.2` per il parsing di documenti in formato `CSV`.
+- `com.fasterxml jackson-xml-databind v0.6.2` per serializzazione e deserializzazione.
 
