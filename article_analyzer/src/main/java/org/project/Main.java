@@ -94,6 +94,8 @@ public class Main {
             Option nameOption = new Option("name","csv-file-name",true,"The name of the CSV file.");
             Option jsonOption = new Option("json","json-file-name",true,"The name of the file where previously stored a research.");
             Option defaultOption = new Option("default","set-default",false,"This set the entered apikey as the default.");
+            Option txtOption = new Option("wordsFile", "words-file",true,"The name of the file to store the most frequent words in.");
+
             // Adding the parameters options to the possible set of options.
             options.addOptionGroup(actions);
             options.addOption(maxOption);
@@ -188,7 +190,9 @@ public class Main {
                 }
                 if(line.hasOption(storeOption)){
                     fileName = FILE_PATH + line.getOptionValue(storeOption) + FILE_EXTENSION;
-                    txtName = TXT_PATH + line.getOptionValue(storeOption) + TXT_EXTENSION;
+                }
+                if(line.hasOption(txtOption)){
+                    txtName = TXT_PATH + line.getOptionValue(txtOption) + TXT_EXTENSION;
                 }
                 // Trying to add the read articles from API endpoint response to the abstract article List.
                 try {
@@ -223,7 +227,9 @@ public class Main {
                 }
                 if(line.hasOption(storeOption)){        // Checking to see if the user chose some old research file for tokens analysis.
                     fileName = FILE_PATH + line.getOptionValue(storeOption) + FILE_EXTENSION;
-                    txtName = TXT_PATH + line.getOptionValue(storeOption) + TXT_EXTENSION;
+                }
+                if(line.hasOption(txtOption)){
+                    txtName = TXT_PATH + line.getOptionValue(txtOption) + TXT_EXTENSION;
                 }
             } else if(line.hasOption(fileOption)){
                 /* Checking the presence of coherent parameters and setting their value if present (some of
@@ -231,14 +237,15 @@ public class Main {
                  * */
                 if(line.hasOption(jsonOption)){
                     fileName = FILE_PATH + line.getOptionValue(jsonOption) + FILE_EXTENSION;
-                    txtName = TXT_PATH + line.getOptionValue(jsonOption) + TXT_EXTENSION;
                     dataAnswer = "y";
-                    System.out.println(fileName);
                 }else{
                     // Printing error and stopping execution.
                     helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
                     System.err.println("The file option must specify a file name ({-json}).");
                     System.exit(1);
+                }
+                if(line.hasOption(txtOption)){
+                    txtName = TXT_PATH + line.getOptionValue(txtOption) + TXT_EXTENSION;
                 }
             } else {
                 helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
@@ -261,9 +268,10 @@ public class Main {
             } else {
                 // Asking the user to set the name of the file where the research will be stored.
                 System.out.println("Enter the name of the file where you want to save your research (enter \"test\" if not important): ");
-                String researchName = console.nextLine();
-                fileName = FILE_PATH + researchName + FILE_EXTENSION;
-                txtName = TXT_PATH + researchName + TXT_EXTENSION;
+                fileName = FILE_PATH + console.nextLine() + FILE_EXTENSION;
+                // Asking the user to set the name of the file where the research will be stored.
+                System.out.println("Enter the name of the file where you want to save most frequent words in your research  (enter \"test\" if not important): ");
+                txtName = TXT_PATH + console.nextLine() + TXT_EXTENSION;
 
                 // Asking if the user wants to read articles from the CSV file source.
                 System.out.println("Do you want to load data from CSV file? (y/n) ");
