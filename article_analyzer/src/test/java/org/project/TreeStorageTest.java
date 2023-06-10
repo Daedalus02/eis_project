@@ -213,4 +213,5 @@ class TreeStorageTest {
         String token = "Apples";    // Note: this token is not entered.
         assertEquals(expected, storage.getFrequency(token));
     }
+    /**/
 }

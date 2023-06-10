@@ -25,7 +25,7 @@ class APIParserTest {
     /* Testing the correct functioning of the API parser with valid JSON formatted string. */
     @Test
     @DisplayName("Test if the API endpoint response parser is correctly capable of parsing a JSON containing an article array.")
-    void getArticles() throws MalformedURLException, JSONException, ParseException {
+    void getArticles() throws MalformedURLException, JSONException {
         // Possible API response with three articles(described by all the possible fields) and a response description
         // in the beginning.
         String validJSON= "{" +
@@ -120,7 +120,6 @@ class APIParserTest {
 
         // Testing the equality between the parsed list of articles and the expected list.
         assertEquals(expected, result);
-
     }
 
 

@@ -29,8 +29,8 @@ public class Main {
         // SETTING ALL THE "COMMON" VARIABLE NEEDED DURING EXECUTION.
         Scanner console = new Scanner(System.in);
         List<Article> articles = new ArrayList<Article>();      // Store the Articles read from different possible sources.
-        String fileName = FILE_PATH + "test" + FILE_EXTENSION;      // Standard file name (only used when not specified).
-        String txtName = TXT_PATH + "test" + TXT_EXTENSION;     // Standard txt name (only used when not specified).
+        String fileName = FILE_PATH + "result" + FILE_EXTENSION;      // Standard file name (only used when not specified).
+        String txtName = TXT_PATH + "result" + TXT_EXTENSION;     // Standard txt name (only used when not specified).
         TokensStorage storage = new TreeStorage();      // Holds the tokens and is capable of returning them in an ordered set.
         Tokenizer tokenizer = new Tokenizer(true,storage);      //Used to tokenize articles in their different tokens checking them.
         Deserializer deserializer = new Deserializer();     // Used to deserialize Articles from the file they were previously serialized in.
@@ -94,7 +94,7 @@ public class Main {
             Option nameOption = new Option("name","csv-file-name",true,"The name of the CSV file.");
             Option jsonOption = new Option("json","json-file-name",true,"The name of the file where previously stored a research.");
             Option defaultOption = new Option("default","set-default",false,"This set the entered apikey as the default.");
-            Option txtOption = new Option("wordsFile", "words-file",true,"The name of the file to store the most frequent words in.");
+            Option txtOption = new Option("result", "result",true,"The name of the file to store the most frequent words in.");
 
             // Adding the parameters options to the possible set of options.
             options.addOptionGroup(actions);
@@ -417,11 +417,6 @@ public class Main {
                 }
             }
 
-            // Inserts the Articles textual fields inside of Tokenizer.
-            for (Article article : articles) {
-                pageText = article.getHead() + article.getBody();
-                tokenizer.tokenize(pageText,queries);
-            }
             // Checking to see if deserialization is needed.
             if (csvAnswer.equals("y") || dataAnswer.equals("y") || downloadAnswer.equals("y")) {
                 // DESERIALIZING PHASE
@@ -441,6 +436,11 @@ public class Main {
                 System.out.println("The 50(or less) most frequent words in the analyzed articles are: ");
             }
 
+            // Inserts the Articles textual fields inside of Tokenizer.
+            for (Article article : articles) {
+                pageText = article.getHead() + article.getBody();
+                tokenizer.tokenize(pageText,queries);
+            }
             // Declaring variables to store in txt file.
             StringBuffer buffer = new StringBuffer();
             String line = "";
@@ -449,6 +449,7 @@ public class Main {
             Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
             Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();   // This variable is used to iterate through the set of ordered tokens Lists.
             Map.Entry<Integer, List<String>> pair;
+
             while (iter.hasNext()) {
                 pair = iter.next();
                 int index = pair.getValue().size();

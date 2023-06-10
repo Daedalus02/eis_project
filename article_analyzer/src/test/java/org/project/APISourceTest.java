@@ -239,7 +239,7 @@ class APISourceTest {
     /* Parametrized Test that take as argument multiple possible valid API key Strings to test the correct functioning of the APISource.*/
     @ParameterizedTest
     @ValueSource(strings = {"test",""})     // Valid API keys.
-    @DisplayName("Testing if the APISOurce class correctly create the URL with various possible API key values.")
+    @DisplayName("Testing if the APISource class correctly create the URL with various possible API key values.")
     void testAPISourceWithAPIKey(String keyParam) throws IOException {
         // Setting the parameters for the test.
         // Using the given API keys.
