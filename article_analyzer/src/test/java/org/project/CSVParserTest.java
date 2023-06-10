@@ -69,7 +69,7 @@ class CSVParserTest {
      * invalid format for CSVArticles. */
     @DisplayName("Testing if an invalid formatted CSV create an exception.")
     @Test
-    void testInvalidPropertiesFormatException() throws IOException, CsvValidationException {
+    void testInvalidPropertiesFormatException() throws IOException {
         // Creating the Article fields records.
         String[] format = new String[]{"identifier","url","title","body","date","source_set","source"};
         // Note: here we have an additional invalid field.

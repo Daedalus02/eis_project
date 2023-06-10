@@ -88,12 +88,24 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.15.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson-xml-databind</artifactId>
+            <version>0.6.2</version>
+        </dependency>
         <!-- This dependency is used to allow the user to set this system by command line. -->
         <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.5.0</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+            <scope>test</scope>
+        </dependency> -->
         <!-- This dependency is used to show the progress while retrieving articles from the API endpoint. -->
         <dependency>
             <groupId>me.tongfei</groupId>
@@ -166,7 +178,8 @@
             <artifactId>junit-jupiter-params</artifactId>
             <version>5.9.2</version>
             <scope>test</scope>
-        </dependency>        <!-- The mockito dependencies are used to create components for testing with a specified behavior. -->
+        </dependency>
+        <!-- The mockito dependencies are used to create components for testing with a specified behavior. -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -203,17 +216,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml</groupId>
-            <artifactId>jackson-xml-databind</artifactId>
-            <version>0.6.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

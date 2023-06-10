@@ -65,7 +65,6 @@ public final class CSVParser {
      * @return Article List.
      */
     public List<CSVArticle> getArticles() throws CsvValidationException, IOException {
-
         return articles;
     }
 

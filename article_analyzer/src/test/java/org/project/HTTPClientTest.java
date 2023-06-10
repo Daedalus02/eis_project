@@ -132,7 +132,7 @@ class HTTPClientTest {
 
     /* This method test the ConnectionClosedException exception thrown by the getHttpString method. */
     @Test
-    @DisplayName("Testing the behavior of the metho getHttpString when the connection is closed.")
+    @DisplayName("Testing the behavior of the method getHttpString when the connection is closed.")
     void testConnctionClosedMessageGetter() throws IOException {
         // Setting the client with a valid URL.
         HTTPClient client = new HTTPClient();
