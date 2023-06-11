@@ -1,0 +1,32 @@
+<mxfile host="Electron" modified="2023-06-11T12:22:27.474Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="MHw3cFehlVz7w5N-DTjI" version="21.2.8" type="device">
+  <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
+    <mxGraphModel dx="393" dy="-813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KSsv7atOFaTJ0OmW_SJW-2" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;size=40;" parent="1" vertex="1">
+          <mxGeometry x="110" y="1110" width="20" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="KSsv7atOFaTJ0OmW_SJW-3" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="KSsv7atOFaTJ0OmW_SJW-2" vertex="1">
+          <mxGeometry x="5" y="50" width="10" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="KSsv7atOFaTJ0OmW_SJW-4" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;logFileName&lt;/font&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="KSsv7atOFaTJ0OmW_SJW-2" source="KSsv7atOFaTJ0OmW_SJW-3" target="KSsv7atOFaTJ0OmW_SJW-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="60" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="50" y="70" />
+              <mxPoint x="50" y="110" />
+            </Array>
+            <mxPoint x="20" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KSsv7atOFaTJ0OmW_SJW-5" value="ref" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;gradientColor=#FFFFFF;swimlaneFillColor=default;strokeColor=#FF6666;width=40;height=20;" parent="1" vertex="1">
+          <mxGeometry x="50" y="1250" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KSsv7atOFaTJ0OmW_SJW-6" value="Deserialize Tokenize" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="95" y="1257" width="125" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
