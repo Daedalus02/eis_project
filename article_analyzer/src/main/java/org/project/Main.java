@@ -106,6 +106,7 @@ public class Main {
             options.addOption(storeOption);
             options.addOption(nameOption);
             options.addOption(jsonOption);
+            options.addOption(defaultOption);
 
             // Initializing the help message formatter.
             HelpFormatter helpFormatter = new HelpFormatter();
