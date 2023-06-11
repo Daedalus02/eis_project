@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /*
 * Testing multiple possible combination of all the method exposed in the class TreeStorage.
 * */
-@Tag("Backlog")
+@Tag("Log")
 @Tag("CSV")
 @Tag("API")
 class TreeStorageTest {
