@@ -70,7 +70,7 @@ Usare il comando `mvn package` all'interno della cartella `article_analyzer` (do
 - `me.tongfei progressbar v0.9.4` utility per creare una barra di progresso delle operazioni.
 - `org.apache.httpcomponents httpclient v4.5.14` client HTTP per stabilire una connessione con il webserver.
 - `org.json v20090211` per il parsing di documenti in formato `JSON`.
-- `org.jsoup v1.15.4` per il parsing di articoli dal formato `HTML`.
+- `org.jsoup v1.15.4` per la conversione di articoli dal formato `HTML`.
 - `edu.stanford.nlp v4.4.0` per la tokenizzazione degli articoli.
 - `org.junit.jupiter v5.9.2` per il testing con Junit-5.
 - `org.mockito mockito-core v2.7.5` per simulare delle classi in fase di test.
