@@ -41,7 +41,7 @@ Se il programma viene eseguito senza argomenti si avvierà l'interfaccia da riga
 Nella release, oltre al file eseguibile, è presente una cartella `resources` che presenta la seguente struttura:
 
     /resources
-	    /backlog
+	    /log
 		    test.json
 	    /blacklist
 		    words.txt
@@ -51,7 +51,7 @@ Nella release, oltre al file eseguibile, è presente una cartella `resources` ch
 		    private.properties
 	    /results
 		    result.txt
-- `backlog` contiene i file dove sono state salvate le ricerche precedenti. 
+- `log` contiene i file dove sono state salvate le ricerche precedenti. 
 - `blacklist` contiene il file `words.txt` che serve per filtrare i termini
 - `CSV_sources` contiene i file CSV da utilizzare come sorgenti
 - `private` contiene il file `private.properties` dove è contenuta la API key di default
@@ -65,7 +65,7 @@ Usare il comando `mvn package` all'interno della cartella `article_analyzer` (do
 - `org.apache.maven.plugins maven-compiler-plugin v3.3` per la compilazione del progetto (Java 8).
 - `org.apache.maven.plugins maven-site-plugin v3.7.1` per generare della documentazione inerente al progetto.
 - `org.apache.maven.plugins maven-project-info-reports-plugin v3.7.1` genera i report dei test.
-- `com.fasterxml.jackson.core jackson-databind v2.15.1` per la serializzazione e deserializzazione degli articoli in e da il file di backlog (formato `JSON`).
+- `com.fasterxml.jackson.core jackson-databind v2.15.1` per la serializzazione e deserializzazione degli articoli in e da il file di log (formato `JSON`).
 - `commons-cli v1.5.0` utility per la creazione e configurazione degli argomenti.
 - `me.tongfei progressbar v0.9.4` utility per creare una barra di progresso delle operazioni.
 - `org.apache.httpcomponents httpclient v4.5.14` client HTTP per stabilire una connessione con il webserver.
