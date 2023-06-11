@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-06-07T09:21:32.667Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/106.0.5249.199 Electron/21.4.4 Safari/537.36" etag="YTQnZrtQmaQCK_BAj0ld" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-06-11T12:26:13.406Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="W1HWDF8WHeNvMGFfbhRL" version="21.2.8" type="device">
   <diagram name="Page-1" id="Ke4Bmy3Drvv32NOykyBG">
-    <mxGraphModel dx="1434" dy="891" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1194" dy="877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -19,8 +19,8 @@
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-14" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;absoluteArcSize=0;" parent="V7kuafl9VJ6zE2ixLc0u-13" vertex="1">
           <mxGeometry width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="V7kuafl9VJ6zE2ixLc0u-15" value="Type: BackLog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="V7kuafl9VJ6zE2ixLc0u-13" vertex="1">
-          <mxGeometry x="10" y="17" width="100" height="33" as="geometry" />
+        <mxCell id="V7kuafl9VJ6zE2ixLc0u-15" value="Type: Log" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="V7kuafl9VJ6zE2ixLc0u-13" vertex="1">
+          <mxGeometry x="25" y="13.5" width="70" height="33" as="geometry" />
         </mxCell>
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-16" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="230" y="160" width="120" height="60" as="geometry" />
@@ -310,7 +310,7 @@
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-102" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;absoluteArcSize=0;" parent="1" vertex="1">
           <mxGeometry x="680" y="340" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="V7kuafl9VJ6zE2ixLc0u-103" value="Stores Articles in BackLog File" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="V7kuafl9VJ6zE2ixLc0u-103" value="Stores Articles in Log File" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="692.5" y="353.5" width="95" height="33" as="geometry" />
         </mxCell>
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-104" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="V7kuafl9VJ6zE2ixLc0u-100" target="V7kuafl9VJ6zE2ixLc0u-102" edge="1">
@@ -322,7 +322,7 @@
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-105" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;absoluteArcSize=0;" parent="1" vertex="1">
           <mxGeometry x="980" y="340" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="V7kuafl9VJ6zE2ixLc0u-106" value="Acquires BackLog File name" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="V7kuafl9VJ6zE2ixLc0u-106" value="Acquires Log File name" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="986.25" y="353.5" width="107.5" height="33" as="geometry" />
         </mxCell>
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-108" value="" style="group" parent="1" vertex="1" connectable="0">
@@ -331,8 +331,8 @@
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-109" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="V7kuafl9VJ6zE2ixLc0u-108" vertex="1">
           <mxGeometry width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="V7kuafl9VJ6zE2ixLc0u-110" value="BackLog File" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="V7kuafl9VJ6zE2ixLc0u-108" vertex="1">
-          <mxGeometry x="19.380000000000003" y="15" width="81.25" height="30" as="geometry" />
+        <mxCell id="V7kuafl9VJ6zE2ixLc0u-110" value="Log File" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="V7kuafl9VJ6zE2ixLc0u-108" vertex="1">
+          <mxGeometry x="29.689999999999998" y="15" width="60.62" height="30" as="geometry" />
         </mxCell>
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-111" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="V7kuafl9VJ6zE2ixLc0u-109" target="V7kuafl9VJ6zE2ixLc0u-105" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -358,7 +358,7 @@
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-116" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;absoluteArcSize=0;" parent="1" vertex="1">
           <mxGeometry x="380" y="340" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="V7kuafl9VJ6zE2ixLc0u-117" value="Recovers Articles from BackLog File" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="V7kuafl9VJ6zE2ixLc0u-117" value="Recovers Articles from Log File" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="386.25" y="353.5" width="107.5" height="33" as="geometry" />
         </mxCell>
         <mxCell id="V7kuafl9VJ6zE2ixLc0u-118" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="V7kuafl9VJ6zE2ixLc0u-114" target="V7kuafl9VJ6zE2ixLc0u-116" edge="1">
