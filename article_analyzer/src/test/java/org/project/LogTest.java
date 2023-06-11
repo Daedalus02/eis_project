@@ -11,8 +11,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 * the articles for the tokenization directly from the previous research data.
 * */
 @Suite
-@SuiteDisplayName("Backlog units suit testing.")
+@SuiteDisplayName("Log units suit testing.")
 @SelectPackages("org.project")
-@IncludeTags("Backlog")
+@IncludeTags("Log")
 
-public class BacklogTest {}
+public class LogTest {}

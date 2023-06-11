@@ -81,7 +81,7 @@
     </build>
 
     <dependencies>
-        <!-- This dependency is used to serialize and deserialize articles in a backlog file. -->
+        <!-- This dependency is used to serialize and deserialize articles in a log file. -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

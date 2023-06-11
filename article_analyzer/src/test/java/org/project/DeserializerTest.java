@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /* This class contains the tests to check the correct working of the deserialize method
  * in Deserializer class. */
-@Tag("Backlog")
+@Tag("Log")
 @Tag("CSV")
 @Tag("API")
 class DeserializerTest {
-    // This variable contains the relative file path of the file used as a backlog by the Deserializer class.
-    private final String fileName = "test_resources" + File.separator + "backlog" + File.separator + "TestDeserializer.xml";
+    // This variable contains the relative file path of the file used as a log by the Deserializer class.
+    private final String fileName = "test_resources" + File.separator + "log" + File.separator + "TestDeserializer.xml";
 
     /*
     * This method test the correct working of the Deserializer when deserializing CSV Articles

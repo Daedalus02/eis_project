@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /* This class contains the tests to check the correct working of the serialize method
  * in Serializer class. */
-@Tag("Backlog")
+@Tag("Log")
 @Tag("CSV")
 @Tag("API")
 class SerializerTest {
-    // This variable contains the relative file path of the file used as a backlog by the Serializer class.
-    private final String fileName = "test_resources" + File.separator + "backlog" + File.separator + "TestSerializer.xml";
+    // This variable contains the relative file path of the file used as a log by the Serializer class.
+    private final String fileName = "test_resources" + File.separator + "log" + File.separator + "TestSerializer.xml";
 
     /*
      * This method test the correct working of the Serializer when serializing CSV Articles
-     * to a backlog file.
+     * to a log file.
      * */
     @Test
     @DisplayName("Testing if Serializer store CSVArticle in the file correctly.")
@@ -43,7 +43,7 @@ class SerializerTest {
 
     /*
      * This method test the correct working of the Deserializer when serializing API Articles
-     * to a backlog file.
+     * to a log file.
      * */
     @Test
     @DisplayName("Testing if Serializer store APIArticle in the file correctly.")

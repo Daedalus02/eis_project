@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     /** Relative path of the old serialized researches. */
-    private static final String FILE_PATH = "resources" + File.separator + "backlog" + File.separator;
+    private static final String FILE_PATH = "resources" + File.separator + "log" + File.separator;
     /** Relative path of the old txt results of researches. */
     private static final String TXT_PATH = "resources" + File.separator + "results" + File.separator;
     /** Extension of txt file with frequent tokens. */

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /* This class contains test for the Tokenizer class method tokenize, setting the presence of checks(common words)
  * and the dimension of the String to tokenize.  */
-@Tag("Backlog")
+@Tag("Log")
 @Tag("CSV")
 @Tag("API")
 class TokenizerTest {
