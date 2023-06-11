@@ -96,6 +96,7 @@ public final class URLSetter {
         }
         // Setting APIKey.
         URLString += "&api-key=" + APIKey;
+
         URL = new URL(URLString);
     }
 
