@@ -16,7 +16,6 @@
     </properties>
 
     <build>
-        <finalName>article_analyzer</finalName>
         <plugins>
             <!-- This dependency is used to set the correct way to produce the jar file from source. -->
             <plugin>
