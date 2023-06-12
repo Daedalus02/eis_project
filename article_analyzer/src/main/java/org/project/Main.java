@@ -28,22 +28,23 @@ public class Main {
 
         // SETTING ALL THE "COMMON" VARIABLE NEEDED DURING EXECUTION.
         Scanner console = new Scanner(System.in);
-        List<Article> articles = new ArrayList<Article>();      // Store the Articles read from different possible sources.
+        List<Article> articles = new ArrayList<Article>();                  // Store the Articles read from different possible sources.
         String fileName = FILE_PATH + "result" + FILE_EXTENSION;      // Standard file name (only used when not specified).
-        String txtName = TXT_PATH + "result" + TXT_EXTENSION;     // Standard txt name (only used when not specified).
-        TokensStorage storage = new TreeStorage();      // Holds the tokens and is capable of returning them in an ordered set.
-        Tokenizer tokenizer = new Tokenizer(true,storage);      //Used to tokenize articles in their different tokens checking them.
-        Deserializer deserializer = new Deserializer();     // Used to deserialize Articles from the file they were previously serialized in.
-        String pageText = "";       //Text contained in both the head and the body fields of an Article.
-        String downloadAnswer = "n";        // y(yes) if the user decides to visualize the 50 more frequent tokens.
-        String csvAnswer = "n";         // y(yes) if the user decides to read articles from a CSV file.
-        String dataAnswer = "n";        // y(yes) if the user decides to read articles from previous researches.
-        String csvName = "";        // Stores the name of the CSV file if the user want to read articles from a CSV file.
-        String apiKey = "";         // API key of the user to be able to log to the "The Guardian" API endpoint.
-        int maxArticle = 0;     // Max accepted number of articles to elaborate.
-        List<String> queries = new ArrayList<String>();     // Queries to consider when doing research in the "The Guardian" APi endpoint response.
-        List<String> tags = new ArrayList<String>();        // Tags to consider when doing research in the "The Guardian" APi endpoint response.
-        ArticleSource source;       // General Article source (example: CSV file, API endpoint response).
+        String txtName = TXT_PATH + "result" + TXT_EXTENSION;         // Standard txt name (only used when not specified).
+        TokensStorage storage = new TreeStorage();                    // Holds the tokens and is capable of returning them in an ordered set.
+        Tokenizer tokenizer = new Tokenizer(true,storage);     // Used to tokenize articles in their different tokens checking them.
+        Deserializer deserializer = new Deserializer();               // Used to deserialize Articles from the file they were previously serialized in.
+        String pageText = "";                                         // Text contained in both the head and the body fields of an Article.
+        String downloadAnswer = "n";                                  // y(yes) if the user decides to visualize the 50 more frequent tokens.
+        String csvAnswer = "n";                                       // y(yes) if the user decides to read articles from a CSV file.
+        String dataAnswer = "n";                                      // y(yes) if the user decides to read articles from previous researches.
+        String csvName = "";                                          // Stores the name of the CSV file if the user want to read articles from a CSV file.
+        String apiKey = "";                                           // API key of the user to be able to log to the "The Guardian" API endpoint.
+        int maxArticle = 0;                                           // Max accepted number of articles to elaborate.
+        int tokensNumber = 50;                                        // The number of frequent tokens to consider.
+        List<String> queries = new ArrayList<String>();                    // Queries to consider when doing research in the "The Guardian" APi endpoint response.
+        List<String> tags = new ArrayList<String>();                       // Tags to consider when doing research in the "The Guardian" APi endpoint response.
+        ArticleSource source;                                         // General Article source (example: CSV file, API endpoint response).
 
         /*
          * Input structure from terminal:
@@ -95,6 +96,7 @@ public class Main {
             Option jsonOption = new Option("json","json-file-name",true,"The name of the file where previously stored a research.");
             Option defaultOption = new Option("default","set-default",false,"This set the entered apikey as the default.");
             Option txtOption = new Option("result", "result",true,"The name of the file to store the most frequent words in.");
+            Option tokensOption = new Option("tokens", "tokens-number",true,"The number of frequent tokens to consider.");
 
             // Adding the parameters options to the possible set of options.
             options.addOptionGroup(actions);
@@ -108,6 +110,7 @@ public class Main {
             options.addOption(jsonOption);
             options.addOption(defaultOption);
             options.addOption(txtOption);
+            options.addOption(tokensOption);
 
             // Initializing the help message formatter.
             HelpFormatter helpFormatter = new HelpFormatter();
@@ -141,6 +144,16 @@ public class Main {
                         // Printing error and stopping execution.
                         helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
                         System.err.println("--> max field must be a number");
+                        System.exit(1);
+                    }
+                }
+                if(line.hasOption(tokensOption)) {
+                    try{
+                    tokensNumber = Integer.parseInt(line.getOptionValue(tokensOption));
+                    }catch(NumberFormatException e) {
+                        // Printing error and stopping execution.
+                        helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                        System.err.println("--> tokens field must be a number");
                         System.exit(1);
                     }
                 }
@@ -233,6 +246,16 @@ public class Main {
                 if(line.hasOption(txtOption)){
                     txtName = TXT_PATH + line.getOptionValue(txtOption) + TXT_EXTENSION;
                 }
+                if(line.hasOption(tokensOption)) {
+                    try{
+                        tokensNumber = Integer.parseInt(line.getOptionValue(tokensOption));
+                    }catch(NumberFormatException e) {
+                        // Printing error and stopping execution.
+                        helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                        System.err.println("--> tokens field must be a number");
+                        System.exit(1);
+                    }
+                }
             } else if(line.hasOption(fileOption)){
                 /* Checking the presence of coherent parameters and setting their value if present (some of
                  * them are necessary so their absence cause the execution to stop).
@@ -249,12 +272,33 @@ public class Main {
                 if(line.hasOption(txtOption)){
                     txtName = TXT_PATH + line.getOptionValue(txtOption) + TXT_EXTENSION;
                 }
+                if(line.hasOption(tokensOption)) {
+                    try{
+                        tokensNumber = Integer.parseInt(line.getOptionValue(tokensOption));
+                    }catch(NumberFormatException e) {
+                        // Printing error and stopping execution.
+                        helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
+                        System.err.println("--> tokens field must be a number");
+                        System.exit(1);
+                    }
+                }
             } else {
                 helpFormatter.printHelp("Main -{h, api, csv, file} [options]", options);
                 System.exit(1);
             }
         }else {
             //USER INPUT (SETTINGS QUESTIONS PHASE)
+            // Setting the number of tokens to consider.
+            System.out.println("Enter the number of tokens you want to consider for this research: ");
+            tokensNumber = -1;
+            while(tokensNumber < 0){
+                try{
+                    tokensNumber =  Integer.parseInt(console.nextLine());
+                }catch(NumberFormatException e) {
+                    // Do nothing since we retry to set valid value.
+                    System.out.println("Sorry the tokens number must be a number. Please retry: ");
+                }
+            }
 
             // Asking if the user want to use older data.
             System.out.println("Do you want to load data from file? (y/n) ");
@@ -393,7 +437,7 @@ public class Main {
                             e.printStackTrace();
                         }
 
-                    // Asking the user if it's required to print the 50 (or less) most frequent words.
+                        // Asking the user if it's required to print the 50 (or less) most frequent words.
                         System.out.println("Do you want to read the 50(or less) most frequent words in the downloaded articles? (y/n)");
                         downloadAnswer = console.next().toLowerCase();
                         while (!(downloadAnswer.equals("y") || downloadAnswer.equals("n"))) {
@@ -435,7 +479,7 @@ public class Main {
                     System.exit(0);
                 }
                 // Printing the screen message for frequent words.
-                System.out.println("The 50(or less) most frequent words in the analyzed articles are: ");
+                System.out.println("The " + tokensNumber + " (or less) most frequent words in the analyzed articles are: ");
             }
 
             // Inserts the Articles textual fields inside of Tokenizer.
@@ -448,7 +492,7 @@ public class Main {
             String line = "";
             int wordCounter = 0;
             // This variable stores the entry with tokens list as values indexed with their frequency.
-            Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(50);
+            Set<Map.Entry<Integer, List<String>>> set = storage.getOrderedTokens(tokensNumber);
             Iterator<Map.Entry<Integer, List<String>>> iter = set.iterator();   // This variable is used to iterate through the set of ordered tokens Lists.
             Map.Entry<Integer, List<String>> pair;
 
@@ -468,7 +512,7 @@ public class Main {
                     wordCounter++;
                 }
             }
-            // WRITING 50 MOST FREQUENT TOKENS TO TXT FILE
+            // WRITING MOST FREQUENT TOKENS TO TXT FILE
             try {
                 // Initializing tool to store tokens in txt file.
                 FileWriter fileWriter = new FileWriter(txtName);
