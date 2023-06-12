@@ -438,7 +438,7 @@ public class Main {
                         }
 
                         // Asking the user if it's required to print the 50 (or less) most frequent words.
-                        System.out.println("Do you want to read the 50(or less) most frequent words in the downloaded articles? (y/n)");
+                        System.out.println("Do you want to read the " + tokensNumber + " (or less) most frequent words in the downloaded articles? (y/n)");
                         downloadAnswer = console.next().toLowerCase();
                         while (!(downloadAnswer.equals("y") || downloadAnswer.equals("n"))) {
                             System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
