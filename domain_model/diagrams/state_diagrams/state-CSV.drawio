@@ -1,0 +1,77 @@
+<mxfile host="Electron" modified="2023-06-13T14:40:27.682Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="46kFDFoB6QAv5Tdgf2A4" version="21.3.7" type="device">
+  <diagram id="z24f0Ncoui9iFbpYtB7U" name="CSV-elaborazione">
+    <mxGraphModel dx="1026" dy="666" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gIrd-bz8GMaVWaRrRGBi-1" value="CSV - Elaborazione articoli" style="swimlane;whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="16" width="580" height="284" as="geometry" />
+        </mxCell>
+        <mxCell id="gIrd-bz8GMaVWaRrRGBi-2" value="" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;rounded=0;" parent="gIrd-bz8GMaVWaRrRGBi-1" source="gIrd-bz8GMaVWaRrRGBi-3" target="KNOkVdH0EvjmkZoROPw7-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gIrd-bz8GMaVWaRrRGBi-3" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#FFFFFF;" parent="gIrd-bz8GMaVWaRrRGBi-1" vertex="1">
+          <mxGeometry x="10" y="63" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-1" value="Attesa lettura CSV" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;collapsible=0;rounded=1;arcSize=30;swimlaneFillColor=default;dropTarget=0;" parent="gIrd-bz8GMaVWaRrRGBi-1" vertex="1">
+          <mxGeometry x="120" y="43" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-2" value="do: ricevi nome file CSV&lt;br&gt;exit: leggi file CSV" style="text;html=1;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;" parent="KNOkVdH0EvjmkZoROPw7-1" vertex="1">
+          <mxGeometry y="30" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-5" value="Parsing CSV" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;collapsible=0;rounded=1;arcSize=30;swimlaneFillColor=default;dropTarget=0;" parent="gIrd-bz8GMaVWaRrRGBi-1" vertex="1">
+          <mxGeometry x="390" y="43" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-6" value="do: estrai articoli" style="text;html=1;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;" parent="KNOkVdH0EvjmkZoROPw7-5" vertex="1">
+          <mxGeometry y="30" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-3" value="" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;rounded=0;" parent="gIrd-bz8GMaVWaRrRGBi-1" source="KNOkVdH0EvjmkZoROPw7-1" target="KNOkVdH0EvjmkZoROPw7-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="124" as="targetPoint" />
+            <mxPoint x="260" y="59" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-4" value="Elaborazione" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="KNOkVdH0EvjmkZoROPw7-3" vertex="1" connectable="0">
+          <mxGeometry x="-0.1079" y="2" relative="1" as="geometry">
+            <mxPoint x="1" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-7" value="Serializzazione" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeLast=1;container=0;collapsible=0;rounded=1;arcSize=30;swimlaneFillColor=default;dropTarget=0;" parent="gIrd-bz8GMaVWaRrRGBi-1" vertex="1">
+          <mxGeometry x="390" y="194" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-8" value="do: serializza articoli&lt;br&gt;exit: salva file di log" style="text;html=1;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;" parent="KNOkVdH0EvjmkZoROPw7-7" vertex="1">
+          <mxGeometry y="30" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-9" value="" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;rounded=0;" parent="gIrd-bz8GMaVWaRrRGBi-1" source="KNOkVdH0EvjmkZoROPw7-5" target="KNOkVdH0EvjmkZoROPw7-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="33" as="targetPoint" />
+            <mxPoint x="580" y="45" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KNOkVdH0EvjmkZoROPw7-10" value="Articoli" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="KNOkVdH0EvjmkZoROPw7-9" vertex="1" connectable="0">
+          <mxGeometry x="-0.1079" y="2" relative="1" as="geometry">
+            <mxPoint x="-3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x0IR-_XomUMT9xF1nkXr-1" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#000000;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;fontColor=#000000;align=center;" parent="gIrd-bz8GMaVWaRrRGBi-1" vertex="1">
+          <mxGeometry x="212.5" y="214" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="x0IR-_XomUMT9xF1nkXr-2" style="edgeStyle=elbowEdgeStyle;html=1;labelBackgroundColor=none;endArrow=open;endSize=8;fontFamily=Verdana;fontSize=12;align=left;" parent="gIrd-bz8GMaVWaRrRGBi-1" source="KNOkVdH0EvjmkZoROPw7-7" target="x0IR-_XomUMT9xF1nkXr-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="187.5" y="60" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="350" y="229" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NqllbZHJmU5NWkCb8gxJ-1" value="File di log" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="gIrd-bz8GMaVWaRrRGBi-1" vertex="1" connectable="0">
+          <mxGeometry x="320" y="228.9978260869565" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
