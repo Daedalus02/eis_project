@@ -91,13 +91,14 @@ public final class APISource implements ArticleSource{
 
                 // Setting the max number of Articles to analyze, based on the number of available ones.
                 if (jsonParser.getTotal() < maxArticle) {
-                    maxArticle = jsonParser.getPages();
+                    maxArticle = jsonParser.getTotal();
+                    pageSize = jsonParser.getTotal();
+                    System.out.println("[Limited to " + maxArticle + " article/s...]");
                     if(maxArticle == 0){
                         // Ending printing the process bar.
-                        pb.stepTo(100);
+                        pb.stepTo(pb.getMax());
                         break;
                     }
-                    //System.out.println("Limited to " + maxArticle + " pages...");
                 }
 
                 // Incrementing the article count since we request 100 articles per time.
@@ -105,8 +106,10 @@ public final class APISource implements ArticleSource{
                 // Adding progress to progress bar.
                 pb.stepBy(pageSize * 100 / maxArticle);
             }
-            // Ending printing the process bar.
-            pb.stepTo(100);
+            if(pb.getCurrent() != pb.getMax()) {
+                // Ending printing the process bar.
+                pb.stepTo(pb.getMax());
+            }
         }
         client.closeConnection();
         // Reducing the size of Articles to the actual number of Articles read.
