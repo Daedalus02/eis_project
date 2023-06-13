@@ -289,17 +289,24 @@ public class Main {
         }else {
             //USER INPUT (SETTINGS QUESTIONS PHASE)
             // Setting the number of tokens to consider.
-            System.out.println("Enter the number of tokens you want to consider for this research: ");
-            tokensNumber = -1;
-            while(tokensNumber < 0){
-                try{
-                    tokensNumber =  Integer.parseInt(console.nextLine());
-                }catch(NumberFormatException e) {
-                    // Do nothing since we retry to set valid value.
-                    System.out.println("Sorry the tokens number must be a number. Please retry: ");
+            System.out.println("Do you want to specify a different number of tokens to consider other than 50(default)?");
+            String tokensAnswer = console.nextLine().toLowerCase();
+            while (!(tokensAnswer.equals("y") || tokensAnswer.equals("n"))) {
+                System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");
+                tokensAnswer = console.nextLine().toLowerCase();
+            }
+            if(tokensAnswer.equals("y")) {
+                System.out.println("Enter the number of tokens you want to consider for this research: ");
+                tokensNumber = -1;
+                while (tokensNumber < 0) {
+                    try {
+                        tokensNumber = Integer.parseInt(console.nextLine());
+                    } catch (NumberFormatException e) {
+                        // Do nothing since we retry to set valid value.
+                        System.out.println("Sorry the tokens number must be a number. Please retry: ");
+                    }
                 }
             }
-
             // Asking if the user want to use older data.
             System.out.println("Do you want to load data from file? (y/n) ");
             dataAnswer = console.nextLine().toLowerCase();
