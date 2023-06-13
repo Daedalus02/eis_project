@@ -31,7 +31,7 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 - `-tags,--tags < args >` I tag con cui condizionare la ricerca.
 - `-show,--show` Per stampare la classifica dei termini.
 - `-store,--store < arg >` Il nome del file in cui la ricerca verrà salvata. 
->  **NOTA:** se non specificato, il nome di default è "test".
+>  **NOTA:** se non specificato, il nome di default è "result".
 - `-result,--result < arg>` Il nome del file dove viene salvato l'esito dell'elaborazione.
 >  **NOTA:** se non specificato, il nome di default è "result".
 - `-tokens,--tokens < arg >` Il numero di termini di cui fare la classifica.
