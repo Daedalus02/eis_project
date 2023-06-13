@@ -68,6 +68,13 @@ public final class APISource implements ArticleSource{
         int articleCount = 0;
         URL URL = null;
         String APIString = "";
+        // Defining the step the progress bar need to do each time.
+        long barStep = 10;
+        if(maxArticle%pageSize != 0){
+            barStep = pageSize*100/(maxArticle+(pageSize-maxArticle%pageSize));
+        }else{
+            barStep = pageSize*100/(maxArticle);
+        }
 
         // This is the process bar printed on screen to show the evolution of the articles retrieving process.
         try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
@@ -94,6 +101,13 @@ public final class APISource implements ArticleSource{
                     maxArticle = jsonParser.getTotal();
                     if(maxArticle < pageSize){
                         pageSize = maxArticle;
+                        barStep = 100;
+                    }else{
+                        if(maxArticle%pageSize != 0){
+                            barStep = pageSize*100/(maxArticle+(pageSize-maxArticle%pageSize));
+                        }else{
+                            barStep = pageSize*100/(maxArticle);
+                        }
                     }
                     if(maxArticle == 0){
                         // Ending printing the process bar.
@@ -105,7 +119,7 @@ public final class APISource implements ArticleSource{
                 // Incrementing the article count since we request 100 articles per time.
                 articleCount += pageSize;
                 // Adding progress to progress bar.
-                pb.stepBy(pageSize * 100 / maxArticle);
+                pb.stepBy(barStep);
             }
             if(pb.getCurrent() != pb.getMax()) {
                 // Ending printing the process bar.
