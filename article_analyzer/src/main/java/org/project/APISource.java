@@ -11,9 +11,9 @@ import java.util.List;
  * This class is used to represent a source of articles which are read from the API response of the "The Guardian" API endpoint.
  */
 public final class APISource implements ArticleSource{
-    /** This is used to actually connect to the API endpoint.*/
+    /** This is used to actually connect to the API endpoint. */
     private HTTPClient client;
-    /** This is used to facilitate setting and storing the URL.*/
+    /** This is used to facilitate setting and storing the URL. */
     private URLSetter urlSetter;
     /** This is used to parse the field of an article in the response of the API endpoint which is formatted in JSON.*/
     private APIParser jsonParser;

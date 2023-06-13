@@ -1,2 +1,0 @@
-Since we need to override equals when 2 objects need to be logically identical articles of the same type has equals and also TreeStorage.
-we discovered that even though we specify queries not all the articles returned by the Guardian contain both. so in tests we set a margin of 10% .

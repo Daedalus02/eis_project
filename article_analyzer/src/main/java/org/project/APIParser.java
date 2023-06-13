@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
