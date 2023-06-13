@@ -32,7 +32,7 @@ public final class APIArticle extends Article {
     private final boolean isHosted;
     /** This is the column identifier. */
     private final String pillarId;
-    /** This is the name od the column the article is located at. */
+    /** This is the name of the column the article is located at. */
     private final String pillarName;
     /** This is the number of words contained in the article. */
     private final int wordcount;
@@ -41,20 +41,20 @@ public final class APIArticle extends Article {
     /**
      * Initialises a new Api article setting its fields with the given parameters.
      *
-     * @param head               the head.
-     * @param body               the body.
-     * @param Id                 the id {@link APIArticle#Id}.
-     * @param type               the type {@link APIArticle#type}.
-     * @param sectionId          the section id {@link APIArticle#sectionId}.
-     * @param sectionName        the section name {@link APIArticle#sectionName}.
-     * @param webPublicationDate the web publication date {@link APIArticle#webPublicationDate}.
-     * @param webTitle           the web title {@link APIArticle#webTitle}.
-     * @param webUrl             the web url {@link APIArticle#webUrl} .
-     * @param apiUrl             the api url {@link APIArticle#apiUrl}.
-     * @param isHosted           the is hosted {@link APIArticle#isHosted}.
-     * @param pillarId           the pillar id {@link APIArticle#pillarId}.
-     * @param pillarName         the pillar name {@link APIArticle#pillarName}.
-     * @param wordcount          the word count {@link APIArticle#wordcount}.
+     * @param head               the head parameter.
+     * @param body               the body parameter.
+     * @param Id                 the id parameter {@link APIArticle#Id}.
+     * @param type               the type parameter {@link APIArticle#type}.
+     * @param sectionId          the section id parameter {@link APIArticle#sectionId}.
+     * @param sectionName        the section name parameter {@link APIArticle#sectionName}.
+     * @param webPublicationDate the web publication date parameter {@link APIArticle#webPublicationDate}.
+     * @param webTitle           the web title parameter {@link APIArticle#webTitle}.
+     * @param webUrl             the web url parameter {@link APIArticle#webUrl} .
+     * @param apiUrl             the api url parameter {@link APIArticle#apiUrl}.
+     * @param isHosted           the is hosted parameter {@link APIArticle#isHosted}.
+     * @param pillarId           the pillar id parameter {@link APIArticle#pillarId}.
+     * @param pillarName         the pillar name parameter {@link APIArticle#pillarName}.
+     * @param wordcount          the word count parameter {@link APIArticle#wordcount}.
      */
     @JsonCreator
     public APIArticle(@JsonProperty("head") String head,@JsonProperty("body") String body,@JsonProperty("Id") String Id,@JsonProperty("type") String type,
@@ -74,10 +74,6 @@ public final class APIArticle extends Article {
         this.pillarId = pillarId;
         this.pillarName = pillarName;
         this.wordcount = wordcount;
-    }
-
-    private void dateValidation(String publicationDate) throws ParseException {
-        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(publicationDate);
     }
 
     /* GETTERS */

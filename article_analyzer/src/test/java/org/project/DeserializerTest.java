@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Tag("API")
 class DeserializerTest {
     // This variable contains the relative file path of the file used as a log by the Deserializer class.
-    private final String fileName = "test_resources" + File.separator + "log" + File.separator + "TestDeserializer.xml";
+    private final String fileName = "test_resources" + File.separator + "log" + File.separator + "TestDeserializer.json";
 
     /*
     * This method test the correct working of the Deserializer when deserializing CSV Articles

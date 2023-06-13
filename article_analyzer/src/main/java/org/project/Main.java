@@ -520,6 +520,7 @@ public class Main {
                     wordCounter++;
                 }
             }
+
             // WRITING MOST FREQUENT TOKENS TO TXT FILE
             try {
                 // Initializing tool to store tokens in txt file.
