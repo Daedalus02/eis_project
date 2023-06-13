@@ -1,0 +1,31 @@
+UC2: Analisi di articoli da file CSV
+
+Attori: utente, sistema
+
+Precondizioni:
+L’utente deve sapere il nome del file di CSV da considerare. Questo deve essere salvato nel percorso
+“article_analyzer/resources/CSV_sources/” e deve essere suddiviso nei campi
+“Identifier,URL,Title,Body,Date,Source Set,Source”
+
+Basic flow:
+	1) L’utente seleziona di effettuare l’analisi di articoli da un file CSV, precedentemente caricato
+	nell’apposita cartella contenente le sorgenti in formato .csv.
+	2) Il sistema riceve in input (tramite argomenti da terminale o come user input durante
+	l’esecuzione) il nome del file CSV da cui gli articoli da analizzare, suddivisi nei campi come
+	descritto nelle precondizioni, e il nome del file in cui salvare i risultati della ricerca effettuata.
+	3) Il sistema, dopo aver validato l’input, verifica la presenza di un file
+	“article_analyzer\resources\blacklist\words.txt” contenente dei termini da ignorare durante il
+	conteggio.
+	4) Il sistema elabora gli articoli presenti nel file CSV e visualizza i 50 termini (o un numero
+	diverso se esplicitato dall’utente in fase di input) più “pesanti”.
+
+Alternative flow:
+	1) Se l’utente inserisce il nome di un file inesistente o in formato errato, il sistema restituisce un
+	errore.
+	2) Se il contenuto del file non rispetta il formato utilizzato per i file CSV, il sistema restituisce un
+	errore.
+
+Post conditions:
+La frequenza con cui compaiono i 50 termini (o un numero diverso se esplicitato dall’utente in fase di
+input) più “pesanti” negli articoli viene restituita in output, i risultati sono salvati in un file di testo e
+viene generato un file di log della ricerca effettuata contenente gli articoli analizzati.

@@ -14,13 +14,18 @@ import java.io.InputStreamReader;
 
 /**
  * This class is used to deserialize an object previously serialized in a JSON format file.
- * NOTICE: it is a wrapper that contains another deserializer ObjectMapper.
- * */
-public class Deserializer {
-    /** This variable is the actual deserializer from the org.codehaus.jackson.map package. */
+ * NOTE: it is a wrapper that contains another deserializer ObjectMapper.
+ */
+public final class Deserializer {
+    /**
+     * This variable is the actual deserializer from the org.codehaus.jackson.map package.
+     * */
     private ObjectMapper JSONMapper;
 
-    /**This constructor just sets the {@link Deserializer#JSONMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
+    /**
+     * This constructor sets the {@link Deserializer#JSONMapper} variable with
+     * proper visibility and configuration for reading the object it deserializes.
+     * */
     public Deserializer(){
         JSONMapper = new ObjectMapper();
         //This allows to ignore unknown properties in the instance of the object to serialize.
@@ -35,7 +40,7 @@ public class Deserializer {
      * This method is used to deserialize an object from a file where it was previously serialized in XML format.
      *
      * @param filePath which is the path of the file that contains the serialized object.
-     * @throws IOException which is thrown when the file path specified is unknown.
+     * @throws IOException if the file path specified is unknown.
      */
     public Article[] deserialize(String filePath) throws IOException {
         //Reading the content of the file at filePath path.

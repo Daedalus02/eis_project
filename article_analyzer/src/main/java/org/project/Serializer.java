@@ -9,16 +9,18 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * This class allow to store the information represented in a JSON format file for possible future usage of the stored data
- * by different classes.
- * NOTICE: it is a wrapper that contains another serializer ObjectMapper.
+ * This class allows to store the information, representing them in a JSON format file.
+ * NOTE: it is a wrapper that contains another serializer ObjectMapper.
  */
-public class Serializer
+public final class Serializer
 {
-    /* This variable is the actual serializer from the jackson.xml package. */
+    /** This variable is the serializer from the jackson.xml package. */
     private ObjectMapper JSONMapper;
 
-    /**This constructor just sets the {@link Serializer#JSONMapper} variable with proper visibility and configuration for reading the object it deserializes.*/
+    /**
+     * This constructor sets the {@link Serializer#JSONMapper} variable with
+     * proper visibility and configuration to read the object it has to serialize.
+     * */
     public Serializer() throws IOException {
         JSONMapper = new ObjectMapper();
         //This allows to ignore unknown properties in the instance of the object to serialize.
@@ -30,7 +32,7 @@ public class Serializer
     }
 
     /**
-     * This method is used to format the content of the articles in JSON and store it into a file with JSON format.
+     * This method is used to format the content of the articles in JSON and to store it into a file with JSON format.
      *
      * @param filePath which is the path of the file for storing the Article array articles
      * @param articles which is the Article array to serialize in the file at filePath path.

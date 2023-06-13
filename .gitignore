@@ -7,3 +7,6 @@
 .vscode/settings.json
 http_url_connection/res\pages\test.xml
 article_analyzer/res/private/private.properties
+article_analyzer/res/private/private.properties
+article_analyzer/res/pages/test.json
+*.bkp

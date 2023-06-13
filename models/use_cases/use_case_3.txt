@@ -1,0 +1,32 @@
+UC3: Analisi di articoli da API Endpoint di “The Guardian”
+
+Attori: utente, sistema, API
+
+Precondizioni:
+L’utente deve avere una API Key personale per interagire con il servizio online fornito dal The
+Guardian da specificare durante la fase di user input o da inserire in
+“article_analyzer/resources/private/private.properties”.
+
+Basic flow:
+	1) L’utente seleziona di effettuare l’analisi di articoli dall’API di “The Guardian”, seguendo le
+	precondizioni riguardanti l’API key.
+	2) Il sistema riceve in input (tramite argomenti da terminale o come user input durante
+	l’esecuzione) l’API Key, il nome del file in cui salvare i risultati della ricerca effettuata, e
+	genera una richiesta all’API Endpoint in base alle richieste di argomento, tag e numero
+	massimo di articoli da scaricare ed analizzare.
+	3) Il sistema, dopo aver validato l’input, verifica la presenza di un file
+	“article_analyzer\resources\blacklist\words.txt” contenente dei termini da ignorare durante il
+	conteggio.
+	4) Il sistema elabora gli articoli scaricati e visualizza i 50 termini (o un numero diverso se
+	esplicitato dall’utente in fase di input) più “pesanti”.
+
+Alternative flow:
+	1) Se l’utente inserisce un’API Key errata, il sistema restituisce un errore.
+	2) Se la richiesta all’API comprende argomenti, tag o numero massimo di articoli errato, il
+	sistema restituisce un errore.
+
+Post conditions:
+Viene richiesto all’utente se desidera visualizzare in output la lista dei 50 termini (o un numero diverso
+se esplicitato dall’utente in fase di input) più “pesanti”, in caso di risposta affermativa il sistema li
+visualizza in output. I risultati sono salvati in un file di testo e viene generato un file di log della
+ricerca effettuata contenente gli articoli scaricati ed analizzati.
