@@ -14,6 +14,7 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 ## Utilizzo
 1. Estrarre l'archivio `article-analyzer-1.0.zip`
 2. Entrare nella cartella `article_analyzer_1.0`
+> **NOTA:** assicurarsi di trovarsi nella cartella contenente il file `.jar`
 3. Aprire un terminale ed eseguire `java -jar article_analyzer-1.0.jar`, con eventuali argomenti
 ### Parametri passati per argomento
 È disponibile l'argomento `-h` che fornisce una guida rapida all'uso degli argomenti. Gli argomenti funzionali sono:
