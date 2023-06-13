@@ -4,7 +4,6 @@ import me.tongfei.progressbar.ProgressBar;
 import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,8 @@ public final class APISource implements ArticleSource{
     private int pageSize = 100;
     /** This is used to keep track of the article List to eventually return it when asked. */
     private List<APIArticle> articles;
+    /** This variable is true if the user want to display a progress bar in terminal, else its value is false. */
+    private boolean graphical = true;
 
 
     /**
@@ -39,7 +40,7 @@ public final class APISource implements ArticleSource{
      * @throws IOException if the connection went wrong and the HTTP client was not able to connect to the endpoint.
      * @throws JSONException if the API response does not have the expected fields.
      */
-    public APISource(String APIKey, String[] tags, String[] queries, int maxArticle) throws IOException, JSONException {
+    public APISource(String APIKey, String[] tags, String[] queries, int maxArticle, boolean graphical) throws IOException, JSONException {
         // Setting the max number of articles to read (could be less or more).
         this.maxArticle = maxArticle;
         if(maxArticle < pageSize){
@@ -53,6 +54,7 @@ public final class APISource implements ArticleSource{
         client = new HTTPClient();
         // Initializing the API parser.
         jsonParser = new APIParser();
+        this.graphical = graphical;
         // This reads all the articles from the JSON response of the API endpoint.
         readArticle();
     }
@@ -77,10 +79,61 @@ public final class APISource implements ArticleSource{
         }
 
         // This is the process bar printed on screen to show the evolution of the articles retrieving process.
-        try(ProgressBar pb = new ProgressBar("Retrieving articles...",100)) {
+        if(graphical) {
+            try (ProgressBar pb = new ProgressBar("Retrieving articles...", 100)) {
+                while (articleCount < maxArticle) {
+                    // Incrementing the Article page in the response for the current cycle if not first.
+                    if (articleCount > 0) {
+                        urlSetter.incrementPage();
+                    }
+                    // Setting URL based on the fields required for the API request.
+                    URL = urlSetter.getURL();
+                    //System.out.println("from " + URL + " :");
+
+                    // Getting the response from the API endpoint.
+                    client.connect(URL);
+                    APIString = client.getHttpString();
+
+                    // Parsing the response from JSON format.
+                    jsonParser.parse(APIString);
+                    // Adding the Articles read in the new Article page.
+                    articles.addAll(jsonParser.getArticles());
+
+                    // Setting the max number of Articles to analyze, based on the number of available ones.
+                    if (jsonParser.getTotal() < maxArticle) {
+                        maxArticle = jsonParser.getTotal();
+                        if (maxArticle < pageSize) {
+                            pageSize = maxArticle;
+                            barStep = 100;
+                        } else {
+                            if (maxArticle % pageSize != 0) {
+                                barStep = pageSize * 100 / (maxArticle + (pageSize - maxArticle % pageSize));
+                            } else {
+                                barStep = pageSize * 100 / (maxArticle);
+                            }
+                        }
+                        if (maxArticle == 0) {
+                            // Ending printing the process bar.
+                            pb.stepTo(pb.getMax());
+                            break;
+                        }
+                    }
+
+                    // Incrementing the article count since we request 100 articles per time.
+                    articleCount += pageSize;
+                    // Adding progress to progress bar.
+                    pb.stepBy(barStep);
+                }
+                if (pb.getCurrent() != pb.getMax()) {
+                    // Ending printing the process bar.
+                    pb.stepTo(pb.getMax());
+                }
+            }
+            System.out.println("[Found " + maxArticle + " article/s...]");
+        }else{
             while (articleCount < maxArticle) {
                 // Incrementing the Article page in the response for the current cycle if not first.
-                if(articleCount > 0){
+                if (articleCount > 0) {
                     urlSetter.incrementPage();
                 }
                 // Setting URL based on the fields required for the API request.
@@ -99,35 +152,20 @@ public final class APISource implements ArticleSource{
                 // Setting the max number of Articles to analyze, based on the number of available ones.
                 if (jsonParser.getTotal() < maxArticle) {
                     maxArticle = jsonParser.getTotal();
-                    if(maxArticle < pageSize){
+                    if (maxArticle < pageSize) {
                         pageSize = maxArticle;
-                        barStep = 100;
-                    }else{
-                        if(maxArticle%pageSize != 0){
-                            barStep = pageSize*100/(maxArticle+(pageSize-maxArticle%pageSize));
-                        }else{
-                            barStep = pageSize*100/(maxArticle);
-                        }
                     }
-                    if(maxArticle == 0){
-                        // Ending printing the process bar.
-                        pb.stepTo(pb.getMax());
+                    if (maxArticle == 0) {
                         break;
                     }
                 }
 
                 // Incrementing the article count since we request 100 articles per time.
                 articleCount += pageSize;
-                // Adding progress to progress bar.
-                pb.stepBy(barStep);
             }
-            if(pb.getCurrent() != pb.getMax()) {
-                // Ending printing the process bar.
-                pb.stepTo(pb.getMax());
-            }
+
         }
         client.closeConnection();
-        System.out.println("[Found " + maxArticle + " article/s...]");
         // Reducing the size of Articles to the actual number of Articles read.
         articles = new ArrayList<APIArticle>(articles.subList(0, maxArticle));
     }

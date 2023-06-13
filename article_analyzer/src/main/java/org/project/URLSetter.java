@@ -80,13 +80,14 @@ public final class URLSetter {
             URLString += "&tag=";
             URLString += tags[0];
             for (int i = 1; i < tags.length; i++) {
+                tags[i] = tags[i].replace(" ", "");
                 URLString += "/"+tags[i];
             }
         }
         if(queries.length != 0) {
             URLString += "&q=";
             for (int i = 0; i < queries.length; i++) {
-                queries[i] = queries[i].replace(" ", "%20");
+                queries[i] = queries[i].replace(" ", "");
                 if (i == (queries.length - 1)) {
                     URLString += queries[i];
                 } else {

@@ -23,6 +23,7 @@ public class Main {
     private static final String CSV_EXSTENSION = ".csv";
     /** Complete file address where the default API key can be found. */
     private static final String API_FILE = "resources" + File.separator + "private" + File.separator + "private.properties";
+    private static final boolean GRAPHICAL_RESPONSE = true;
 
     public static void main(String Args[]) {
 
@@ -211,7 +212,7 @@ public class Main {
                 }
                 // Trying to add the read articles from API endpoint response to the abstract article List.
                 try {
-                    source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                    source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle, GRAPHICAL_RESPONSE);
                     articles.addAll(source.getArticles());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -436,7 +437,7 @@ public class Main {
 
                         // Elaborating Articles from The Guardian API response content.
                         try{
-                            source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle);
+                            source = new APISource(apiKey, tags.toArray(new String[]{}), queries.toArray(new String[]{}), maxArticle, GRAPHICAL_RESPONSE);
                             articles.addAll(source.getArticles());
                         } catch (IOException e) {
                             e.printStackTrace();

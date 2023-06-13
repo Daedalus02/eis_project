@@ -23,6 +23,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("API")
 class APISourceTest {
 
+    @BeforeAll
+    static void printMessage(){
+        System.out.println("APISource tests might take a while (depending on connection)...");
+    }
     /*
     * This test verify that the API Source get the correct number of articles.
     * */
@@ -38,7 +42,7 @@ class APISourceTest {
         int maxArticles = maxParam;
         // Setting the tags to none.
         String[] tags = new String[]{};
-        APISource source = new APISource(apiKey,tags,queries,maxArticles);
+        APISource source = new APISource(apiKey,tags,queries,maxArticles,false);
         List<APIArticle> articleList = source.getArticles();
         assertTrue(articleList.size() <= maxParam);
     }
@@ -61,7 +65,7 @@ class APISourceTest {
         // Setting the tags to none.
         String[] tags = new String[]{};
         // Setting the APISource with the previous parameters.
-        APISource source = new APISource(apiKey,tags,queries,maxArticles);
+        APISource source = new APISource(apiKey,tags,queries,maxArticles,false);
         // Calculating the articles list from the API response
         List<APIArticle> articleList = source.getArticles();
         // Creating the expected result for max frequency (equals to actual number of articles matching the research parameters).
@@ -101,7 +105,7 @@ class APISourceTest {
         // Setting the tags to none.
         String[] tags = new String[]{};
         // Setting the APISource with the previous parameters.
-        APISource source = new APISource(apiKey,tags,queries,maxArticles);
+        APISource source = new APISource(apiKey,tags,queries,maxArticles,false);
         // Calculating the articles list from the API response
         List<APIArticle> articleList = source.getArticles();
         // Creating the expected result for max frequency (equals to actual number of articles matching the research parameters).
@@ -143,7 +147,7 @@ class APISourceTest {
         // Setting the tags to none.
         String[] tags = tagsParam;
         // Setting the APISource with the previous parameters.
-        APISource source = new APISource(apiKey,tags,queries,maxArticles);
+        APISource source = new APISource(apiKey,tags,queries,maxArticles,false);
         // Calculating the articles list from the API response
         List<APIArticle> articleList = source.getArticles();
         // Creating the expected result for max frequency (equals to actual number of articles matching the research parameters).
@@ -185,7 +189,7 @@ class APISourceTest {
         // Setting the tags to none.
         String[] tags = tagsParam;
         // Setting the APISource with the previous parameters.
-        APISource source = new APISource(apiKey,tags,queries,maxArticles);
+        APISource source = new APISource(apiKey,tags,queries,maxArticles,false);
         // Calculating the articles list from the API response
         List<APIArticle> articleList = source.getArticles();
         // Creating the expected result for max frequency (equals to actual number of articles matching the research parameters).
@@ -224,13 +228,13 @@ class APISourceTest {
         // Should not throw any exception when page size is a positive number.
         if(sizeParam > 0){
             assertDoesNotThrow(
-                    () -> new APISource(apiKey, tags, queries, maxArticle)
+                    () -> new APISource(apiKey, tags, queries, maxArticle,false)
             );
         }else{
             // Should throw an exception when page size is a negative number or zero
             assertThrows(
                     IllegalArgumentException.class,
-                    () -> new APISource(apiKey, tags, queries, maxArticle),
+                    () -> new APISource(apiKey, tags, queries, maxArticle,false),
                     "Expected IllegalArgumentException to be thrown but wasn't!"
             );
         }
@@ -254,13 +258,13 @@ class APISourceTest {
         // Should not throw any exception when apiKey is not empty.
         if(!keyParam.equals("")){
             assertDoesNotThrow(
-                    () -> new APISource(apiKey, tags, queries, maxArticle)
+                    () -> new APISource(apiKey, tags, queries, maxArticle,false)
             );
         }else{
             // Should throw an exception when API key is empty string
             assertThrows(
                     IllegalArgumentException.class,
-                    () -> new APISource(apiKey, tags, queries, maxArticle),
+                    () -> new APISource(apiKey, tags, queries, maxArticle,false),
                     "Expected IllegalArgumentException to be thrown but wasn't!"
             );
         }
@@ -285,7 +289,7 @@ class APISourceTest {
         // The HTTP client should throw an exception since all possible API keys entered are invalid.
         assertThrows(
                 ConnectException.class,
-                () -> new APISource(apiKey, tags, queries, maxArticle),
+                () -> new APISource(apiKey, tags, queries, maxArticle,false),
                 "Expected ConnectException to be thrown but wasn't!"
         );
     }
