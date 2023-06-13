@@ -289,7 +289,7 @@ public class Main {
         }else {
             //USER INPUT (SETTINGS QUESTIONS PHASE)
             // Setting the number of tokens to consider.
-            System.out.println("Do you want to specify a different number of tokens to consider other than 50(default)?");
+            System.out.println("Do you want to specify a different number of tokens to consider other than 50(default) (y/n)?");
             String tokensAnswer = console.nextLine().toLowerCase();
             while (!(tokensAnswer.equals("y") || tokensAnswer.equals("n"))) {
                 System.out.println("Sorry I didn't understand your answer. Please enter a valid one (y/n): ");

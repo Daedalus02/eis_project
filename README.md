@@ -21,7 +21,7 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 - `-json,--json-file-name < arg >` Il nome del file della ricerca da cui leggere.
 - `-api,--read-api` Per leggere gli articoli utilizzando le API del  TheGuardian.
 - `-apikey,--api-key < arg >` Il valore della API key per autenticarsi con le API del TheGuardian.
-> **NOTA:** se non specificato viene usata quella di default
+> **NOTA:** se non specificato, viene usata quella di default
 - `-default,--set-default` Per far sì che la chiave specificata venga impostata come default.
 - `-csv,--read-csv` Per leggere gli articoli da file CSV.
 - `-name,--csv-file-name < arg >` Il nome del file CSV.
@@ -29,11 +29,14 @@ Questo programma è in grado di elaborare degli **articoli** di giornale per cal
 ##### Argomenti opzionali
 - `-queries,--queries < args >` I termini con cui fare la ricerca.
 - `-tags,--tags < args >` I tag con cui condizionare la ricerca.
-- `-show,--show` Per stampare la classifica dei 50 termini.
+- `-show,--show` Per stampare la classifica dei termini.
 - `-store,--store < arg >` Il nome del file in cui la ricerca verrà salvata. 
->  **NOTA:** se non specificato il nome di default è "test".
+>  **NOTA:** se non specificato, il nome di default è "test".
 - `-result,--result < arg>` Il nome del file dove viene salvato l'esito dell'elaborazione.
->  **NOTA:** se non specificato il nome di default è "result".
+>  **NOTA:** se non specificato, il nome di default è "result".
+- `-tokens,--tokens < arg >` Il numero di termini di cui fare la classifica.
+>  **NOTA:** se non specificato, il numero di default è 50.
+
 ### CLI
 Se il programma viene eseguito senza argomenti si avvierà l'interfaccia da riga di comando che con una serie di domande di configurazione si preparerà all'elaborazione dei dati.
 ### Struttura di file e cartelle
