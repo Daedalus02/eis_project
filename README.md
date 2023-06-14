@@ -62,7 +62,7 @@ Nella release, oltre al file eseguibile, è presente una cartella `resources` ch
 > **NOTA:** il nome della proprietà della API key è `apiKey`
 - `results` contiene i file su cui vengono scritti i risultati dell'elaborazione
 ## Compilazione
-Usare il comando `mvn package` all'interno della cartella `article_analyzer` (dove si trova il file `pom.xml`). Il file compilato (`.jar`) sarà disponibile nella cartella `target` con il nome `article_analyzer-1.0-jar-with-dependencies.jar`
+Usare il comando `mvn package` all'interno della cartella `article_analyzer` (dove si trova il file `pom.xml`). Il file compilato (`.jar`) sarà disponibile nella cartella `target` con il nome `article_analyzer-1.0-jar-with-dependencies.jar`. Per l'esecuzione del programma compilato è consigliato il comando `java -jar target\article_analyzer-1.0-jar-with-dependencies.jar`, da eseguire all'interno della cartella `article_analyzer` (la stessa di prima).
 ## Librerie esterne
 - `maven-assembly-plugin v2.5.3` per compilare il file eseguibile `.jar`.
 - `org.apache.maven.plugins maven-surefire-plugin v2.22.0` plugin utilizzato da maven per fare i test.
